@@ -56,10 +56,10 @@ class Demo extends Component {
     const jsonCentroids = require("/static/geo/country_centroids.json");
 
     // // implicit file
-    const jsonData = require("/static/data/demo1.json");
+    const jsonData = require("/static/data/worldEmissions.json");
 
     // // implicit config
-    const jsonConfig = require("/static/config/config-demo1.json");
+    const jsonConfig = require("/static/config/emissions-config.json");
 
     // reference to the rendered map
     this.map = React.createRef();
@@ -89,7 +89,7 @@ class Demo extends Component {
     document.getElementById(C_ID_check_data).onchange = enableDataInput;
 
     // enable config check box
-    const enableConfigInput = (e) => enableInput(e.target.checked, C_ID_input_config);;
+    const enableConfigInput = (e) => enableInput(e.target.checked, C_ID_input_config);
     document.getElementById(C_ID_input_config).setAttribute("disabled", "disabled");
     document.getElementById(C_ID_check_config).onchange = enableConfigInput;
 
@@ -151,7 +151,7 @@ class Demo extends Component {
 
       // process config json
       if (!document.getElementById(C_ID_check_config).checked || config.json == undefined) {
-        config.json = require("/static/config/config-demo1.json");
+        config.json = require("/static/config/emissions-config.json");
       }
 
       // update state
@@ -193,12 +193,9 @@ class Demo extends Component {
         <div className="demo-toolbar">
           <span>Data file: </span>
           <select id={C_ID_select_data}>
-            <option value="demo1.json">demo1.json</option>
-            <option value="demo2.json">demo2.json</option>
-            <option value="timeData.json">timeData.json</option>
-            <option value="covidCzechDistricts.json">covid czech districts</option>
-            <option value="covidCzechDistrictsCumulative.json">covid czech districts (cumulative)</option>
-            <option value="ovidCzechDistrictsCategoric.json">covid czech districts (categoric)</option>
+            <option value="worldEmissions.json">world CO2 emissions</option>
+            <option value="covidCzechia.json">covid Czechia</option>
+            <option value="cyberAttacks.json">cyber attacks</option>
             <option disabled></option>
           </select>
 

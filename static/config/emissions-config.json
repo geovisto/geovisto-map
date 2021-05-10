@@ -1,0 +1,257 @@
+{
+  "mapCenter": {
+    "lat": 29.725122568212615,
+    "lng": 14.062500000000002
+  },
+  "tools": [
+    {
+      "type": "geovisto-tool-sidebar",
+      "id": "geovisto-tool-sidebar",
+      "enabled": true,
+      "tabs": [
+        {
+          "tool": "geovisto-tool-settings",
+          "enabled": true,
+          "name": "General settings",
+          "icon": "<i class=\"fa fa-gear\"></i>",
+          "checkButton": false,
+          "fragments": [
+            {
+              "tool": "geovisto-tool-themes",
+              "enabled": true
+            },
+            {
+              "tool": "geovisto-tool-selection",
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "tool": "geovisto-tool-filters",
+          "enabled": true,
+          "name": "Filters",
+          "icon": "<i class=\"fa fa-filter\"></i>",
+          "checkButton": true
+        },
+        {
+          "tool": "geovisto-tool-layer-map",
+          "enabled": true,
+          "name": "Map layer settings",
+          "icon": "<i class=\"fa fa-globe\"></i>",
+          "checkButton": true
+        },
+        {
+          "tool": "geovisto-tool-layer-choropleth",
+          "enabled": true,
+          "name": "Choropleth layer settings",
+          "icon": "<i class=\"fa fa-th-large\"></i>",
+          "checkButton": true
+        },
+        {
+          "tool": "geovisto-tool-layer-marker",
+          "enabled": true,
+          "name": "Marker layer settings",
+          "icon": "<i class=\"fa fa-map-marker\"></i>",
+          "checkButton": true
+        },
+        {
+          "tool": "geovisto-tool-layer-connection",
+          "enabled": true,
+          "name": "Connection layer settings",
+          "icon": "<i class=\"fa fa-road\"></i>",
+          "checkButton": true
+        },
+        {
+          "tool": "geovisto-tool-timeline",
+          "enabled": true,
+          "name": "Timeline",
+          "icon": "<i class=\"fa fa-clock-o\" />",
+          "checkButton": true
+        }
+      ]
+    },
+    {
+      "type": "geovisto-tool-settings",
+      "id": "geovisto-tool-settings",
+      "enabled": true
+    },
+    {
+      "type": "geovisto-tool-filters",
+      "id": "geovisto-tool-filters",
+      "enabled": false,
+      "filterRules": []
+    },
+    {
+      "type": "geovisto-tool-themes",
+      "id": "geovisto-tool-themes",
+      "enabled": true,
+      "theme": "light1"
+    },
+    {
+      "type": "geovisto-tool-selection",
+      "id": "geovisto-tool-selection",
+      "enabled": true
+    },
+    {
+      "type": "geovisto-tool-layer-map",
+      "id": "geovisto-tool-layer-map",
+      "enabled": true,
+      "layerName": "Map layer"
+    },
+    {
+      "type": "geovisto-tool-layer-choropleth",
+      "id": "geovisto-tool-layer-choropleth",
+      "enabled": true,
+      "layerName": "Choropleth layer",
+      "data": {
+        "country": "Country",
+        "value": "Count",
+        "aggregation": "sum",
+        "scaling": "median (sorted values)",
+        "range": "7",
+        "strategy": "custom color",
+        "color": "#47619e",
+        "useCustomMinMax": true,
+        "minValue": "1",
+        "maxValue": "200000"
+      }
+    },
+    {
+      "type": "geovisto-tool-layer-marker",
+      "id": "geovisto-tool-layer-marker",
+      "enabled": true,
+      "layerName": "Marker layer",
+      "data": {
+        "country": "Country",
+        "value": "Count",
+        "aggregation": "sum",
+        "category": "Type"
+      }
+    },
+    {
+      "type": "geovisto-tool-layer-connection",
+      "id": "geovisto-tool-layer-connection",
+      "enabled": false,
+      "layerName": "Connection layer",
+      "data": {
+        "from": "",
+        "to": "",
+        "animateDirection": false
+      }
+    },
+    {
+      "type": "geovisto-tool-timeline",
+      "id": "geovisto-tool-timeline",
+      "enabled": true,
+      "layerName": "Timeline",
+      "data": {
+        "timePath": "Year",
+        "stepTimeLength": 150,
+        "storyEnabled": true,
+        "transitionDuration": 150,
+        "story": "carbon_emissions",
+        "realTimeEnabled": false,
+        "granularity": "",
+        "chartEnabled": true,
+        "chartValuePath": "Count",
+        "chartAggregationFn": "sum"
+      },
+      "stories": [
+        {
+          "name": "carbon_emissions",
+          "config": [
+            {
+              "time": "1752-01-01T00:00:00.000Z",
+              "zoom": 6,
+              "latitude": 53.65727263536116,
+              "longitude": -0.32958984375000006,
+              "stepTimeLength": 2000,
+              "flyToDuration": 1000,
+              "transitionDelay": 1000
+            },
+            {
+              "time": "1789-01-01T00:00:00.000Z",
+              "zoom": 3,
+              "latitude": 55.224307463708975,
+              "longitude": -20.917968750000004,
+              "stepTimeLength": 2500,
+              "flyToDuration": 2000,
+              "transitionDelay": 2000,
+              "transitionDuration": 500
+            },
+            {
+              "time": "1792-01-01T00:00:00.000Z",
+              "zoom": 3,
+              "latitude": 50.89570406416497,
+              "longitude": 34.62890625000001,
+              "stepTimeLength": 1500,
+              "flyToDuration": 1000,
+              "transitionDelay": 100,
+              "transitionDuration": 500
+            },
+            {
+              "time": "1801-01-01T00:00:00.000Z",
+              "zoom": 3,
+              "latitude": 51.00654622444835,
+              "longitude": -26.367187500000004,
+              "stepTimeLength": 1500,
+              "flyToDuration": 700,
+              "transitionDelay": 700,
+              "transitionDuration": 500
+            },
+            {
+              "time": "1810-01-01T00:00:00.000Z",
+              "zoom": 4,
+              "latitude": 50.207388060915164,
+              "longitude": 9.843750000000002,
+              "stepTimeLength": 2500,
+              "flyToDuration": 2000,
+              "transitionDelay": 2000,
+              "transitionDuration": 500
+            },
+            {
+              "time": "1856-01-01T00:00:00.000Z",
+              "zoom": 3,
+              "latitude": 19.379722748291503,
+              "longitude": 96.32812500000001,
+              "stepTimeLength": 2500,
+              "flyToDuration": 1500,
+              "transitionDelay": 1500,
+              "transitionDuration": 1000
+            },
+            {
+              "time": "1860-01-01T00:00:00.000Z",
+              "zoom": 3,
+              "latitude": -26.857409807206324,
+              "longitude": 163.12500000000003,
+              "stepTimeLength": 2500,
+              "flyToDuration": 1000,
+              "transitionDelay": 1000,
+              "transitionDuration": 500
+            },
+            {
+              "time": "1862-01-01T00:00:00.000Z",
+              "zoom": 3,
+              "latitude": 24.784526637863824,
+              "longitude": 5.625,
+              "stepTimeLength": 2000,
+              "flyToDuration": 750,
+              "transitionDelay": 750,
+              "transitionDuration": 250
+            },
+            {
+              "time": "1902-01-01T00:00:00.000Z",
+              "zoom": 2,
+              "latitude": 29.725122568212615,
+              "longitude": 14.062500000000002,
+              "stepTimeLength": 2500,
+              "flyToDuration": 1000,
+              "transitionDelay": 1000,
+              "transitionDuration": 500
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
