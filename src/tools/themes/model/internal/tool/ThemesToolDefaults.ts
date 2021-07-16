@@ -5,6 +5,8 @@ import BasicTheme from "../theme/basic/BasicTheme";
 import Dark1Theme from "../theme/custom/dark1/Dark1Theme";
 import Dark2Theme from "../theme/custom/dark2/Dark2Theme";
 import Dark3Theme from "../theme/custom/dark3/Dark3Theme";
+import GoogleTheme from "../theme/custom/google/GoogleTheme";
+import GoogleSatTheme from "../theme/custom/google/GoogleSatTheme";
 import IMapTheme from "../../types/theme/IMapTheme";
 import IThemesToolConfig from "../../types/tool/IThemesToolConfig";
 import IThemesToolDefaults from "../../types/tool/IThemesToolDefaults";
@@ -13,6 +15,7 @@ import Light2Theme from "../theme/custom/light2/Light2Theme";
 import Light3Theme from "../theme/custom/light3/Light3Theme";
 import MapThemesManager from "../theme/basic/MapThemesManager";
 import MapToolDefaults from "../../../../../model/internal/tool/MapToolDefaults";
+import MapyCZTheme from "../theme/custom/mapycz/MapyCZTheme";
 
 /**
  * This class provide functions which return the default state values.
@@ -73,7 +76,11 @@ class ThemesToolDefaults extends MapToolDefaults implements IThemesToolDefaults 
             new Light3Theme(),
             new Dark1Theme(),
             new Dark2Theme(),
-            new Dark3Theme()
+            new Dark3Theme(),
+            new BasicTheme(),
+            new MapyCZTheme(),
+            new GoogleTheme(),
+            new GoogleSatTheme(),
         ]);
     }
 
