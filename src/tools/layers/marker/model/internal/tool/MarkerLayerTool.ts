@@ -51,8 +51,10 @@ import {
     IMapEvent,
     IMapForm,
     IMapFormControl,
+    IMapLegend,
+    IMapLegendControl,
     IMapToolInitProps,
-    LayerToolRenderType
+    LayerToolRenderType,
 } from '../../../../../../index.core';
 
 import { createClusterMarkersData, createMarkerIconValueOptions, createPopupMessage } from '../marker/MarkerUtil';
@@ -69,17 +71,20 @@ import MarkerLayerToolDefaults from './MarkerLayerToolDefaults';
 import MarkerLayerToolMapForm from '../form/MarkerLayerToolMapForm';
 import MarkerLayerToolState from './MarkerLayerToolState';
 import IMarkerIcon from '../../types/marker/IMarkerIcon';
+import DimensionChangeEvent from "../../../../../../model/internal/event/dimension/DimensionChangeEvent";
+import MarkerLayerToolMapLegend from "../legend/MarkerLayerToolMapLegend";
 
 /**
  * This class represents Marker layer tool. It works with geojson polygons representing countries.
  * 
  * @author Jiri Hynek
  */
-class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMapFormControl {
+class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMapFormControl, IMapLegendControl {
 
     private selectionToolAPI: ISelectionToolAPI | undefined;
     private themesToolAPI: IThemesToolAPI | undefined;
     private mapForm!: IMapForm;
+    private mapLegend!: IMapLegend;
 
     /**
      * It creates a new tool with respect to the props.
@@ -169,10 +174,27 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
     }
 
     /**
+     * It returns a legend with respect to the configuration.
+     */
+    public getMapLegend(): IMapLegend {
+        if(this.mapLegend == undefined) {
+            this.mapLegend = this.createMapLegend();
+        }
+        return this.mapLegend;
+    }
+
+    /**
      * It creates new tab control.
      */
     protected createMapForm(): IMapForm {
         return new MarkerLayerToolMapForm(this);
+    }
+
+    /**
+     * It creates new legend control.
+     */
+    protected createMapLegend(): IMapLegend {
+        return new MarkerLayerToolMapLegend(this);
     }
 
     /**
@@ -425,6 +447,9 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
             }
         }
         super.updateDimension(dimension, value, redraw);
+        this.getState().getMap()?.getState().getEventManager().scheduleEvent(
+            new DimensionChangeEvent(this), undefined, undefined
+        );
     }
 
     /**
