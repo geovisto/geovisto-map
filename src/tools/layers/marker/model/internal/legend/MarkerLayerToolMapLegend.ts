@@ -28,20 +28,30 @@ class MarkerLayerToolMapLegend extends MapLayerToolLegend<IMarkerLayerTool> impl
      * It returns the legend.
      */
     public getContent(tool: IMapTool): HTMLElement  | undefined {
-        // tab content
         const div = document.createElement('div');
         div.className = "legend";
         let category_name: string;
+        let value_name: string;
         const categories = tool.getState().currentDataCategories;
+        // Define colors
         const colors = ["#0006a7", "#c1c100", "#c10000"];
+        // Get category and value name
         try {category_name = tool?.getState().dimensions.category.value.name;}
         catch { category_name = tool?.getState().dimensions.category.domainName;}
+        try {value_name = tool?.getState().dimensions.value.value.name;}
+        catch { value_name = tool?.getState().dimensions.value.domainName;}
+        if (value_name == undefined || value_name == "") {
+            // No value entered yet - dont create legend
+            return undefined;
+        }
+        // Create category name
         if (categories.length == 0) {
             div.innerHTML += '<span style="font-weight: bold;">Unknown category</span><br>';
         } else {
             div.innerHTML += '<span style="font-weight: bold;">' + category_name + '</span><br>';
         }
         div.id = "geovisto-tool-layer-marker-legend";
+        // Add categories
         for (let i = 0; i < categories.length; i++) {
             if (i > 2){
                 // If there is more than 3 categories defined

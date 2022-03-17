@@ -31,20 +31,26 @@ class ChoroplethLayerToolMapLegend extends MapLayerToolLegend<IChoroplethLayerTo
     public getContent(tool: IMapTool): HTMLElement | undefined {
         const div = document.createElement('div');
         div.className = "legend";
+        // Get scale
         const scale = tool?.getState().mapObject.getScale();
         if (scale[0] == undefined) {
             // No available scales - dont create legend
             return undefined;
         }
+        // Get colors
         const color_opacities: Array<number> = [];
         const color = tool?.getState().dimensions.color.getValue();
+        // Compute color intensity
         for (let i = 0; i < scale.length; i++) {
             color_opacities.push(tool?.getState().mapObject.computeColorIntensity(scale[i], scale));
         }
+        // Shift the array
         color_opacities.push(color_opacities.shift());
+        // Conver values to string
         const categories = scale.map(String);
         const opacities = color_opacities.map(String);
         div.id = "geovisto-tool-layer-choropleth-legend";
+        // Create categories
         for (let i = 0; i < categories.length; i++) {
             if (categories.length == i + 1) {
                 div.innerHTML += '<i style="opacity: ' + opacities[i] +
