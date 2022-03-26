@@ -22,7 +22,8 @@ import {
     GeovistoChoroplethLayerTool,
     GeovistoMarkerLayerTool,
     GeovistoConnectionLayerTool,
-    GeovistoDrawingLayerTool
+    GeovistoDrawingLayerTool,
+    GeovistoInfoTool
 } from '../tools';
 import { Geovisto } from '..';
 
@@ -253,6 +254,9 @@ class Demo extends Component<Record<string, never>, { data: unknown, config: Rec
                             }),
                             GeovistoSelectionTool.createTool({
                                 id: "geovisto-tool-selection"
+                            }),
+                            GeovistoInfoTool.createTool({
+                                id: "geovisto-tool-info"
                             }),
                             GeovistoTilesLayerTool.createTool({
                                 id: "geovisto-tool-layer-map"
