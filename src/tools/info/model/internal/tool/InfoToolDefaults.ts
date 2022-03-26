@@ -14,6 +14,7 @@ import MarkDownData from "../infodata/markdown/MarkDownData";
  * This class provide functions which return the default state values.
  * 
  * @author Jiri Hynek
+ * @author Tomas Koscielniak
  */
 class InfoToolDefaults extends MapToolDefaults implements IInfoToolDefaults {
     
@@ -27,7 +28,7 @@ class InfoToolDefaults extends MapToolDefaults implements IInfoToolDefaults {
     }
 
     /**
-     * It returns default themes manager.
+     * It returns default markdown manager.
      */
     public getInfoDataManager(): IInfoDataManager {
         return new InfoDataManager([
@@ -42,7 +43,7 @@ class InfoToolDefaults extends MapToolDefaults implements IInfoToolDefaults {
     }
 
     /**
-     * Only one filter tool should be present in the Geovisto map.
+     * Only one info tool should be present in the Geovisto map.
      */
     public isSingleton(): boolean {
        return true; 

@@ -4,9 +4,10 @@ import {
 } from "../../../../../index.core";
 
 /**
- * This type provides specification of the filters tool config model.
+ * This type provides specification of the info tool config model.
  * 
  * @author Jiri Hynek
+ * @author Tomas Koscielniak
  */
 type IInfoToolConfig = IMapToolConfig & {
     filterRules?: {

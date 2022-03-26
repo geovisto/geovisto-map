@@ -10,9 +10,10 @@ import IInfoDataManager from "../infodata/IInfoDataManager";
 import IInfoData from "../infodata/IInfoData";
 
 /**
- * This indetrface declares functions for using filters.
+ * This indetrface declares functions for using info data.
  * 
  * @author Jiri Hynek
+ * @author Tomas Koscielniak
  */
 interface IInfoToolState<
     TProps extends IInfoToolProps = IInfoToolProps,

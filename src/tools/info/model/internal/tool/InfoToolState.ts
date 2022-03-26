@@ -1,6 +1,5 @@
 // Geovisto core
 import {
-    IMapDataDomain,
     IMapToolInitProps,
     MapToolState
 } from "../../../../../index.core";
@@ -17,6 +16,7 @@ import IInfoData from "../../types/infodata/IInfoData";
  * This class provide functions for using filters.
  * 
  * @author Jiri Hynek
+ * @author Tomas Koscielniak
  */
 class InfoToolState extends MapToolState implements IInfoToolState {
     
@@ -56,14 +56,14 @@ class InfoToolState extends MapToolState implements IInfoToolState {
     }
 
     /**
-     * It returns the theme property of the tool state.
+     * It returns the markdown property of the tool state.
      */
     public getMarkdown(): IInfoData {
         return this.md_data;
     }
 
     /**
-     * It sets the theme property of the tool state.
+     * It sets the markdown property of the tool state.
      *
      * @param md
      */
@@ -72,7 +72,7 @@ class InfoToolState extends MapToolState implements IInfoToolState {
     }
 
     /**
-     * It sets themes manager.
+     * It sets markdown manager.
      *
      * @param manager
      */
@@ -81,7 +81,7 @@ class InfoToolState extends MapToolState implements IInfoToolState {
     }
 
     /**
-     * It returns themes manager.
+     * It returns markdown manager.
      */
     public getInfoDataManager(): IInfoDataManager {
         return this.manager;

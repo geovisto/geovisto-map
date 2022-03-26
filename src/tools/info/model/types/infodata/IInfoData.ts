@@ -1,7 +1,3 @@
-import {
-    FeatureCollection
-} from 'geojson';
-
 // Geovisto core
 import {
     IMapDomain,
@@ -9,7 +5,7 @@ import {
 
 
 /**
- * The interface declares functions for management of geographical data.
+ * The interface declares functions for management of info data.
  *
  * @author Jiri Hynek
  * @author Tomas Koscielniak
@@ -17,7 +13,7 @@ import {
 interface IInfoData extends IMapDomain {
 
     /**
-     * It returns the original source of geographical data.
+     * It returns the original source of info data.
      */
     getOriginalInfoData(): unknown;
 

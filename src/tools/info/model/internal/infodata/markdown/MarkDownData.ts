@@ -2,9 +2,10 @@ import {MapDomain} from '../../../../../../index.core';
 import IInfoData from "../../../types/infodata/IInfoData";
 
 /**
- * The interface declares function for management of geographical data.
+ * The interface declares function for management of info data.
  *
  * @author Jiri Hynek
+ * @author Tomas Koscielniak
  */
 class MarkDownData extends MapDomain implements IInfoData {
 
@@ -17,7 +18,7 @@ class MarkDownData extends MapDomain implements IInfoData {
     }
 
     /**
-     * It returns the original source of geographical data.
+     * It returns the original source of info data.
      */
     public getOriginalInfoData(): unknown {
         return this.originalData;
@@ -35,10 +36,10 @@ class MarkDownData extends MapDomain implements IInfoData {
 
 
     /**
-     * It transforms original data to a feature collection in the GeoJSON format.
+     * It transforms original data to a string with data to be rendered
      *
      * @param originalData
-     * @returns GeoJSON feature collection
+     * @returns string
      */
     protected validateData(originalData: unknown): unknown {
         return originalData.default;

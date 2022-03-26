@@ -10,6 +10,7 @@ import IInfoData from "../infodata/IInfoData";
  * This interface declares functions which return the default state values.
  * 
  * @author Jiri Hynek
+ * @author Tomas Koscielniak
  */
 interface IInfoToolDefaults extends IMapToolDefaults {
 

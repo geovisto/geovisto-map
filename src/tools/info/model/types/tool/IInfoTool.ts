@@ -10,10 +10,11 @@ import IInfoToolProps from "./IInfoToolProps";
 import IInfoToolState from "./IInfoToolState";
 
 /**
- * This interface declares the  filter tool.
+ * This interface declares the  info tool.
  * It provides methods for Info management.
  * 
  * @author Jiri Hynek
+ * Tomas Koscielniak
  */
 interface IInfoTool<
     TProps extends IInfoToolProps = IInfoToolProps,

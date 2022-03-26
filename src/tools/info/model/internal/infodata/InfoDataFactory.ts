@@ -3,14 +3,15 @@ import IInfoDataFactory from "../../types/infodata/IInfoDataFactory";
 import MarkDownData from "./markdown/MarkDownData";
 
 /**
- * This interface declares a factory for geographical data objects.
+ * This class implements IInfoDataFactory
  *
  * @author Jiri Hynek
+ * @author Tomas Koscielniak
  */
 class InfoDataFactory implements IInfoDataFactory {
 
     /**
-     * It creates the GeoJSON geographical data object.
+     * It creates the Markdown info data object.
      */
     public markdown(name: string, data: unknown): IInfoData {
         return new MarkDownData(name, data);
