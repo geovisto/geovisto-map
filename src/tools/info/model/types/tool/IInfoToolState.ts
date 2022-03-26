@@ -6,6 +6,8 @@ import {
 import IInfoToolConfig from "./IInfoToolConfig";
 import IInfoToolDefaults from "./IInfoToolDefaults";
 import IInfoToolProps from "./IInfoToolProps";
+import IInfoDataManager from "../infodata/IInfoDataManager";
+import IInfoData from "../infodata/IInfoData";
 
 /**
  * This indetrface declares functions for using filters.
@@ -18,5 +20,9 @@ interface IInfoToolState<
     TConfig extends IInfoToolConfig = IInfoToolConfig
 > extends IMapToolState<TProps, TDefaults, TConfig> {
     getContent(): void;
+    getInfoDataManager(): IInfoDataManager;
+    getMarkdown(): IInfoData;
+    setMarkdown(md: IInfoData): void;
+    setInfoDataManager(manager: IInfoDataManager): void;
 }
 export default IInfoToolState;

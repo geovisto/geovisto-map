@@ -18,6 +18,9 @@ import InfoToolMapForm from "../form/InfoToolMapForm";
 
 // styles
 import "../../../styles/style.scss";
+import IMapTheme from "../../../../themes/model/types/theme/IMapTheme";
+import ThemesToolEvent from "../../../../themes/model/internal/event/ThemesToolEvent";
+import IInfoData from "../../types/infodata/IInfoData";
 
 /**
  * This class wraps filters, sidebar tab and state. It provides methods for filters management.
@@ -122,6 +125,23 @@ class InfoTool extends MapTool implements IInfoTool, IMapFormControl {
      */
     public getInfo(): void {
         this.createMapForm();
+    }
+
+    /**
+     * It updates the theme and notifies listeners.
+     *
+     * @param markdown
+     */
+    public setMarkdown(markdown: IInfoData): void {
+        if(markdown != undefined) {
+            // if the theme tool is enabled, update map theme
+            const map = this.getMap();
+            if(this.isEnabled() && map) {
+
+                // update tool state
+                this.getState().setMarkdown(markdown);
+            }
+        }
     }
 }
 export default InfoTool;

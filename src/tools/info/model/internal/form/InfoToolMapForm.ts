@@ -11,6 +11,9 @@ import {
 import IInfoTool from "../../types/tool/IInfoTool";
 
 import MarkdownIt from "markdown-it";
+import IInfoDataManager from "../../types/infodata/IInfoDataManager";
+import IMapTheme from "../../../../themes/model/types/theme/IMapTheme";
+import IInfoData from "../../types/infodata/IInfoData";
 
 /**
  * This interface provides a help type which represents double (html element container, input).
@@ -60,16 +63,39 @@ class InfoToolMapForm extends MapObjectForm<IInfoTool> implements IMapForm {
      */
     public getContent(): HTMLDivElement {
         //if(this.htmlContent == undefined) {
-            // tab pane
-            this.htmlContent = document.createElement('div');
-            const md_div = document.createElement('div');
-            md_div.setAttribute("id", "md_wrapper");
+            const tool: IInfoTool = this.getMapObject();
+            const dataManager: IInfoDataManager = tool.getState().getInfoDataManager();
             const md = MarkdownIt({
                 typographer: true,
                 quotes: '“”‘’',
             });
-            const file = require("../../../../../../static/info/test.md");
-            md_div.innerHTML = md.render(file.default);
+            if (dataManager.getDomains() != undefined) {
+                if (dataManager.getDomains().length > 0) {
+                    const defaultMarkdown = dataManager.getDomains()[0];
+                    tool.getState().setMarkdown(defaultMarkdown);
+                }
+            }
+            const changeInfoData = function(e: Event) {
+                const newMarkdown: IInfoData | undefined = dataManager.getDomain((e.target as HTMLInputElement)?.value);
+                const md_div = document.getElementById("md_wrapper");
+                if(newMarkdown) {
+                    tool.getState().setMarkdown(newMarkdown);
+                    const data = tool.getState().getMarkdown().getInfoMD();
+                    md_div.innerHTML = md.render(data);
+                } else {
+                    md_div.innerHTML = "";
+                }
+            };
+            const themeInput = new LabeledAutocompleteFormInput({ label: "Info file:", options: dataManager.getDomainNames(), onChangeAction: changeInfoData });
+            this.htmlContent = document.createElement('div');
+            this.htmlContent.appendChild(themeInput.create());
+            themeInput.setValue(tool.getState().getMarkdown().getName());
+
+            const data = tool.getState().getMarkdown().getInfoMD();
+            // tab pane
+            const md_div = document.createElement('div');
+            md_div.setAttribute("id", "md_wrapper");
+            md_div.innerHTML = md.render(data);
             this.htmlContent.appendChild(md_div);
 
         //}

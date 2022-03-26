@@ -5,6 +5,10 @@ import {
 
 import IInfoToolConfig from "../../types/tool/IInfoToolConfig";
 import IInfoToolDefaults from "../../types/tool/IInfoToolDefaults";
+import IInfoDataManager from "../../types/infodata/IInfoDataManager";
+import InfoDataManager from "../infodata/InfoDataManager";
+import IInfoData from "../../types/infodata/IInfoData";
+import MarkDownData from "../infodata/markdown/MarkDownData";
 
 /**
  * This class provide functions which return the default state values.
@@ -20,6 +24,21 @@ class InfoToolDefaults extends MapToolDefaults implements IInfoToolDefaults {
         const config = <IInfoToolConfig> super.getConfig();
         config.filterRules = undefined;
         return config;
+    }
+
+    /**
+     * It returns default themes manager.
+     */
+    public getInfoDataManager(): IInfoDataManager {
+        return new InfoDataManager([
+        ]);
+    }
+
+    /**
+     * It returns default markdown.
+     */
+    public getMarkdown(): IInfoData {
+        return new MarkDownData("default", "");
     }
 
     /**

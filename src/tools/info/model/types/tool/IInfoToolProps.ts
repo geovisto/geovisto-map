@@ -2,6 +2,8 @@
 import {
     IMapToolProps
 } from "../../../../../index.core";
+import IInfoDataManager from "../infodata/IInfoDataManager";
+import IInfoData from "../infodata/IInfoData";
 
 
 /**
@@ -10,5 +12,7 @@ import {
  * @author Jiri Hynek
  */
 type IInfoToolProps = IMapToolProps & {
+    manager?: IInfoDataManager;
+    md_data?: IInfoData;
 }
 export default IInfoToolProps;
