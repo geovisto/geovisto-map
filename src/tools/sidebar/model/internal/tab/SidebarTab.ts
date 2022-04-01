@@ -108,9 +108,7 @@ class SidebarTab<T extends IMapTool & IMapFormControl> extends MapObject impleme
     public initialize(initProps: ISidebarTabInitProps): this {
         super.initialize(initProps);
 
-        if(initProps.config) {
-            this.initializeFragments(initProps.config);
-        }
+        this.initializeFragments(initProps.config);
 
         return this;
     }
@@ -120,7 +118,7 @@ class SidebarTab<T extends IMapTool & IMapFormControl> extends MapObject impleme
      * 
      * @param config 
      */
-    protected initializeFragments(config: ISidebarTabConfig): void {
+    protected initializeFragments(config?: ISidebarTabConfig): void {
         // init help variables
         const fragments: ISidebarFragment[] = [];
         let fragment: ISidebarFragment;
@@ -133,7 +131,7 @@ class SidebarTab<T extends IMapTool & IMapFormControl> extends MapObject impleme
             const map = thisTool.getMap();
             if(map) {
                 // process tab fragments
-                if(config.fragments) {
+                if(config?.fragments) {
                     let fragmentConfig: ISidebarFragmentConfig;
                     for(let i = 0; i != config.fragments.length; i++) {
                         fragmentConfig = config.fragments[i];
