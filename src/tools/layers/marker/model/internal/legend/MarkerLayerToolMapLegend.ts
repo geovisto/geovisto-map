@@ -27,19 +27,19 @@ class MarkerLayerToolMapLegend extends MapLayerToolLegend<IMarkerLayerTool> impl
     /**
      * It returns the legend.
      */
-    public getContent(tool: IMapTool): HTMLElement  | undefined {
+    public getContent(tool: IMarkerLayerTool): HTMLElement  | undefined {
         const div = document.createElement('div');
         div.className = "legend";
         let category_name: string;
         let value_name: string;
-        const categories = tool.getState().currentDataCategories;
+        const categories = tool.getState().getCurrentDataCategories();
         // Define colors
         const colors = ["#0006a7", "#c1c100", "#c10000"];
         // Get category and value name
-        try {category_name = tool?.getState().dimensions.category.value.name;}
-        catch { category_name = tool?.getState().dimensions.category.domainName;}
-        try {value_name = tool?.getState().dimensions.value.value.name;}
-        catch { value_name = tool?.getState().dimensions.value.domainName;}
+        try {category_name = tool?.getState().getDimensions().category.value.name;}
+        catch { category_name = tool?.getState().getDimensions().category.domainName;}
+        try {value_name = tool?.getState().getDimensions().value.value.name;}
+        catch { value_name = tool?.getState().getDimensions().value.domainName;}
         if (value_name == undefined || value_name == "") {
             // No value entered yet - dont create legend
             return undefined;
