@@ -122,7 +122,16 @@ class LegendTool <T extends IMapTool & IMapLegendControl> extends MapTool implem
     protected createLegend(render: boolean, visibility_changed_tool: string | undefined): void {
         // Get map and tools
         const map = this.getMap()?.getState().getLeafletMap();
-        const tools = this.getMap()?.getState().getTools().getAll();
+        const config = this.getState().getLegendToolsConfig();
+        let tools = this.getMap()?.getState().getTools().getAll();
+        if (config != undefined && this.getMap() != undefined){
+            tools = [];
+            for (let i = 0; i < config?.length; i++) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                tools.push(this.getMap().getState().getTools().getById(config[i]));
+            }
+        }
         if (tools != undefined && map) {
             for (let i = 0; i < tools?.length; i++) {
                 // Check if tools implement legends
@@ -132,7 +141,7 @@ class LegendTool <T extends IMapTool & IMapLegendControl> extends MapTool implem
                     if (this.getTool(tools[i]).getMapLegend().getContent(tools[i]) != undefined) {
                         // And if they do want to get rendered, get div with legend
                         const legend = L.control({position: "bottomright"});
-                        // Check if this is only change in visibility, no need to rerender other tools
+                        /*// Check if this is only change in visibility, no need to rerender other tools
                         if (visibility_changed_tool != undefined) {
                             // Get the specific tool
                             const tool = this.getMap()?.getState().getTools().getById(visibility_changed_tool);
@@ -147,11 +156,11 @@ class LegendTool <T extends IMapTool & IMapLegendControl> extends MapTool implem
                                 legend.addTo(map);
                             }
                             break;
-                        }
+                        }*/
                         // Check if this is change in dimensions
-                        if (render) {
-                            this.clearLegend(tools[i].getId());
-                        }
+                        //if (render) {
+                        this.clearLegend(tools[i].getId());
+                        //  }
                         // Get the div
                         legend.onAdd = () => {
                             return this.getTool(tools[i]).getMapLegend().getContent(tools[i]);

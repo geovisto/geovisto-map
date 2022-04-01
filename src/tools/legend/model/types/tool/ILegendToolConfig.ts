@@ -11,5 +11,6 @@ import {
  */
 type ILegendToolConfig = IMapToolConfig & {
     state?: ILegendToolConfig[];
+    tools?: Array<string>;
 }
 export default ILegendToolConfig;

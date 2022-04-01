@@ -10,6 +10,7 @@ import {
 
 import ILegendTool from "../../types/tool/ILegendTool";
 import ILegendToolState from "../../types/tool/ILegendToolState";
+import {ILegendToolConfig} from "../../../index";
 
 /**
  * This class provide legend tool model.
@@ -18,7 +19,8 @@ import ILegendToolState from "../../types/tool/ILegendToolState";
  */
 class LegendToolState extends MapToolState implements ILegendToolState {
 
-    
+    private legendConfig?: ILegendToolConfig[];
+    private legendTools?: Array<string>;
     private legend: Control.Legend | null;
 
     /**
@@ -28,9 +30,22 @@ class LegendToolState extends MapToolState implements ILegendToolState {
         super(tool);
 
         this.legend = null;
+
+        this.legendConfig = undefined;
     }
 
+    /**
+     * The metod takes config and deserializes the values.
+     *
+     * @param config
+     */
+    public deserialize(config: ILegendToolConfig): void {
+        super.deserialize(config);
 
+        // original tabs desriptions can be used after all tools are initialized during the sidebar tool creation
+        this.legendConfig = config.state;
+        this.legendTools = config.tools;
+    }
 
     /**
      * It returns the legend.
@@ -46,6 +61,20 @@ class LegendToolState extends MapToolState implements ILegendToolState {
      */
     public setLegend(legend: Control.Legend): void {
         this.legend = legend;
+    }
+
+    /**
+     * It returns the legend config.
+     */
+    public getLegendConfig(): ILegendToolConfig[] | undefined {
+        return this.legendConfig;
+    }
+
+    /**
+     * It returns the tools to create a legend for.
+     */
+    public getLegendToolsConfig(): string[] | undefined {
+        return this.legendTools;
     }
 
 

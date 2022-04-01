@@ -102,7 +102,11 @@
         {
             "type": "geovisto-tool-legend",
             "id": "geovisto-tool-legend",
-            "enabled": true
+            "enabled": true,
+            "tools": [
+                "geovisto-tool-layer-choropleth",
+                "geovisto-tool-layer-marker"
+            ]
         },
         {
             "type": "geovisto-tool-layer-map",
