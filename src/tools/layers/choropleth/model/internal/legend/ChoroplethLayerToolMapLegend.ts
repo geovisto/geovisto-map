@@ -6,6 +6,7 @@ import {
 } from "../../../../../../index.core";
 
 import IChoroplethLayerTool from "../../types/tool/IChoroplethLayerTool";
+import IChoroplethLayerToolState from "../../types/tool/IChoroplethLayerToolState";
 
 /**
  * This class provides controls for management of the layer legend.
@@ -28,18 +29,25 @@ class ChoroplethLayerToolMapLegend extends MapLayerToolLegend<IChoroplethLayerTo
     /**
      * It returns the legend.
      */
-    public getContent(tool: IMapTool): HTMLElement | undefined {
+    public getContent(tool: IChoroplethLayerTool): HTMLElement | undefined {
         const div = document.createElement('div');
         div.className = "legend";
         // Get scale
         const scale = tool?.getState().mapObject.getScale();
         if (scale[0] == undefined) {
+            // If legend is already created
+            if (this.htmlContent != undefined) {
+                div.id = "geovisto-tool-layer-choropleth-legend";
+                div.innerHTML += '<span style="font-weight: bold;">Unknown values</span><br>';
+                this.htmlContent = div;
+                return this.htmlContent;
+            }
             // No available scales - dont create legend
             return undefined;
         }
         // Get colors
         const color_opacities: Array<number> = [];
-        const color = tool?.getState().dimensions.color.getValue();
+        const color = tool?.getState().getDimensions().color.getValue();
         // Compute color intensity
         for (let i = 0; i < scale.length; i++) {
             color_opacities.push(tool?.getState().mapObject.computeColorIntensity(scale[i], scale));
