@@ -38,7 +38,14 @@
     vertical-align: middle;
 }
 #md_wrapper {
-    padding: 1%;
+    margin-top: 1vh;
+    max-height: 68vh;
+    margin-left: -17px;
+    margin-right: -32px;
+    padding: 3%;
+    overflow: auto;
+    overflow-x: hidden;
+    background: rgba(248, 248, 248, 0.8);
 
 }
 #md_wrapper pre {
@@ -50,9 +57,20 @@
     color: #333;
     word-break: break-all;
     word-wrap: break-word;
-    background-color: #f5f5f5;
+    background-color: rgba(250, 250, 250, 1);
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+#md_wrapper code{
+    display: block;
+    min-width: 0;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: rgba(250, 250, 250, 1);
 }
 
 #md_wrapper blockquote {
