@@ -1,8 +1,3 @@
-// Leaflet
-import {
-    Control
-} from "leaflet";
-
 // Geovisto core
 import {
     MapToolState
@@ -11,6 +6,7 @@ import {
 import ILegendTool from "../../types/tool/ILegendTool";
 import ILegendToolState from "../../types/tool/ILegendToolState";
 import {ILegendToolConfig} from "../../../index";
+import ILegendToolDefaults from "../../types/tool/ILegendToolDefaults";
 
 /**
  * This class provide legend tool model.
@@ -21,15 +17,12 @@ class LegendToolState extends MapToolState implements ILegendToolState {
 
     private legendConfig?: ILegendToolConfig[];
     private legendTools?: Array<string>;
-    private legend: Control.Legend | null;
 
     /**
      * It creates a tool state.
      */
     public constructor(tool: ILegendTool) {
         super(tool);
-
-        this.legend = null;
 
         this.legendConfig = undefined;
     }
@@ -42,25 +35,26 @@ class LegendToolState extends MapToolState implements ILegendToolState {
     public deserialize(config: ILegendToolConfig): void {
         super.deserialize(config);
 
-        // original tabs desriptions can be used after all tools are initialized during the sidebar tool creation
         this.legendConfig = config.state;
         this.legendTools = config.tools;
     }
 
     /**
-     * It returns the legend.
+     * The method serializes the tool state. Optionally, defaults can be set if property is undefined.
+     *
+     * @param defaults
      */
-    public getLegend(): Control.Legend | null {
-        return this.legend;
-    }
+    public serialize(defaults: ILegendToolDefaults | undefined): ILegendToolConfig {
+        const config: ILegendToolConfig = <ILegendToolConfig> super.serialize(defaults);
 
-    /**
-     * It sets legend.
-     * 
-     * @param legend
-     */
-    public setLegend(legend: Control.Legend): void {
-        this.legend = legend;
+        config.tools = [];
+        const tools: string[] | undefined = this.getLegendToolsConfig() ;
+        if (tools != undefined) {
+            for (let i = 0; i < tools.length; i++) {
+                config.tools.push(tools[i]);
+            }
+        }
+        return config;
     }
 
     /**

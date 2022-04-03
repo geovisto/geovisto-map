@@ -15,7 +15,10 @@ class LegendToolDefaults extends MapToolDefaults implements ILegendToolDefaults 
      * It returns the default config.
      */
     public getConfig(): ILegendToolConfig {
-        return <ILegendToolConfig>super.getConfig();
+        const config = <ILegendToolConfig>super.getConfig();
+        config.tools = undefined;
+        config.state = undefined;
+        return config;
     }
 
     /**
@@ -30,6 +33,12 @@ class LegendToolDefaults extends MapToolDefaults implements ILegendToolDefaults 
         return LegendToolDefaults.TYPE;
     }
 
+    /**
+     * Only one legend tool should be present in the Geovisto map.
+     */
+    public isSingleton(): boolean {
+        return true;
+    }
 
 }
 export default LegendToolDefaults;
