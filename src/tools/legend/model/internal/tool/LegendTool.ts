@@ -101,7 +101,7 @@ class LegendTool <T extends IMapTool & IMapLegendControl> extends MapTool implem
      */
     public create(): this {
         super.create();
-        this.createLegend(false, undefined);
+        this.createLegend();
         return this;
     }
 
@@ -116,10 +116,8 @@ class LegendTool <T extends IMapTool & IMapLegendControl> extends MapTool implem
     /**
      * It creates a legend tool and its parts (new legend for each layer that implements it).
      *
-     * @param render False if the legend is rendered for the first time
-     * @param visibility_changed_tool ID of the tool that changed visibility
      */
-    protected createLegend(render: boolean, visibility_changed_tool: string | undefined): void {
+    protected createLegend(): void {
         // Get map and tools
         const map = this.getMap()?.getState().getLeafletMap();
         const config = this.getState().getLegendToolsConfig();
@@ -141,26 +139,7 @@ class LegendTool <T extends IMapTool & IMapLegendControl> extends MapTool implem
                     if (this.getTool(tools[i]).getMapLegend().getContent(tools[i]) != undefined) {
                         // And if they do want to get rendered, get div with legend
                         const legend = L.control({position: "bottomright"});
-                        /*// Check if this is only change in visibility, no need to rerender other tools
-                        if (visibility_changed_tool != undefined) {
-                            // Get the specific tool
-                            const tool = this.getMap()?.getState().getTools().getById(visibility_changed_tool);
-                            // Proceed as in usual cases
-                            if (tool != undefined) {
-                                if (render) {
-                                    this.clearLegend(visibility_changed_tool);
-                                }
-                                legend.onAdd = () => {
-                                    return this.getTool(tool).getMapLegend().getContent(tool);
-                                };
-                                legend.addTo(map);
-                            }
-                            break;
-                        }*/
-                        // Check if this is change in dimensions
-                        //if (render) {
                         this.clearLegend(tools[i].getId());
-                        //  }
                         // Get the div
                         legend.onAdd = () => {
                             return this.getTool(tools[i]).getMapLegend().getContent(tools[i]);
@@ -194,13 +173,13 @@ class LegendTool <T extends IMapTool & IMapLegendControl> extends MapTool implem
             case DataManagerChangeEvent.TYPE():
             case DataChangeEvent.TYPE():
             case DimensionChangeEvent.TYPE():
-                this.createLegend(true, undefined);
+                this.createLegend();
                 break;
             case VisibilityChangeEvent.TYPE():
                 switch (VisibilityChangeEvent.getVisibility()) {
                     // Layer is being enabled
                     case true:
-                        this.createLegend(false, VisibilityChangeEvent.getSource().getId());
+                        this.createLegend();
                         break;
                     // Layer is being disabled
                     case false:
