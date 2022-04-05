@@ -1,6 +1,7 @@
 export * from './filters';
 export * from './layers/choropleth';
 export * from './layers/connection';
+export * from './layers/heat';
 export * from './layers/tiles';
 export * from './layers/marker';
 export * from './layers/drawing';

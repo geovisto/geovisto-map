@@ -22,7 +22,8 @@ import {
     GeovistoChoroplethLayerTool,
     GeovistoMarkerLayerTool,
     GeovistoConnectionLayerTool,
-    GeovistoDrawingLayerTool
+    GeovistoDrawingLayerTool,
+    GeovistoHeatmapLayerTool
 } from '../tools';
 import { Geovisto } from '..';
 
@@ -56,7 +57,7 @@ class Demo extends Component<Record<string, never>, { data: unknown, config: Rec
         // data and config can be changed
         this.state = {
             // implicit data
-            data: require('/static/data/timeData.json'),
+            data: require('/static/data/covid19_czech.json'),
             // implicit config
             config: require('/static/config/config.json')
         };
@@ -268,6 +269,9 @@ class Demo extends Component<Record<string, never>, { data: unknown, config: Rec
                             }),
                             GeovistoDrawingLayerTool.createTool({
                                 id: "geovisto-tool-layer-drawing"
+                            }),
+                            GeovistoHeatmapLayerTool.createTool({
+                                id: "geovisto-tool-layer-heatmap"
                             }),
                         ])}
                     />

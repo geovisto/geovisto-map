@@ -1,9 +1,8 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import 'leaflet.Heatcluster/dist/HeatCluster.css';
-import 'leaflet.Heatcluster/dist/HeatCluster.Default.css';
-import './style/heatLayer.scss';
-import HeatLayerToolTabControl from '../form/HeatLayerToolTabControl';
+//import 'leaflet.Heatcluster/dist/HeatCluster.css';
+//import 'leaflet.Heatcluster/dist/HeatCluster.Default.css';
+import '../../../style/heatLayer.scss';
 import HeatLayerToolDefaults from './HeatLayerToolDefaults';
 import HeatLayerToolState from './HeatLayerToolState';
 

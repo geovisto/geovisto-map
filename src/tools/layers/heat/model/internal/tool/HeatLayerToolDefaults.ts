@@ -1,9 +1,10 @@
 import HeatLayerTool from "./HeatLayerTool";
-import AbstractLayerToolDefaults from "../abstract/AbstractLayerToolDefaults";
-import AutocompleteSidebarInput from "../../../inputs/input/AutocompleteSidebarInput";
-import TextSidebarInput from "../../../inputs/input/TextSidebarInput";
-import LabeledTextSidebarInput from "../../../inputs/input/LabeledTextSidebarInput";
-import LabeledSelectSidebarInput from "../../../inputs/select/LabeledSelectSidebarInput";
+
+import {
+    LayerToolDefaults,
+    LabeledAutocompleteFormInput,
+    LabeledTextFormInput
+} from "../../../../../../index.core";
 
 /**
  * TODO: refactorization needed!
@@ -22,59 +23,59 @@ const MAPPING_MODEL = {
         id: INPUT_ID_PREFIX + "-input-latitude",
         name: "latitude",
         label: "Latitude",
-        input: AutocompleteSidebarInput.ID()
+        input: LabeledAutocompleteFormInput.ID()
     },
     longitude: {
         id: INPUT_ID_PREFIX + "-input-longitude",
         name: "longitude",
         label: "Longitude",
-        input: AutocompleteSidebarInput.ID()
+        input: LabeledAutocompleteFormInput.ID()
     },
     intensity: {
         id: INPUT_ID_PREFIX + "-input-intensity",
         name: "intensity",
         label: "Intensity",
-        input: AutocompleteSidebarInput.ID()
+        input: LabeledAutocompleteFormInput.ID()
     },
     radius: {
         id: INPUT_ID_PREFIX + "-input-radius",
         name: "radius",
         label: "Radius",
-        input: LabeledTextSidebarInput.ID()
+        input: LabeledAutocompleteFormInput.ID()
     },
     gradient: {
         id: INPUT_ID_PREFIX + "input-gradient",
         name: "gradient",
         label: "Gradient",
-        input: AutocompleteSidebarInput.ID()
+        input: LabeledAutocompleteFormInput.ID()
     },
     blur: {
         id: INPUT_ID_PREFIX + "input-blur",
         name: "blur",
         label: "Blur",
-        input: LabeledTextSidebarInput.ID()
+        input: LabeledAutocompleteFormInput.ID()
     },
     opacity: {
         id: INPUT_ID_PREFIX + "input-opacity",
         name: "opacity",
         label: "Opacity",
-        input: AutocompleteSidebarInput.ID()
+        input: LabeledAutocompleteFormInput.ID()
     },
     zoom: {
         id: INPUT_ID_PREFIX + "input-zoom",
         name: "zoom",
         label: "Zoom/Intensity",
-        input: AutocompleteSidebarInput.ID()
+        input: LabeledAutocompleteFormInput.ID()
     }
 
-}
+};
 
 /**
  * This class provide functions which return the default state values.
  * 
  * @author Jiri Hynek
  */
-class HeatLayerToolDefaults extends AbstractLayerToolDefaults {
+class HeatLayerToolDefaults extends LayerToolDefaults {
 
     /**
      * Static tool type constant.
