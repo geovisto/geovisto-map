@@ -146,6 +146,14 @@ class LegendTool <T extends IMapTool & IMapLegendControl> extends MapTool implem
                         };
                         // Add it to map
                         legend.addTo(map);
+                        // Disable dragging when user's cursor leaves the element
+                        legend.getContainer().addEventListener('mouseover', function () {
+                            map.dragging.disable();
+                        });
+                        // Re-enable dragging when user's cursor leaves the element
+                        legend.getContainer().addEventListener('mouseout', function () {
+                            map.dragging.enable();
+                        });
                     }
                 }
             }
