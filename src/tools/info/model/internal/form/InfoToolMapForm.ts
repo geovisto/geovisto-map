@@ -64,8 +64,10 @@ class InfoToolMapForm extends MapObjectForm<IInfoTool> implements IMapForm {
                 tool.getState().setMarkdown(newMarkdown);
                 const data = tool.getState().getMarkdown().getInfoMD();
                 md_div.innerHTML = md.render(data);
+                md_div.setAttribute("style", "");
             } else {
                 md_div.innerHTML = "";
+                md_div.setAttribute("style", "background-color: rgba(240, 240, 240, 0);");
             }
         };
         const themeInput = new LabeledAutocompleteFormInput({ label: "Info file:", options: dataManager.getDomainNames(), onChangeAction: changeInfoData });

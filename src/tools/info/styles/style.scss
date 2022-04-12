@@ -38,14 +38,19 @@
     vertical-align: middle;
 }
 #md_wrapper {
+    position: absolute;
+    left: 20px;
+    right: 32px;
+    top: 85px;
+    bottom: 17px;
     margin-top: 1vh;
-    max-height: 68vh;
     margin-left: -17px;
     margin-right: -32px;
     padding: 3%;
     overflow: auto;
     overflow-x: hidden;
     background: rgba(248, 248, 248, 0.8);
+    min-width: 326px;
 
 }
 #md_wrapper pre {

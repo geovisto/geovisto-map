@@ -14,7 +14,7 @@ import IInfoToolState from "./IInfoToolState";
  * It provides methods for Info management.
  * 
  * @author Jiri Hynek
- * Tomas Koscielniak
+ * @author Tomas Koscielniak
  */
 interface IInfoTool<
     TProps extends IInfoToolProps = IInfoToolProps,
