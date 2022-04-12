@@ -54,6 +54,15 @@ class ChoroplethLayerToolMapLegend extends MapLayerToolLegend<IChoroplethLayerTo
         }
         // Shift the array
         color_opacities.push(color_opacities.shift());
+        // Separate thousands for numerical ranges
+        const separateThousands = (num: number): string => {
+            const numParts = num.toString().split(".");
+            numParts[0] = numParts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+            return numParts.join(".");
+        };
+        for (let i = 0; i < scale.length; i++) {
+            scale[i] = separateThousands(scale[i]);
+        }
         // Conver values to string
         const categories = scale.map(String);
         const opacities = color_opacities.map(String);
@@ -62,7 +71,7 @@ class ChoroplethLayerToolMapLegend extends MapLayerToolLegend<IChoroplethLayerTo
         for (let i = 0; i < categories.length; i++) {
             if (categories.length == i + 1) {
                 div.innerHTML += '<i style="opacity: ' + opacities[i] +
-                    '; background: ' + color + '"></i><span>' + categories[i] + ' - ' + categories[i] + '</span><br>';
+                    '; background: ' + color + '"></i><span>' + categories[i] + ' +</span><br>';
             } else {
                 div.innerHTML += '<i style="opacity: ' + opacities[i] +
                     '; background: ' + color + '"></i><span>' + categories[i] + ' - ' + categories[i+1] + '</span><br>';
