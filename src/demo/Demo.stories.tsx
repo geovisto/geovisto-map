@@ -24,6 +24,7 @@ import {
     GeovistoConnectionLayerTool,
     GeovistoDrawingLayerTool,
     GeovistoLegendTool,
+    GeovistoInfoTool
 } from '../tools';
 import { Geovisto } from '..';
 
@@ -43,6 +44,8 @@ class Demo extends Component<Record<string, never>, { data: unknown, config: Rec
     private centroids: unknown;
     private polygons2: unknown;
     private centroids2: unknown;
+    private infodata: unknown;
+    private infodata2: unknown;
     private map: React.RefObject<ReactGeovistoMap>;
 
     public constructor(props: Record<string, never>) {
@@ -53,6 +56,10 @@ class Demo extends Component<Record<string, never>, { data: unknown, config: Rec
         this.centroids = require("/static/geo/country_centroids.json");
         this.polygons2 = require("/static/geo/czech_districts_polygons.json");
         this.centroids2 = require("/static/geo/czech_districts_centroids.json");
+
+        // initialize info objects
+        this.infodata = require("/static/info/test.md");
+        this.infodata2 = require("/static/info/test2.md");
 
         // data and config can be changed
         this.state = {
@@ -257,6 +264,13 @@ class Demo extends Component<Record<string, never>, { data: unknown, config: Rec
                             }),
                             GeovistoSelectionTool.createTool({
                                 id: "geovisto-tool-selection"
+                            }),
+                            GeovistoInfoTool.createTool({
+                                id: "geovisto-tool-info",
+                                manager: GeovistoInfoTool.createInfoManager([
+                                    GeovistoInfoTool.getInfoDataFactory().markdown("General", this.infodata),
+                                    GeovistoInfoTool.getInfoDataFactory().markdown("Concrete", this.infodata2)
+                                ])
                             }),
                             GeovistoTilesLayerTool.createTool({
                                 id: "geovisto-tool-layer-map"

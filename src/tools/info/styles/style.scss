@@ -1,0 +1,131 @@
+[type="button"] {
+    color: rgb(250, 250, 250);
+    background: hsla(189, 49%, 52%, 0.8);
+    border: none;
+    border-radius: 2px;
+    margin: 5px;
+}
+
+[type="button"]:focus {
+    outline: none;
+}
+
+[type="button"]:hover {
+    background: hsla(189, 54%, 54%, 0.8);
+}
+
+[type="button"]:disabled {
+    background: hsla(0, 0%, 60%, 0.548);
+}
+
+.filterButtons {
+    vertical-align: middle;
+    align-content: center;
+    vertical-align: baseline;
+    justify-content: center;
+}
+
+#minusBtn,
+#plusBtn {
+    width: 50px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+#applyBtn {
+    width: 60px;
+    height: 20px;
+    vertical-align: middle;
+}
+#md_wrapper {
+    position: absolute;
+    left: 20px;
+    right: 32px;
+    top: 85px;
+    bottom: 17px;
+    margin-top: 1vh;
+    margin-left: -17px;
+    margin-right: -32px;
+    padding: 3%;
+    overflow: auto;
+    overflow-x: hidden;
+    background: rgba(248, 248, 248, 0.8);
+    min-width: 326px;
+
+}
+#md_wrapper pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: rgba(250, 250, 250, 1);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#md_wrapper code{
+    display: block;
+    min-width: 0;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: rgba(250, 250, 250, 1);
+}
+
+#md_wrapper blockquote {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    border-left: 5px solid #6e6e6e;
+}
+
+#md_wrapper table{
+    padding: 5px;
+    color: #333;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1%;
+    // Cells
+    > thead,
+    > tbody,
+    > tfoot {
+        > tr {
+            > th,
+            > td {
+                padding: 1%;
+                vertical-align: top;
+                border-top: 1px solid #6e6e6e;
+            }
+        }
+    }
+    // Bottom align for column headings
+    > thead > tr > th {
+    }
+    // Remove top border from thead by default
+    > caption + thead,
+    > colgroup + thead,
+    > thead:first-child {
+        > tr:first-child {
+            > th,
+            > td {
+                border-top: 0;
+            }
+        }
+    }
+    // Account for multiple tbody instances
+    > tbody + tbody {
+        border-top: 2px solid #6e6e6e;
+    }
+}
+
+#md_wrapper img {
+    max-width: 100%;
+}
