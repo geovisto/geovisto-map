@@ -47,7 +47,7 @@ import {
     IMapForm,
     IMapFormControl,
     IMapToolInitProps,
-    LayerToolRenderType
+    LayerToolRenderType, IMapLegend
 } from '../../../../../../index.core';
 
 import IChoroplethLayerTool from '../../types/tool/IChoroplethLayerTool';
@@ -62,6 +62,8 @@ import ChoroplethLayerToolState from './ChoroplethLayerToolState';
 import CustomMinMaxScale from '../scale/CustomMinMaxScale';
 import IScale from '../../types/scale/IScale';
 import RelativeScale from '../scale/RelativeScale';
+import DimensionChangeEvent from "../../../../../../model/internal/event/dimension/DimensionChangeEvent";
+import ChoroplethLayerToolMapLegend from "../legend/ChoroplethLayerToolMapLegend";
 
 /**
  * This class represents Choropleth layer tool. It works with geojson polygons representing countries.
@@ -73,6 +75,7 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
     private selectionToolAPI: ISelectionToolAPI | undefined;
     private themesToolAPI: IThemesToolAPI | undefined;
     private mapForm!: IMapForm;
+    private mapLegend!: IMapLegend;
 
     /**
      * It creates a new tool with respect to the props.
@@ -166,6 +169,23 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
     protected createMapForm(): IMapForm {
         // override if needed
         return new ChoropolethLayerToolMapForm(this);
+    }
+
+    /**
+     * It creates new legend control.
+     */
+    protected createMapLegend(): IMapLegend {
+        return new ChoroplethLayerToolMapLegend(this);
+    }
+
+    /**
+     * It returns a legend.
+     */
+    public getMapLegend(): IMapLegend {
+        if(this.mapLegend == undefined) {
+            this.mapLegend = this.createMapLegend();
+        }
+        return this.mapLegend;
     }
 
     /**
@@ -401,6 +421,9 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
             }
         }
         super.updateDimension(dimension, value, redraw);
+        this.getState().getMap()?.getState().getEventManager().scheduleEvent(
+            new DimensionChangeEvent(this), undefined, undefined
+        );
     }
 
     /**

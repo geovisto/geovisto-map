@@ -22,7 +22,8 @@ import {
     GeovistoChoroplethLayerTool,
     GeovistoMarkerLayerTool,
     GeovistoConnectionLayerTool,
-    GeovistoDrawingLayerTool
+    GeovistoDrawingLayerTool,
+    GeovistoLegendTool,
 } from '../tools';
 import { Geovisto } from '..';
 
@@ -228,6 +229,9 @@ class Demo extends Component<Record<string, never>, { data: unknown, config: Rec
                         tools={Geovisto.createMapToolsManager([
                             GeovistoSidebarTool.createTool({
                                 id: "geovisto-tool-sidebar",
+                            }),
+                            GeovistoLegendTool.createTool({
+                                id: "geovisto-tool-legend",
                             }),
                             GeovistoFiltersTool.createTool({
                                 id: "geovisto-tool-filters",
