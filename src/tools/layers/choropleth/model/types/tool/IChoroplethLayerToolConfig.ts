@@ -31,6 +31,7 @@ type IChoroplethLayerToolDimensionsConfig = ILayerToolDimensionsConfig & {
     minValue?: number,
     maxValue?: number,
     units?: string,
+    unitsDesc?: string,
     round?: number
 }
 export type { IChoroplethLayerToolConfig, IChoroplethLayerToolDimensionsConfig };

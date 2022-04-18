@@ -85,6 +85,9 @@ class ChoroplethLayerToolMapLegend extends MapLayerToolLegend<IChoroplethLayerTo
                     tool.getState().getDimensions().units.getValue() + '</span><br>';
             }
         }
+        if(tool.getState().getDimensions().unitsDesc.getValue() != "") {
+            div.innerHTML += "<span>Units: " + tool.getState().getDimensions().unitsDesc.getValue() + "</span>";
+        }
         this.htmlContent = div;
         return this.htmlContent;
     }

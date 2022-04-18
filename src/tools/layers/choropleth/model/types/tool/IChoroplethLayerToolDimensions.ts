@@ -29,6 +29,7 @@ type IChoroplethLayerToolDimensions = ILayerToolDimensions & {
     minValue: IMapTypeDimension<number>,
     maxValue: IMapTypeDimension<number>,
     units: IMapTypeDimension<string>,
+    unitsDesc: IMapTypeDimension<string>,
     round: IMapTypeDimension<number>
 
 }
