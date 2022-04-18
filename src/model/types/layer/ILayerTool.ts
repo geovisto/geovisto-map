@@ -40,6 +40,13 @@ interface ILayerTool<
     render(type: number, animateOptions?: IDataChangeAnimateOptions): void;
 
     /**
+     * It rounds number to specified precision
+     * @param roundNumber number to be rounded
+     * @param roundTo precision
+     */
+    roundValues(roundNumber: string | number, roundTo: string | number): number
+
+    /**
      * It updates the dimension.
      * 
      * @param dimension 
