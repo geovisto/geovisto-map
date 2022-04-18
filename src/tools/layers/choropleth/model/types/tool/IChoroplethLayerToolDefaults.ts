@@ -79,6 +79,16 @@ interface IChoroplethLayerToolDefaults extends ILayerToolDefaults {
      * It returns the max value dimension.
      */
     getMaxValueDimension(): IMapTypeDimension<number>;
+
+    /**
+     * It returns the units dimension.
+     */
+    getUnitsDimension(): IMapTypeDimension<string>;
+
+    /**
+     * It returns the round dimension.
+     */
+    getRoundDimension(): IMapTypeDimension<number>;
     
     /**
      * It returns the default geo data.

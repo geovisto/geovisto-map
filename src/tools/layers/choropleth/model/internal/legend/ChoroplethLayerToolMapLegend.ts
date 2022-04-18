@@ -60,21 +60,29 @@ class ChoroplethLayerToolMapLegend extends MapLayerToolLegend<IChoroplethLayerTo
             numParts[0] = numParts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
             return numParts.join(".");
         };
-        for (let i = 0; i < scale.length; i++) {
-            scale[i] = separateThousands(scale[i]);
-        }
         // Conver values to string
-        const categories = scale.map(String);
+        const categories = scale;
         const opacities = color_opacities.map(String);
+        // Check if rounding is set
+        if (tool.getState().getDimensions().round.getValue() != undefined) {
+            for (let i = 0; i < categories.length; i++) {
+                categories[i] = tool.roundValues(categories[i], <number>tool.getState().getDimensions().round.getValue());
+            }
+        }
+        for (let i = 0; i < scale.length; i++) {
+            categories[i] = separateThousands(categories[i]);
+        }
         div.id = "geovisto-tool-layer-choropleth-legend";
         // Create categories
         for (let i = 0; i < categories.length; i++) {
             if (categories.length == i + 1) {
                 div.innerHTML += '<i style="opacity: ' + opacities[i] +
-                    '; background: ' + color + '"></i><span>' + categories[i] + ' +</span><br>';
+                    '; background: ' + color + '"></i><span>' + categories[i] + ' - ' + categories[i] + ' ' +
+                    tool.getState().getDimensions().units.getValue() + '</span><br>';
             } else {
                 div.innerHTML += '<i style="opacity: ' + opacities[i] +
-                    '; background: ' + color + '"></i><span>' + categories[i] + ' - ' + categories[i+1] + '</span><br>';
+                    '; background: ' + color + '"></i><span>' + categories[i] + ' - ' + categories[i+1] + ' ' +
+                    tool.getState().getDimensions().units.getValue() + '</span><br>';
             }
         }
         this.htmlContent = div;

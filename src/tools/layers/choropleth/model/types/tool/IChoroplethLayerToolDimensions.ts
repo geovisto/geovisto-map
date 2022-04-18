@@ -28,6 +28,8 @@ type IChoroplethLayerToolDimensions = ILayerToolDimensions & {
     customMinMax: IMapTypeDimension<boolean>,
     minValue: IMapTypeDimension<number>,
     maxValue: IMapTypeDimension<number>,
+    units: IMapTypeDimension<string>,
+    round: IMapTypeDimension<number>
 
 }
 export default IChoroplethLayerToolDimensions;

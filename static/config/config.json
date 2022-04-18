@@ -133,7 +133,9 @@
             "scaling": "median",
             "range": 7,
             "customColor": true,
-            "color": "#e32400"
+            "color": "#e32400",
+            "units": "$",
+            "round": 1
             }
         },
         {
