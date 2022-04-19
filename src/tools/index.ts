@@ -7,3 +7,4 @@ export * from './sidebar';
 export * from './selection';
 export * from './themes';
 export * from './hierarchy';
+export * from './downloader';
