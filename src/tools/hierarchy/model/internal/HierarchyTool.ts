@@ -1,30 +1,48 @@
-import { IMapToolConfig, IMapToolProps } from "../../../..";
 import {
     IMapForm,
     IMapFormControl,
     IMapToolInitProps,
-    MapTool
+    MapTool,
+    IMapToolConfig,
+    IMapToolProps,
 } from "../../../../index.core";
+
 import IHierarchyTool from "../types/IHierarchyTool";
 import IHierarchyToolDefaults from "../types/IHierarchyToolDefaults";
 import HierarchyToolMapForm from "../internal/forms/HieararchyToolMapForm";
-
 import HierarchyToolDefaults from "./HierarchyToolDefaults";
 import IHierarchyToolState from "../types/IHierarchyToolState";
 import HierarchyToolState from "./HierarchyToolState";
+import HierarchyToolManager from "./HierarchyToolManager";
+import GeoDataChangeEvent from "../../../../model/internal/event/generic/GeoDataChangeEvent";
+import HierarchyConfigurationType from "../types/IHierarchyConfigType";
 
+/**
+ * Hierarchy tool provides configuration parsing for hierarchy, sets hierarchy trees for geoDataManager and
+ * later dispatches event in case of zoom/geo data change event.
+ * 
+ * @author Malý Vojtěch
+ */
 class HierarchyTool extends MapTool implements IMapFormControl, IHierarchyTool {
-    private mapForm!: IMapForm;
+    private mapForm!: HierarchyToolMapForm;                             // Map form of hierarchy tool.
+    private manager : HierarchyToolManager = new HierarchyToolManager();// Hieararchy tool manager.
 
-    public getMapForm(): IMapForm {
-        if (this.mapForm == undefined) {
-            this.mapForm = this.createMapForm();
-        }
-        return this.mapForm;
-    }
+    // Used for performance, if there is no change in any defined domain, doesnt fire the zoom changed events.
+    private changeStruct : Map<string, [boolean, number]> = new Map();  // Struct to hold information about last zoom change.
+    private changeLastZoom : string[] = [];                             // IDs of last active zoomed objects.
+
+
     public constructor(props?: IMapToolProps) {
         super(props);
     }
+
+    public getMapForm(): IMapForm {
+        if (this.mapForm == undefined) {
+            this.mapForm = this.createMapForm() as HierarchyToolMapForm;
+        }
+        return this.mapForm;
+    }
+
     public getDefaults(): IHierarchyToolDefaults {
         return <IHierarchyToolDefaults>super.getDefaults();
     }
@@ -38,8 +56,6 @@ class HierarchyTool extends MapTool implements IMapFormControl, IHierarchyTool {
     }
 
     public initialize(initProps: IMapToolInitProps<IMapToolConfig>): this {
-        //initProps.map.getState().getLeafletMap(); // Event listener
-        //initProps.map.getState().getEventManager().scheduleEvent()
         return super.initialize(initProps);
     }
 
@@ -51,18 +67,112 @@ class HierarchyTool extends MapTool implements IMapFormControl, IHierarchyTool {
         return new HierarchyToolState(this);
     }
 
-    public setEnabled(enabled: boolean): void {
-    }
-
     public copy(): IHierarchyTool {
         return new HierarchyTool(this.getProps());
     }
 
+    // Initialization and creation of Hierarchy tool
     public create(): this {
+        // Bind event listener for zoom to dispatche zoom changed event. 
+        this.getMap()?.getState().getLeafletMap()?.addEventListener("zoom" , this.zoomChanged, this);
+
+        // Initialize manager by hierarchy configuration.
+        this.manager.initialize(this.getState().getConfiguration());
+
+        // Gets initial zoom value.
+        const initialZoomLevel : number | undefined = this.getMap()?.getState().getLeafletMap()?.getZoom();
+        
+        // Initialize observation structer and set initial zoom to each tree.
+        this.manager.getDefinedDomains().forEach(dom => {
+            if (this.getMap()?.getState().getGeoDataManager().getDomain(dom)) {
+                if (initialZoomLevel) {
+                    const temp = this.manager.getLevelByLevel(dom, initialZoomLevel)?.getZoomLevel();
+                    if (temp) {
+                        this.changeStruct.set(dom, [false, temp]);
+                    }
+
+                    this.getMap()?.getState().getGeoDataManager().updateTrees(initialZoomLevel);
+                }
+            }
+        });
+
+        if (initialZoomLevel) {    
+            // Sets trees to geoDataManager
+            this.manager.getDomainsWithNodes().forEach((val, key) => {
+                const aggregationFlag = this.manager.getAggregationStatus(key);
+                this.getMap()?.getState().getGeoDataManager().setTree(key, val, aggregationFlag);
+                this.getMap()?.getState().getGeoDataManager().startTree(key, initialZoomLevel);
+            });
+
+            // Enable hierarchy in whole Geovisto.
+            const conf = this.getState().getConfiguration() as HierarchyConfigurationType;
+            if (conf.enabled) {
+                this.getMap()?.getState().getGeoDataManager().enableHierarchy(true);
+            } else {
+                this.getMap()?.getState().getGeoDataManager().enableHierarchy(false);
+
+            }
+        
+        } 
+
         return this;
     }
 
+    /**
+     * Method called whenever zoom changes.
+     */
+    private zoomChanged() : void {
+        // Get new level of zoom.
+        const newZoomLevel : number | undefined = this.getMap()?.getState().getLeafletMap()?.getZoom();
+        if (newZoomLevel) {
+            // Update change structure.
+            this.updateChangeStruct(newZoomLevel);
+            const domains = this.manager.getIdsForEveryDefinedDomainByZoomLevel(newZoomLevel);
+            // FIX-Alfa
+            //this.getMap()?.getState().getGeoDataManager().setHierarchy(domains);
+            this.getMap()?.getState().getGeoDataManager().updateTrees(newZoomLevel);
+        }
 
+        const anythingCHnagedFlag = this.getMap()?.getState().getGeoDataManager().didSomeTreeChanged();
+        // In case of any change in trees, dispatch event for tools.
+        if (anythingCHnagedFlag) {
+            console.log("Active:", this.getMap()?.getState().getGeoDataManager().getActiveByTree("debugger"));
+            this.getMap()?.getState().getEventManager().scheduleEvent(new GeoDataChangeEvent(this), undefined, undefined);
+        }
+    }
+
+    /**
+     * Private method to update data in change structer.
+     * @param zoom New level of zoom.
+     */
+    private updateChangeStruct(zoom : number) : void {
+        // Clear change struct
+        this.changeLastZoom.forEach(wasChanged => {
+            const rem : [boolean, number] | undefined = this.changeStruct.get(wasChanged);
+            if (rem) {
+                rem[0] = false;
+                this.changeStruct.set(wasChanged,rem);
+            }
+        });
+
+        // Clear array of last changed objects
+        this.changeLastZoom = [];
+
+        // Set new change struct
+        this.manager.getDefinedDomains().forEach(domain => {
+            const fromDef : number | undefined = this.manager.getLevelByLevel(domain, zoom)?.getZoomLevel();
+            if (fromDef) {
+                if (this.changeStruct.has(domain)) {
+                    // If something changed, sets flags to true.
+                    if(fromDef != this.changeStruct.get(domain)?.[1]) {
+                        this.changeLastZoom.push(domain);
+                        this.changeStruct.set(domain, [true, fromDef]);
+                    } 
+                }
+            }
+        });
+    }
+    
 }
 
 export default HierarchyTool;
