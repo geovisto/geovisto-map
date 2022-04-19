@@ -47,7 +47,8 @@ import {
     IMapForm,
     IMapFormControl,
     IMapToolInitProps,
-    LayerToolRenderType
+    LayerToolRenderType,
+    IGeoDataManager
 } from '../../../../../../index.core';
 
 import IChoroplethLayerTool from '../../types/tool/IChoroplethLayerTool';
@@ -62,6 +63,7 @@ import ChoroplethLayerToolState from './ChoroplethLayerToolState';
 import CustomMinMaxScale from '../scale/CustomMinMaxScale';
 import IScale from '../../types/scale/IScale';
 import RelativeScale from '../scale/RelativeScale';
+import GeoDataChangeEvent from '../../../../../../model/internal/event/generic/GeoDataChangeEvent';
 
 /**
  * This class represents Choropleth layer tool. It works with geojson polygons representing countries.
@@ -210,7 +212,7 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
         });
         return layer;
     }
-
+    
     /**
      * It returns the onEachFeature property for the GeoJSON layer.
      */
@@ -289,15 +291,32 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
 
     /**
      * It updates the polygons of the layer so they represent current geo data.
-     * 
+     * TODO
      * @returns 
      */
     protected updateGeoData(): L.GeoJSON | undefined {
         const layer = this.getState().getGeoJSONLayer();
-
+        
         if(layer) {
             layer.clearLayers();
+
+            // Hierarchy check for availability of selected domain. 
+            const domManager = this.getState().getDimensions().geoData.getDomainManager() as IGeoDataManager;
+            const domainName = this.getState().getDimensions().geoData.getValue()?.getName() ?? "";
+            const geo = domManager.getFeatures(domainName, [ GeoJSONTypes.MultiPolygon, GeoJSONTypes.Polygon ]);
+            const hierarchyFlag = (domManager.isHierarchyEnabled() && domManager.isHierarchyEnabledForDomain(domainName)) ? true : false;
+
             const geoJSON = this.getState().getDimensions().geoData.getValue()?.getFeatures([ GeoJSONTypes.MultiPolygon, GeoJSONTypes.Polygon ]);
+
+            // If there are active objects, and hierarchy is enabled globaly and for selected domain, create hierarchy layer.
+            if (geo && hierarchyFlag) {
+                layer.addData(geo);
+                return layer;
+            } else if (geoJSON) {
+                layer.addData(geoJSON);
+                return layer;
+            }
+
             if(geoJSON) {
                 layer.addData(geoJSON);
             }
@@ -310,6 +329,9 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
      * It updates the bucket data so it represents the current data.
      */
     protected updateData(): Map<string, IMapAggregationBucket> {
+        let hierarchySucces = false;
+        let bucketHierarchyMap = new Map<string, IMapAggregationBucket>();
+
         // initialize a hash map of aggreation buckets
         const bucketMap = new Map<string, IMapAggregationBucket>();
 
@@ -345,12 +367,60 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
                     aggregationBucket.addValue(foundValues.length == 1 ? (typeof foundValues[0] === "number" ? foundValues[0] : 1) : 0);
                 }   
             }
+
+            const domManager = this.getState().getDimensions().geoData.getDomainManager() as IGeoDataManager;
+            const domainName = this.getState().getDimensions().geoData.getValue()?.getName() ?? "";
+            
+            // If aggregation is enabled in hierarchy mode, aggregate.
+            if(domManager.isHierarchyEnabledForDomain(domainName) && domManager.isHierarchyEnabled()) {
+                const active = domManager.getActiveByTree(domainName);
+
+                // If aggregation is enabled, start aggregating
+                if (domManager.treeAggregationFlag(domainName)) {
+                    // Iterate over active objects, creates aggregation bucket for each.
+                    active.forEach(activeGeo =>{
+                        let aggrBucket: IMapAggregationBucket | undefined;
+                        // Get childs of active object.
+                        const childs = domManager.getChildsFromTree(domainName, activeGeo);
+                        if (!bucketHierarchyMap.has(activeGeo)) {
+                            aggrBucket = aggregationDimension.getAggregationBucket();
+                            bucketHierarchyMap.set(activeGeo, aggrBucket);
+                        }
+                        // Iterates over childs
+                        childs.forEach(child => {
+                            if (bucketMap.has(child)) {
+                                if (aggrBucket){
+                                    const ans = bucketMap.get(child)?.getValue();
+                                    // Check if aggregation type is count or sum.
+                                    if (aggregationDimension.getName() === "count") {
+                                        if (ans) {
+                                            for(let cnt = 0; cnt < ans; cnt++){
+                                                aggrBucket.addValue(1);
+                                            }
+                                        }
+                                    } else {
+                                        aggrBucket.addValue(typeof ans === "number" ? ans : 1);
+                                    }
+                                }
+                            }
+                        });
+                    });
+                // If agregation is disabled, just copy bucket Map form original aggregation.
+                } else {
+                    bucketHierarchyMap = bucketMap;
+                }
+                hierarchySucces = true;
+            }
         }
 
-        // updates bucket data
-        this.getState().setBucketData(bucketMap);
-
-        return bucketMap;
+        // Updates bucket data
+        if (hierarchySucces) {
+            this.getState().setBucketData(bucketHierarchyMap);
+            return bucketHierarchyMap;
+        }else {
+            this.getState().setBucketData(bucketMap);
+            return bucketMap;
+        }
     }
 
     /**
@@ -423,7 +493,14 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
                 this.updateTheme((<IThemesToolEvent> event).getChangedObject());
                 this.render(LayerToolRenderType.STYLE);
                 break;
+            case GeoDataChangeEvent.TYPE():
+                this.updateGeoData();
+                this.updateData();
+                this.updateStyle();
+                break;
+
             default:
+
                 break;
         }
     }
