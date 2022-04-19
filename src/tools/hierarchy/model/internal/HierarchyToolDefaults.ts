@@ -5,25 +5,24 @@ class HierarchyToolDefaults extends MapToolDefaults implements IHierarchyToolDef
     public static TYPE="geovisto-tool-hierarchy";
 
     public getType() : string {
-      return HierarchyToolDefaults.TYPE;  
+		return HierarchyToolDefaults.TYPE;  
     }
 
     public isSingleton(): boolean {
-      return true; 
-   }
+		return true; 
+	}
     
-    public getLabel(): string {
-      return "HierarchyLABEL";
-  }
+	public getLabel(): string {
+		return "Hierarchy Tool";
+	}
 
-  public getIcon(): string {
-    return '<i class="fa fa-database"></i>';
-}
+	public getIcon(): string {
+		return '<i class="fa fa-database"></i>';
+	}
   
-public getConfig(): IMapToolConfig {
-    return super.getConfig();
+	public getConfig(): IMapToolConfig {
+		return super.getConfig();
+	}
 }
 
-
-}
 export default HierarchyToolDefaults;
