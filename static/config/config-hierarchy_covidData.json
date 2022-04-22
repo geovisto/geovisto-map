@@ -125,8 +125,6 @@
       "HierarchyConfig": [{
         "name" : "debugger",
         "aggregation" : true,
-    
-        
             "hierarchy": [
                 {
                     "id": "CZ_7_0",
@@ -315,7 +313,7 @@
                 },
                 {
                     "id": "CZ_7_37",
-                    "parent": "CZ_6_0",
+                    "parent": "CZ_6_4",
                     "zoomLevel": 10
                 },
                 {
@@ -400,7 +398,7 @@
                 },
                 {
                     "id": "CZ_7_54",
-                    "parent": "CZ_6_0",
+                    "parent": "CZ_6_4",
                     "zoomLevel": 10
                 },
                 {
@@ -615,7 +613,7 @@
                 },
                 {
                     "id": "CZ_4_6",
-                    "parent": "CZ_7_71",
+                    "parent": "CZ_2_0",
                     "zoomLevel": 6
                 },
                 {
@@ -626,11 +624,10 @@
                 {
                     "id": "CZ_2_0",
                     "parent": "",
-                    "zoomLevel": 3
+                    "zoomLevel": 4
                 }
             ]
         }
-        
     ]
     },
     {
