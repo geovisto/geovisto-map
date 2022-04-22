@@ -3,7 +3,7 @@ import L, {LatLng, LatLngBounds, Layer } from "leaflet";
 import osmtogeojson from "osmtogeojson";
 import * as turf from "@turf/turf";
 import { GeoDataFactory, GeoJSONTypes, LabeledAutocompleteFormInput, LabeledCheckboxFormInput, LabeledSliderFormInput, TabDOMUtil } from "../../../../../index.core";
-import { AllGeoJSON } from "@turf/turf";
+import { AllGeoJSON, Polygon, Properties } from "@turf/turf";
 
 /**
  * Controler for hierarchy tool map form.
@@ -396,58 +396,68 @@ class DownloaderToolMapControl {
         const ans : hierarchyConfig = {
             hierarchy : []
         };
-        console.log("Generate Hierarchy!!!!");
-        console.log(this.data.geoFIltered);
-        for (let cnt = this.data.geoFIltered.length - 1; cnt >= 0; cnt--) {
-            // Get one layer of Geo
-            console.log("Parsing:", this.data.geoFIltered[cnt]);
 
-            const x = L.geoJSON(this.data.geoFIltered[cnt]);
-            x.eachLayer(la => {
-                const tex = la as LayerExtendedTYPE;
-                const id = tex.feature.id;
-                
-                if (cnt != 0) {
-                    if (tex.feature.id === "CZ_7_37") {
-                        console.log(tex.feature.id);
-                    }
-                    const parentId = this.getParent(tex._bounds.getCenter(), cnt);
-                    if (parentId != "") {
+        for (let cnt = this.data.geoFIltered.length - 1; cnt >= 0; cnt--) {
+            const lowerLayer = L.geoJSON(this.data.geoFIltered[cnt]);
+
+            lowerLayer.eachLayer(child => {
+                const childX = child as LayerExtendedTYPE;
+                const childID = childX.feature.id;
+                const turfChild = childX.feature as turf.Feature;
+                //console.log("Center:", turf.center(childX.feature as turf.Feature));
+
+                if (cnt > 0) {  // We are not on top layer.
+                    const parentID = this.getParent(turfChild, cnt);
+                    if (parentID != "") {   // Found parent
                         ans.hierarchy.push({
-                            id : id,
-                            parent : parentId,
+                            id : childID,
+                            parent : parentID,
+                            zoomLevel : cnt
+                        });
+                    } else {                // Didnt found, make it top level
+                        ans.hierarchy.push({
+                            id : childID,
+                            parent : "",
                             zoomLevel : cnt
                         });
                     }
-                } else {
+                } else {        // Top-layer
                     ans.hierarchy.push({
-                        id : id,
+                        id : childID,
                         parent : "",
                         zoomLevel : cnt
                     });
                 }
             });
-
         }
+
         this.hierarchy = ans;
     }
 
 
-    // Až se vrátíš, oddebuguj si tohle s breakpointe na 412. V momentě kdy ho hitneš, znaemá to že v další iteračce vlezež do get parenta
-    // Kde by to mělo vrátit CZ_4_5 ale z nějakého důvodu nevrací.
-    protected getParent(centerCHild : LatLng, iterator : number) : string {
-        const parentGeo = L.geoJSON(this.data.geoFIltered[iterator-1]);
-        let ans = "";
-        parentGeo.eachLayer(layer => {
-            const typeLayer = layer as LayerExtendedTYPE;
-            if (typeLayer.feature.id === "CZ_4_5") {
-                console.log("Check!");
+    protected getParent(centerCHild : turf.Feature, iterator : number) : string {
+        let answer = "";
+        for (let cnt = (iterator - 1); cnt >= 0; cnt--) {
+            const upperLayer = L.geoJSON(this.data.geoFIltered[cnt]);
+            let barrier = false;
+            upperLayer.eachLayer(upperObject => {
+                const upperObjectX = upperObject as LayerExtendedTYPE;
+                const turfUpper = upperObjectX.feature as turf.Feature<Polygon,Properties>;
+                if (!barrier) {    
+                        const centerPoint = turf.center(centerCHild);
+                        const centerx = turf.centerMean(centerCHild);
+                        const check = turf.pointsWithinPolygon(centerx, turfUpper);
+                        if (check.features.length > 0) {
+                            barrier = true;
+                            answer = upperObjectX.feature.id;
+                        }
+                }
+            });
+            if (barrier) {
+                return answer;
             }
-            if (typeLayer._bounds.contains(centerCHild)) {
-                ans = typeLayer.feature.id;
-            }
-        });
-        return ans;
+        }
+        return answer;
     }
 
     protected makeIDsPretty() : void {
@@ -637,7 +647,7 @@ type hierarchyConfig = {
  */
 type LayerExtendedTYPE = Layer & {
     _bounds : LatLngBounds,
-    feature : {
+    feature : Feature & {
         id : string
     }
 }
