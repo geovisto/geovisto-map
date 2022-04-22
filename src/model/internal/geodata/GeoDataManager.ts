@@ -2,6 +2,7 @@ import { FeatureCollection} from "geojson";
 import GeoJSONTypes from "../../types/geodata/GeoJSONTypes";
 import IGeoData from "../../types/geodata/IGeoData";
 import IGeoDataManager from "../../types/geodata/IGeoDataManager";
+import IHierarchyManagerInterface from "../../types/geodata/IHierarchyManagerInterface";
 import MapDomainArrayManager from "../domain/generic/MapDomainArrayManager";
 import HierarchyTree from "./HierarchyTree";
 
@@ -10,7 +11,7 @@ import HierarchyTree from "./HierarchyTree";
  * 
  * @author Jiri Hynek
  */
-class GeoDataManager extends MapDomainArrayManager<IGeoData> implements IGeoDataManager {
+class GeoDataManager extends MapDomainArrayManager<IGeoData> implements IGeoDataManager, IHierarchyManagerInterface {
     public constructor(geoDataArray: IGeoData[]) {
         super(geoDataArray);
     }
