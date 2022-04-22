@@ -79,18 +79,33 @@ class HierarchyToolManager implements IHierarchyToolManager {
                         }
                     }
                 });
+                
+                // Check if every object has only one parent.
+                const checkSet : Set<string> = new Set();
+                let checkBool = false;
+                for (let cnt = 0; cnt < parentChild.length; cnt++) {
+                    if (checkSet.has(parentChild[cnt][1])) {
+                        console.error("Object: " + parentChild[cnt][1] + " has more than one parent in hierarchy!");
+                        checkBool = true;
+                        break;
+                    } else {
+                        checkSet.add(parentChild[cnt][1]);
+                    }
+                }
 
-                // Push new domain
-                this.hierarchyDomains.push(hierarchyDom);
-
-                // Sort ids to be in ascending order
-                zoomIDs.sort().reverse();
-                hierarchyDom.setParentChild(parentChild);
-                hierarchyDom.setParentChildMap(parentChildMap);
+                if (!checkBool) {
+                    // Push new domain
+                    this.hierarchyDomains.push(hierarchyDom);
+                    // Sort ids to be in ascending order
+                    zoomIDs.sort().reverse();
+                    hierarchyDom.setParentChild(parentChild);
+                    hierarchyDom.setParentChildMap(parentChildMap);
+                }
             });
         }
 
     }
+
 
     public getLevelByLevel(domainName : string, level :number) : HierarchyZoomLevel | undefined {
         let out : undefined | HierarchyZoomLevel = undefined;
