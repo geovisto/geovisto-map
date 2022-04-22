@@ -407,7 +407,6 @@ let bucketHierarchyMap =  new Map<string, Map<string, IMapAggregationBucket | nu
 
         const bucketMaps: Map<string, Map<string, IMapAggregationBucket | null>> = this.getState().getBucketData();
         const layerGroup: L.LayerGroup | undefined = this.getState().getMarkerLayerGroup();
-        const pointFeatures: Feature[] | undefined = this.getState().getDimensions().geoData.getValue()?.getFeatures([ GeoJSONTypes.Point ]).features;
         const selectedIds: string[] | undefined = this.getSelectionTool()?.getSelection()?.getIds();
         const pointFeaturesOriginal : Feature[] | undefined = this.getState().getDimensions().geoData.getValue()?.getFeatures([ GeoJSONTypes.Point ]).features;
 
