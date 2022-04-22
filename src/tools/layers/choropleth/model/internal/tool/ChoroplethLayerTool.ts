@@ -48,7 +48,8 @@ import {
     IMapFormControl,
     IMapToolInitProps,
     LayerToolRenderType,
-    IGeoDataManager
+    IGeoDataManager,
+    GeoDataManager
 } from '../../../../../../index.core';
 
 import IChoroplethLayerTool from '../../types/tool/IChoroplethLayerTool';
@@ -64,6 +65,7 @@ import CustomMinMaxScale from '../scale/CustomMinMaxScale';
 import IScale from '../../types/scale/IScale';
 import RelativeScale from '../scale/RelativeScale';
 import GeoDataChangeEvent from '../../../../../../model/internal/event/generic/GeoDataChangeEvent';
+import IHierarchyManagerInterface from '../../../../../../model/types/geodata/IHierarchyManagerInterface';
 
 /**
  * This class represents Choropleth layer tool. It works with geojson polygons representing countries.
@@ -301,7 +303,7 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
             layer.clearLayers();
 
             // Hierarchy check for availability of selected domain. 
-            const domManager = this.getState().getDimensions().geoData.getDomainManager() as IGeoDataManager;
+            const domManager = this.getState().getDimensions().geoData.getDomainManager() as GeoDataManager;
             const domainName = this.getState().getDimensions().geoData.getValue()?.getName() ?? "";
             const geo = domManager.getFeatures(domainName, [ GeoJSONTypes.MultiPolygon, GeoJSONTypes.Polygon ]);
             const hierarchyFlag = (domManager.isHierarchyEnabled() && domManager.isHierarchyEnabledForDomain(domainName)) ? true : false;
@@ -368,7 +370,7 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
                 }   
             }
 
-            const domManager = this.getState().getDimensions().geoData.getDomainManager() as IGeoDataManager;
+            const domManager = this.getState().getDimensions().geoData.getDomainManager() as GeoDataManager;
             const domainName = this.getState().getDimensions().geoData.getValue()?.getName() ?? "";
             
             // If aggregation is enabled in hierarchy mode, aggregate.

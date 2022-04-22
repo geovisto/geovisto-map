@@ -53,7 +53,8 @@ import {
     IMapFormControl,
     IMapToolInitProps,
     LayerToolRenderType,
-    IGeoDataManager
+    IGeoDataManager,
+    GeoDataManager
 } from '../../../../../../index.core';
 
 import { createClusterMarkersData, createMarkerIconValueOptions, createPopupMessage } from '../marker/MarkerUtil';
@@ -196,7 +197,7 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
          * If hiearachy is enabled, disable clustering of markers by setting ,,disableClusteringAtZoom" on the lowest possible zoom level.
          */
         const decideHierarchy = () : number | undefined => {
-            const geoManager = this.getState().getDimensions().geoData.getDomainManager() as IGeoDataManager;
+            const geoManager = this.getState().getDimensions().geoData.getDomainManager() as GeoDataManager;
             if (geoManager.isHierarchyEnabled()) {                      
                 return this.getMap()?.getState().getLeafletMap()?.getMinZoom();
             } else {
@@ -255,7 +256,7 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
         const categoryDimension: IMapDataDomain | undefined = dimensions.category.getValue();
         const map = this.getMap();
 
-        const geoManager = this.getState().getDimensions().geoData.getDomainManager() as IGeoDataManager;
+        const geoManager = this.getState().getDimensions().geoData.getDomainManager() as GeoDataManager;
         const domainName = this.getState().getDimensions().geoData.getValue()?.getName() ?? "";
         
         // test whether the dimension are set
@@ -384,7 +385,7 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
         const pointFeaturesOriginal : Feature[] | undefined = this.getState().getDimensions().geoData.getValue()?.getFeatures([ GeoJSONTypes.Point ]).features;
 
         // Hierarchy overload
-        const geoManager = this.getState().getDimensions().geoData.getDomainManager() as IGeoDataManager;
+        const geoManager = this.getState().getDimensions().geoData.getDomainManager() as GeoDataManager;
         const domainName = this.getState().getDimensions().geoData.getValue()?.getName() ?? "";
         let pointFeatures = geoManager.getFeatures(domainName, [  GeoJSONTypes.Point  ])?.features;
 

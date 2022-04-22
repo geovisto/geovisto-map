@@ -17,9 +17,9 @@ import {
     CountAggregationFunction,
     DataChangeEvent,
     DataManagerChangeEvent,
+    GeoDataManager,
     GeoJSONTypes ,
     IDataChangeAnimateOptions,
-    IGeoDataManager,
     IMapAggregationBucket,
     IMapAggregationFunction,
     IMapData,
@@ -284,7 +284,7 @@ class ConnectionLayerTool extends AbstractLayerTool implements IConnectionLayerT
             }
 
             // Getting geoDataManager and active domain name.        
-            const geoManager = this.getState().getDimensions().geoData.getDomainManager() as IGeoDataManager;
+            const geoManager = this.getState().getDimensions().geoData.getDomainManager() as GeoDataManager;
             const domainName = this.getState().getDimensions().geoData.getValue()?.getName() ?? "";
             const hierarchyBucket = {
                 nodes: new Set<string>(),
