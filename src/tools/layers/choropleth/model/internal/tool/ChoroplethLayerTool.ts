@@ -49,7 +49,8 @@ import {
     IMapToolInitProps,
     LayerToolRenderType,
     IGeoDataManager,
-    GeoDataManager
+    GeoDataManager,
+IMapLegend
 } from '../../../../../../index.core';
 
 import IChoroplethLayerTool from '../../types/tool/IChoroplethLayerTool';
@@ -66,6 +67,8 @@ import IScale from '../../types/scale/IScale';
 import RelativeScale from '../scale/RelativeScale';
 import GeoDataChangeEvent from '../../../../../../model/internal/event/generic/GeoDataChangeEvent';
 import IHierarchyManagerInterface from '../../../../../../model/types/geodata/IHierarchyManagerInterface';
+import DimensionChangeEvent from "../../../../../../model/internal/event/dimension/DimensionChangeEvent";
+import ChoroplethLayerToolMapLegend from "../legend/ChoroplethLayerToolMapLegend";
 
 /**
  * This class represents Choropleth layer tool. It works with geojson polygons representing countries.
@@ -77,6 +80,7 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
     private selectionToolAPI: ISelectionToolAPI | undefined;
     private themesToolAPI: IThemesToolAPI | undefined;
     private mapForm!: IMapForm;
+    private mapLegend!: IMapLegend;
 
     /**
      * It creates a new tool with respect to the props.
@@ -173,6 +177,23 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
     }
 
     /**
+     * It creates new legend control.
+     */
+    protected createMapLegend(): IMapLegend {
+        return new ChoroplethLayerToolMapLegend(this);
+    }
+
+    /**
+     * It returns a legend.
+     */
+    public getMapLegend(): IMapLegend {
+        if(this.mapLegend == undefined) {
+            this.mapLegend = this.createMapLegend();
+        }
+        return this.mapLegend;
+    }
+
+    /**
      * Overrides the super method.
      * 
      * @param initProps
@@ -214,7 +235,7 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
         });
         return layer;
     }
-    
+
     /**
      * It returns the onEachFeature property for the GeoJSON layer.
      */
@@ -293,12 +314,12 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
 
     /**
      * It updates the polygons of the layer so they represent current geo data.
-     * TODO
+     * 
      * @returns 
      */
     protected updateGeoData(): L.GeoJSON | undefined {
         const layer = this.getState().getGeoJSONLayer();
-        
+
         if(layer) {
             layer.clearLayers();
 
@@ -502,7 +523,6 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
                 break;
 
             default:
-
                 break;
         }
     }

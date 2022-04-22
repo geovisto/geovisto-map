@@ -51,6 +51,8 @@ import {
     IMapEvent,
     IMapForm,
     IMapFormControl,
+    IMapLegend,
+    IMapLegendControl,
     IMapToolInitProps,
     LayerToolRenderType,
     IGeoDataManager,
@@ -71,6 +73,8 @@ import MarkerLayerToolDefaults from './MarkerLayerToolDefaults';
 import MarkerLayerToolMapForm from '../form/MarkerLayerToolMapForm';
 import MarkerLayerToolState from './MarkerLayerToolState';
 import IMarkerIcon from '../../types/marker/IMarkerIcon';
+import DimensionChangeEvent from "../../../../../../model/internal/event/dimension/DimensionChangeEvent";
+import MarkerLayerToolMapLegend from "../legend/MarkerLayerToolMapLegend";
 import GeoDataChangeEvent from '../../../../../../model/internal/event/generic/GeoDataChangeEvent';
 
 /**
@@ -78,11 +82,12 @@ import GeoDataChangeEvent from '../../../../../../model/internal/event/generic/G
  * 
  * @author Jiri Hynek
  */
-class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMapFormControl {
+class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMapFormControl, IMapLegendControl {
 
     private selectionToolAPI: ISelectionToolAPI | undefined;
     private themesToolAPI: IThemesToolAPI | undefined;
     private mapForm!: IMapForm;
+    private mapLegend!: IMapLegend;
 
     /**
      * It creates a new tool with respect to the props.
@@ -172,10 +177,27 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
     }
 
     /**
+     * It returns a legend with respect to the configuration.
+     */
+    public getMapLegend(): IMapLegend {
+        if(this.mapLegend == undefined) {
+            this.mapLegend = this.createMapLegend();
+        }
+        return this.mapLegend;
+    }
+
+    /**
      * It creates new tab control.
      */
     protected createMapForm(): IMapForm {
         return new MarkerLayerToolMapForm(this);
+    }
+
+    /**
+     * It creates new legend control.
+     */
+    protected createMapLegend(): IMapLegend {
+        return new MarkerLayerToolMapLegend(this);
     }
 
     /**
@@ -188,10 +210,11 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
     }
 
     /**
-     * It creates layer items based on hierarchy enabled status decide if clustering will be allowed.
+     * It creates layer items.
      */
     protected createLayerItems(): L.Layer[] {
         // create layer which clusters points
+        //let layer = L.layerGroup([]);
 
         /**
          * If hiearachy is enabled, disable clustering of markers by setting ,,disableClusteringAtZoom" on the lowest possible zoom level.
@@ -228,6 +251,7 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
      * It deletes layer items.
      */
     protected deleteLayerItems(): void {
+        //console.log("marker");
         const markers = this.getState().getMarkers();
 
         // delete the 'value' property of every geo feature object if defined
@@ -244,7 +268,8 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
     /**
      * It prepares data for markers.
      */
-    protected updateData(): Map<string, Map<string, IMapAggregationBucket | null>> {let bucketHierarchyMap =  new Map<string, Map<string, IMapAggregationBucket | null>>();
+    protected updateData(): Map<string, Map<string, IMapAggregationBucket | null>> {
+let bucketHierarchyMap =  new Map<string, Map<string, IMapAggregationBucket | null>>();
         // initialize a hash map of aggreation buckets
         const bucketMaps = new Map<string, Map<string, IMapAggregationBucket | null>>();
 
@@ -298,6 +323,7 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
                 }
             }
         }
+
 
 
 
@@ -381,6 +407,7 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
 
         const bucketMaps: Map<string, Map<string, IMapAggregationBucket | null>> = this.getState().getBucketData();
         const layerGroup: L.LayerGroup | undefined = this.getState().getMarkerLayerGroup();
+        const pointFeatures: Feature[] | undefined = this.getState().getDimensions().geoData.getValue()?.getFeatures([ GeoJSONTypes.Point ]).features;
         const selectedIds: string[] | undefined = this.getSelectionTool()?.getSelection()?.getIds();
         const pointFeaturesOriginal : Feature[] | undefined = this.getState().getDimensions().geoData.getValue()?.getFeatures([ GeoJSONTypes.Point ]).features;
 
@@ -389,6 +416,7 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
         const domainName = this.getState().getDimensions().geoData.getValue()?.getName() ?? "";
         let pointFeatures = geoManager.getFeatures(domainName, [  GeoJSONTypes.Point  ])?.features;
 
+        // optimization
         if (!(geoManager.isHierarchyEnabled() && geoManager.isHierarchyEnabledForDomain(domainName))) {
             pointFeatures = pointFeaturesOriginal;
         }
@@ -404,7 +432,7 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
                 pointFeature = pointFeatures[i];
                 if(pointFeature.id) {
                     bucketMap = bucketMaps.get(pointFeature.id.toString());
-                    if(bucketMap && (!selectedIds || selectedIds.includes(pointFeature.id.toString()))) {       // Selection tool problems
+                    if(bucketMap && (!selectedIds || selectedIds.includes(pointFeature.id.toString()))) {
                         // sort entries according to the keys
                         bucketMap = new Map([...bucketMap.entries()].sort());
                         // create marker
@@ -518,6 +546,9 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
             }
         }
         super.updateDimension(dimension, value, redraw);
+        this.getState().getMap()?.getState().getEventManager().scheduleEvent(
+            new DimensionChangeEvent(this), undefined, undefined
+        );
     }
 
     /**
@@ -591,7 +622,6 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
                 break;
         }
     }
-
 
     /**
      * Help function which updates theme with respect to the Themes Tool API.

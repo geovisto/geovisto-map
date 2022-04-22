@@ -49,6 +49,11 @@ export type { default as IMapForm } from './model/types/form/IMapForm';
 export type { default as IMapFormControl } from './model/types/form/IMapFormControl';
 export { instanceOfMapForm } from './model/types/form/IMapFormControl';
 
+// legend
+export type { default as IMapLegend } from './model/types/legend/IMapLegend';
+export type { default as IMapLegendControl } from './model/types/legend/IMapLegendControl';
+export { instanceOfMapLegend } from './model/types/legend/IMapLegendControl';
+
 // geodata
 export type { default as IGeoData } from './model/types/geodata/IGeoData';
 export type { default as IGeoDataFactory } from './model/types/geodata/IGeoDataFactory';
@@ -150,12 +155,18 @@ export { default as MapDomainArrayManager } from './model/internal/domain/generi
 export { default as MapEventFactory } from './model/internal/event/MapEventFactory';
 export { default as DataChangeEvent } from './model/internal/event/data/DataChangeEvent';
 export { default as DataManagerChangeEvent } from './model/internal/event/data/DataManagerChangeEvent';
+export { default as DimensionChangeEvent } from './model/internal/event/dimension/DimensionChangeEvent';
 export { default as MapEvent } from './model/internal/event/generic/MapEvent';
 export { default as MapChangeEvent } from './model/internal/event/generic/MapChangeEvent';
+export { default as VisibilityChangeEvent } from './model/internal/event/visibility/VisibilityChangeEvent';
 
 // form
 export { default as MapLayerToolForm } from './model/internal/form/MapLayerToolForm';
 export { default as MapObjectForm } from './model/internal/form/MapObjectForm';
+
+// legend
+export { default as MapLayerToolLegend } from './model/internal/legend/MapLayerToolLegend';
+export { default as MapObjectLegend } from './model/internal/legend/MapObjectLegend';
 
 // geodata
 export { default as GeoDataFactory } from './model/internal/geodata/GeoDataFactory';
