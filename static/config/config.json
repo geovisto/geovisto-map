@@ -27,6 +27,11 @@
                 ]
             },
             {
+                "tool": "geovisto-tool-data-provider",
+                "enabled": true,
+                "icon": "<i class=\"fa fa-database\"></i>"
+            },
+            {
                 "tool": "geovisto-tool-filters",
                 "enabled": true,
                 "name": "Filters",
@@ -167,6 +172,12 @@
             "id": "geovisto-tool-layer-drawing",
             "enabled": false,
             "layerName": "GeoJSON creator"
+        },
+        {
+            "type": "geovisto-tool-data-provider",
+            "id": "geovisto-tool-data-provider",
+            "enabled": true,
+            "dataSourceEndpoint": "http://localhost:8000/datasets/"
         }
     ]
 }

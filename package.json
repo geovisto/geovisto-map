@@ -73,6 +73,7 @@
     "@turf/line-to-polygon": "^6.3.0",
     "@turf/turf": "^6.3.0",
     "@turf/union": "^6.3.0",
+    "axios": "^0.26.1",
     "babel-preset-react-app": "^10.0.0",
     "d3": "^6.2.0",
     "d3-3-5-5": "^0.0.3",

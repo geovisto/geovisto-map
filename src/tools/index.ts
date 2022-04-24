@@ -7,3 +7,4 @@ export * from './layers/drawing';
 export * from './sidebar';
 export * from './selection';
 export * from './themes';
+export * from './data-provider';
