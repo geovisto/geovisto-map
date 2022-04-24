@@ -114,14 +114,15 @@ class DownloaderToolMapControl {
             const countryPos = this.levelMap.get(this.countrySelect.getValue());
             const countryPosMap : Map<number,string> = new Map();
             if (countryPos) {
-                countryPosMap.set(2, countryPos.FIELD2);
-                countryPosMap.set(3, countryPos.FIELD3);
-                countryPosMap.set(4, countryPos.FIELD4);
-                countryPosMap.set(5, countryPos.FIELD5);
-                countryPosMap.set(6, countryPos.FIELD6);
-                countryPosMap.set(7, countryPos.FIELD7);
-                countryPosMap.set(8, countryPos.FIELD8);
-                countryPosMap.set(9, countryPos.FIELD9);
+                countryPosMap.set(2, countryPos.Country);
+                countryPosMap.set(3, countryPos.FIELD2);
+                countryPosMap.set(4, countryPos.FIELD3);
+                countryPosMap.set(5, countryPos.FIELD4);
+                countryPosMap.set(6, countryPos.FIELD5);
+                countryPosMap.set(7, countryPos.FIELD6);
+                countryPosMap.set(8, countryPos.FIELD7);
+                countryPosMap.set(9, countryPos.FIELD8);
+                countryPosMap.set(10, countryPos.FIELD9);
             }
             countryPosMap.forEach((val, ind) => {
                 if (val === "N/A" || val === "") {
@@ -130,7 +131,7 @@ class DownloaderToolMapControl {
             });
 
             // Create checkboxes and append them to civ container.
-            for (let cnt = 2 ; cnt < 10; cnt++) {
+            for (let cnt = 2 ; cnt <= 10; cnt++) {
                 const temp = new LabeledCheckboxFormInput({
                     label: countryPosMap.get(cnt) ?? cnt.toString(),
                     name: cnt.toString(),                           
@@ -147,7 +148,7 @@ class DownloaderToolMapControl {
             }
 
         } else {
-            for (let cnt = 2 ; cnt < 10; cnt++) {
+            for (let cnt = 2 ; cnt <= 10; cnt++) {
                 const label : string = cnt.toString();
                 const temp = new LabeledCheckboxFormInput({
                     label: label,
