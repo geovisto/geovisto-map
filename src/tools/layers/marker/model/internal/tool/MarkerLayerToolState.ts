@@ -50,7 +50,11 @@ class MarkerLayerToolState extends LayerToolState implements IMarkerLayerToolSta
                 geoId: props.dimensions.geoId == undefined ? defaults.getGeoIdDimension(initProps.map) : props.dimensions.geoId,
                 value: props.dimensions.value == undefined ? defaults.getValueDimension(initProps.map) : props.dimensions.value,
                 aggregation: props.dimensions.aggregation == undefined ? defaults.getAggregationDimension() : props.dimensions.aggregation,
-                category: props.dimensions.category == undefined ? defaults.getCategoryDimension(initProps.map) : props.dimensions.category
+                category: props.dimensions.category == undefined ? defaults.getCategoryDimension(initProps.map) : props.dimensions.category,
+                units: props.dimensions.units == undefined ? defaults.getUnitsDimension() : props.dimensions.units,
+                unitsDesc: props.dimensions.unitsDesc == undefined ? defaults.getUnitsDimension() : props.dimensions.unitsDesc,
+                unitsEnabled: props.dimensions.unitsEnabled == undefined ? defaults.getUnitsEnabledDimension() : props.dimensions.unitsEnabled,
+                round: props.dimensions.round == undefined ? defaults.getRoundDimension() : props.dimensions.round,
             });
         } else {
             this.setDimensions(defaults.getDimensions(initProps.map));
@@ -101,6 +105,10 @@ class MarkerLayerToolState extends LayerToolState implements IMarkerLayerToolSta
         if(dimensionsConfig.value) dimensions.value.setValue(dimensions.value.getDomainManager().getDomain(dimensionsConfig.value));
         if(dimensionsConfig.aggregation) dimensions.aggregation.setValue(dimensions.aggregation.getDomainManager().getDomain(dimensionsConfig.aggregation));
         if(dimensionsConfig.category) dimensions.category.setValue(dimensions.category.getDomainManager().getDomain(dimensionsConfig.category));
+        if(dimensionsConfig.units !== undefined) dimensions.units.setValue(dimensionsConfig.units);
+        if(dimensionsConfig.unitsDesc !== undefined) dimensions.unitsDesc.setValue(dimensionsConfig.unitsDesc);
+        if(dimensionsConfig.unitsEnabled !== undefined) dimensions.unitsEnabled.setValue(dimensionsConfig.unitsEnabled);
+        if(dimensionsConfig.round !== undefined) dimensions.round.setValue(dimensionsConfig.round);
     }
 
     /**
@@ -119,6 +127,10 @@ class MarkerLayerToolState extends LayerToolState implements IMarkerLayerToolSta
             value: dimensions.value.getValue()?.getName(),
             aggregation: dimensions.aggregation.getValue()?.getName(),
             category: dimensions.category.getValue()?.getName(),
+            units: dimensions.units.getValue(),
+            unitsDesc: dimensions.unitsDesc.getValue(),
+            unitsEnabled: dimensions.unitsEnabled.getValue(),
+            round: dimensions.round.getValue()
         };
 
         return config;

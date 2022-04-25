@@ -15,7 +15,12 @@ import {
     MapDomainDimension,
     MapDomainArrayManager,
     MapDynamicDomainDimension,
-    SumAggregationFunction
+    SumAggregationFunction,
+    IMapTypeDimension,
+    MapTypeDimension,
+    StringTypeManager,
+    IntegerTypeManager,
+    BooleanTypeManager
 } from "../../../../../../index.core";
 
 import IMarker from "../../types/marker/IMarker";
@@ -76,7 +81,11 @@ class MarkerLayerToolDefaults extends LayerToolDefaults implements IMarkerLayerT
             geoId: this.getGeoIdDimension(map),
             value: this.getValueDimension(map),
             aggregation: this.getAggregationDimension(),
-            category: this.getCategoryDimension(map)
+            category: this.getCategoryDimension(map),
+            units: this.getUnitsDimension(),
+            unitsDesc: this.getUnitsDescDimension(),
+            unitsEnabled: this.getUnitsEnabledDimension(),
+            round: this.getRoundDimension()
         };
     }
 
@@ -139,6 +148,50 @@ class MarkerLayerToolDefaults extends LayerToolDefaults implements IMarkerLayerT
             "category",
             () => map?.getState().getMapData() ?? this.getDataManager(),
             ""
+        );
+    }
+
+    /**
+     * It returns the max value dimension.
+     */
+    public getUnitsDimension(): IMapTypeDimension<string> {
+        return new MapTypeDimension<string>(
+            "units",
+            new StringTypeManager(),
+            ""
+        );
+    }
+
+    /**
+     * It returns the units description value dimension.
+     */
+    public getUnitsDescDimension(): IMapTypeDimension<string> {
+        return new MapTypeDimension<string>(
+            "unitsDesc",
+            new StringTypeManager(),
+            ""
+        );
+    }
+
+    /**
+     * It returns the units state value dimension.
+     */
+    public getUnitsEnabledDimension(): IMapTypeDimension<boolean> {
+        return new MapTypeDimension<boolean>(
+            "unitsEnabled",
+            new BooleanTypeManager(),
+            false
+        );
+    }
+
+    /**
+     * It returns the max value dimension.
+     */
+    public getRoundDimension(): IMapTypeDimension<number> {
+        return new MapTypeDimension<number>(
+            "round",
+            new IntegerTypeManager(),
+            undefined
         );
     }
     

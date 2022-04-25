@@ -376,7 +376,7 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
         });
 
         // create popop
-        marker.bindPopup(createPopupMessage(pointFeature.properties?.name ?? "", bucketMap));
+        marker.bindPopup(createPopupMessage(pointFeature.properties?.name ?? "", bucketMap, this));
 
         return marker;
     }
@@ -399,7 +399,8 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
                 marker.getIcon().updateData(markerIconValueOptions, animateOptions);
                 marker.getPopup()?.setContent(createPopupMessage(
                     marker.getOptions().name,
-                    bucketData
+                    bucketData,
+                    this
                 ));
                 
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -474,6 +475,12 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
                 // update style
                 // TODO
                 //this.updateStyle();
+                if(animateOptions) {
+                    this.updateMarkers(animateOptions);
+                } else {
+                    this.deleteLayerItems();
+                    this.createMarkers();
+                }
                 break;
         }
     }

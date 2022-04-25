@@ -6,6 +6,7 @@ import {
 import IMarkerIcon from "../../types/marker/IMarkerIcon";
 import { IMarkerIconOptions, IMarkerIconValueOptions } from "../../types/marker/IMarkerIconOptions";
 import Marker from "./Marker";
+import IMarkerLayerTool from "../../types/tool/IMarkerLayerTool";
 
 /**
  * Help function which creates cluster marker icon options
@@ -55,10 +56,14 @@ function formatPopUpNumber(num: number) {
  * @param name 
  * @param bucketMap 
  */
-export function createPopupMessage(name: string, bucketMap: Map<string, IMapAggregationBucket | null>): string {
+export function createPopupMessage(name: string, bucketMap: Map<string, IMapAggregationBucket | null>, tool: IMarkerLayerTool): string {
     // build categories popup messages
     let popupMsg = "";
     let subValue, value = 0;
+    let units = " " + tool.getState().getDimensions().units.getValue();
+    if (tool.getState().getDimensions().unitsEnabled.getValue() == false) {
+        units = "";
+    }
 
     for(const [category, bucket] of bucketMap) {
         subValue = bucket ? bucket.getValue() : 0;
@@ -69,7 +74,7 @@ export function createPopupMessage(name: string, bucketMap: Map<string, IMapAggr
     }
 
     // prepend title popup message
-    popupMsg = "<b>" + name + "</b><br>" + (value != null ? formatPopUpNumber(value) : "N/A") + "<br><br>"
+    popupMsg = "<b>" + name + "</b><br>" + (value != null ? formatPopUpNumber(value) + units : "N/A") + "<br><br>"
                 + popupMsg;
     return popupMsg;
 }

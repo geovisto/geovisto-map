@@ -5,7 +5,7 @@ import {
     IMapDataDomain,
     IMapDomainDimension,
     IMapForm,
-    IMapFormInput,
+    IMapFormInput, IMapTypeDimension,
     MapLayerToolForm
 } from "../../../../../../index.core";
 
@@ -26,7 +26,10 @@ class MarkerLayerToolMapForm extends MapLayerToolForm<IMarkerLayerTool> implemen
         geoId: IMapFormInput,
         value: IMapFormInput,
         aggregation: IMapFormInput,
-        category: IMapFormInput
+        category: IMapFormInput,
+        units: IMapFormInput,
+        unitsDesc: IMapFormInput,
+        unitsEnabled: IMapFormInput
     };
 
     /**
@@ -50,6 +53,12 @@ class MarkerLayerToolMapForm extends MapLayerToolForm<IMarkerLayerTool> implemen
         this.inputs?.value.setValue((dimensions.value.getValue()?.getName())?? "");
         this.inputs?.aggregation.setValue((dimensions.aggregation.getValue()?.getName())?? "");
         this.inputs?.category.setValue((dimensions.category.getValue()?.getName())?? "");
+        this.inputs?.units.setValue((dimensions.units.getValue()) ?? "");
+        this.inputs?.unitsDesc.setValue((dimensions.unitsDesc.getValue()) ?? "");
+
+        this.inputs?.unitsEnabled.setDisabled(dimensions.unitsEnabled.getValue() ?? false);
+        this.inputs?.units.setDisabled(!dimensions.unitsEnabled.getValue());
+        this.inputs?.unitsDesc.setDisabled(!dimensions.unitsEnabled.getValue());
     }
 
     /**
@@ -70,7 +79,10 @@ class MarkerLayerToolMapForm extends MapLayerToolForm<IMarkerLayerTool> implemen
                 geoId: this.getInputGeoId(dimensions.geoId),
                 value: this.getInputValue(dimensions.value),
                 aggregation: this.getInputAggregation(dimensions.aggregation),
-                category: this.getInputCategory(dimensions.category)
+                category: this.getInputCategory(dimensions.category),
+                unitsEnabled: this.getInputUnitsEnabled(dimensions.unitsEnabled),
+                units: this.getInputUnits(dimensions.units),
+                unitsDesc: this.getInputUnitsDesc(dimensions.unitsDesc),
             };
             
             // append to DOM
@@ -79,6 +91,9 @@ class MarkerLayerToolMapForm extends MapLayerToolForm<IMarkerLayerTool> implemen
             elem.appendChild(this.inputs.value.create());            
             elem.appendChild(this.inputs.aggregation.create());
             elem.appendChild(this.inputs.category.create());
+            elem.appendChild(this.inputs.unitsEnabled.create());
+            elem.appendChild(this.inputs.units.create());
+            elem.appendChild(this.inputs.unitsDesc.create());
     
             // set input values
             this.setInputValues(dimensions);
@@ -130,6 +145,36 @@ class MarkerLayerToolMapForm extends MapLayerToolForm<IMarkerLayerTool> implemen
      */
     public getInputCategory(dimension: IMapDomainDimension<IMapDataDomain>): IMapFormInput {
         return this.getAutocompleteInput(dimension);
+    }
+
+    /**
+     * It returns new input for the enabling inputs dimension.
+     *
+     * @param dimension
+     */
+    public getInputUnitsEnabled(dimension: IMapTypeDimension<boolean>): IMapFormInput {
+        return this.getCheckboxInput(dimension, (ev: Event) => {
+            this.inputs?.units.setDisabled(!(<HTMLInputElement> ev.target).checked);
+            this.inputs?.unitsDesc.setDisabled(!(<HTMLInputElement> ev.target).checked);
+        });
+    }
+
+    /**
+     * It returns new input for the units dimension.
+     *
+     * @param dimension
+     */
+    public getInputUnits(dimension: IMapTypeDimension<string>): IMapFormInput {
+        return this.getTextInput(dimension);
+    }
+
+    /**
+     * It returns new input for the units description dimension.
+     *
+     * @param dimension
+     */
+    public getInputUnitsDesc(dimension: IMapTypeDimension<string>): IMapFormInput {
+        return this.getTextInput(dimension);
     }
 
 }

@@ -127,15 +127,16 @@
             "enabled": true,
             "layerName": "Choropleth layer",
             "data": {
-            "country": "",
-            "value": "",
-            "aggregation": "",
-            "scaling": "median",
-            "range": 7,
-            "customColor": true,
-            "color": "#e32400",
-            "units": "$",
-            "round": 1
+                "country": "",
+                "value": "",
+                "aggregation": "",
+                "scaling": "median",
+                "range": 7,
+                "customColor": true,
+                "color": "#e32400",
+                "units": "$",
+                "unitsDesc": "US Dollars",
+                "round": 1
             }
         },
         {
@@ -144,10 +145,12 @@
             "enabled": true,
             "layerName": "Marker layer",
             "data": {
-            "country": "",
-            "value": "",
-            "aggregation": "",
-            "category": ""
+                "country": "",
+                "value": "",
+                "aggregation": "",
+                "category": "",
+                "units": "$",
+                "unitsDesc": "US Dollars"
             }
         },
         {

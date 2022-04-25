@@ -59,6 +59,10 @@ class MarkerLayerToolMapLegend extends MapLayerToolLegend<IMarkerLayerTool> impl
             }
             div.innerHTML += '<i style="background: ' + colors[i] + '"></i><span>' + categories[i] + '</span><br>';
         }
+        // Add units
+        if(tool.getState().getDimensions().unitsDesc.getValue() != "" && tool.getState().getDimensions().unitsEnabled.getValue() == true) {
+            div.innerHTML += "<span>Units: " + tool.getState().getDimensions().unitsDesc.getValue() + "</span>";
+        }
         this.htmlContent = div;
         return this.htmlContent;
     }

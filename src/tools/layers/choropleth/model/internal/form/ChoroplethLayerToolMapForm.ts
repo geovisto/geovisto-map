@@ -182,7 +182,7 @@ class ChoropolethLayerToolMapForm extends MapLayerToolForm<IChoroplethLayerTool>
     }
 
     /**
-     * It returns new input for the custom color dimension.
+     * It returns new input for the enabling inputs dimension.
      *
      * @param dimension
      */
@@ -194,7 +194,7 @@ class ChoropolethLayerToolMapForm extends MapLayerToolForm<IChoroplethLayerTool>
     }
 
     /**
-     * It returns new input for the color dimension.
+     * It returns new input for the units dimension.
      *
      * @param dimension
      */
@@ -203,7 +203,7 @@ class ChoropolethLayerToolMapForm extends MapLayerToolForm<IChoroplethLayerTool>
     }
 
     /**
-     * It returns new input for the color dimension.
+     * It returns new input for the units description dimension.
      *
      * @param dimension
      */

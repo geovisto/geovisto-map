@@ -10,7 +10,7 @@ import {
     IMap,
     IMapAggregationFunction,
     IMapDataDomain,
-    IMapDomainDimension
+    IMapDomainDimension, IMapTypeDimension
 } from "../../../../../../index.core";
 
 import IMarker from "../marker/IMarker";
@@ -55,6 +55,26 @@ interface IMarkerLayerToolDefaults extends ILayerToolDefaults {
      * It returns the default category dimension.
      */
     getCategoryDimension(map?: IMap): IMapDomainDimension<IMapDataDomain>;
+
+    /**
+     * It returns the units dimension.
+     */
+    getUnitsDimension(): IMapTypeDimension<string>;
+
+    /**
+     * It returns the units description value dimension.
+     */
+    getUnitsDescDimension(): IMapTypeDimension<string>;
+
+    /**
+     * It returns the units state value dimension.
+     */
+    getUnitsEnabledDimension(): IMapTypeDimension<boolean>;
+
+    /**
+     * It returns the round dimension.
+     */
+    getRoundDimension(): IMapTypeDimension<number>;
     
     /**
      * It returns the default geo data.
