@@ -86,7 +86,8 @@ class ChoroplethLayerToolDefaults extends LayerToolDefaults implements IChorople
             maxValue: this.getMaxValueDimension(),
             units: this.getUnitsDimension(),
             unitsDesc: this.getUnitsDescDimension(),
-            round: this.getRoundDimension()
+            unitsEnabled: this.getUnitsEnabledDimension(),
+            round: this.getRoundDimension(),
         };
     }
 
@@ -246,6 +247,17 @@ class ChoroplethLayerToolDefaults extends LayerToolDefaults implements IChorople
             "unitsDesc",
             new StringTypeManager(),
             ""
+        );
+    }
+
+    /**
+     * It returns the units state value dimension.
+     */
+    public getUnitsEnabledDimension(): IMapTypeDimension<boolean> {
+        return new MapTypeDimension<boolean>(
+            "unitsEnabled",
+            new BooleanTypeManager(),
+            false
         );
     }
 

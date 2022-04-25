@@ -73,19 +73,24 @@ class ChoroplethLayerToolMapLegend extends MapLayerToolLegend<IChoroplethLayerTo
             categories[i] = separateThousands(categories[i]);
         }
         div.id = "geovisto-tool-layer-choropleth-legend";
+        let units = tool.getState().getDimensions().units.getValue();
+        if (tool.getState().getDimensions().unitsEnabled.getValue() == false) {
+            units = "";
+        }
         // Create categories
         for (let i = 0; i < categories.length; i++) {
             if (categories.length == i + 1) {
                 div.innerHTML += '<i style="opacity: ' + opacities[i] +
                     '; background: ' + color + '"></i><span>' + categories[i] + ' - ' + categories[i] + ' ' +
-                    tool.getState().getDimensions().units.getValue() + '</span><br>';
+                    units + '</span><br>';
             } else {
                 div.innerHTML += '<i style="opacity: ' + opacities[i] +
                     '; background: ' + color + '"></i><span>' + categories[i] + ' - ' + categories[i+1] + ' ' +
-                    tool.getState().getDimensions().units.getValue() + '</span><br>';
+                    units + '</span><br>';
             }
         }
-        if(tool.getState().getDimensions().unitsDesc.getValue() != "") {
+        // Check if longer units are available and allowed
+        if(tool.getState().getDimensions().unitsDesc.getValue() != "" && tool.getState().getDimensions().unitsEnabled.getValue() == true) {
             div.innerHTML += "<span>Units: " + tool.getState().getDimensions().unitsDesc.getValue() + "</span>";
         }
         this.htmlContent = div;

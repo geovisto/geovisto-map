@@ -91,6 +91,11 @@ interface IChoroplethLayerToolDefaults extends ILayerToolDefaults {
      getUnitsDescDimension(): IMapTypeDimension<string>;
 
     /**
+     * It returns the units state value dimension.
+     */
+    getUnitsEnabledDimension(): IMapTypeDimension<boolean>;
+
+    /**
      * It returns the round dimension.
      */
     getRoundDimension(): IMapTypeDimension<number>;

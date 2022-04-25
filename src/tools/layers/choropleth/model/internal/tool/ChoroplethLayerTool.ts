@@ -261,18 +261,23 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
             this.hoverItem(layerItem, true);
             this.getState().getBucketData().get(layerItem.feature?.id?.toString() ?? "");
             let popupText: string;
+            let units = this.getState().getDimensions().units.getValue();
+            // Check if units are not disabled
+            if (this.getState().getDimensions().unitsEnabled.getValue() == false) {
+                units = "";
+            }
             if (this.getState().getDimensions().round.getValue() != undefined) {
                 popupText = "<b>" + e.target.feature.name + "</b><br>"
                     + this.getState().getDimensions().aggregation.getValue()?.getName() + ": "
                     + separateThousands(id ? (this.roundValues(this.getState().getBucketData().get(id)?.getValue() ?? 0,
                         <number>this.getState().getDimensions().round.getValue())) : 0)
-                    + (this.getState().getDimensions().units.getValue() == "" ? "" : (" " + this.getState().getDimensions().units.getValue()));
+                    + (units == "" ? "" : (" " + units));
             }
             else {
                 popupText = "<b>" + e.target.feature.name + "</b><br>"
                     + this.getState().getDimensions().aggregation.getValue()?.getName() + ": "
                     + separateThousands(id ? (this.getState().getBucketData().get(id)?.getValue() ?? 0) : 0)
-                    + (this.getState().getDimensions().units.getValue() == "" ? "" : (" " + this.getState().getDimensions().units.getValue()));
+                    + (units == "" ? "" : (" " + units));
             }
             e.target.bindTooltip(popupText,{className: 'leaflet-popup-content', sticky: true}).openTooltip();
         
