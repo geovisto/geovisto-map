@@ -69,8 +69,9 @@ class ChoroplethLayerToolMapLegend extends MapLayerToolLegend<IChoroplethLayerTo
                 categories[i] = tool.roundValues(categories[i], <number>tool.getState().getDimensions().round.getValue());
             }
         }
+        const values = [];
         for (let i = 0; i < scale.length; i++) {
-            categories[i] = +separateThousands(categories[i]);
+            values.push(separateThousands(categories[i]));
         }
         div.id = "geovisto-tool-layer-choropleth-legend";
         let units = tool.getState().getDimensions().units.getValue();
@@ -78,14 +79,14 @@ class ChoroplethLayerToolMapLegend extends MapLayerToolLegend<IChoroplethLayerTo
             units = "";
         }
         // Create categories
-        for (let i = 0; i < categories.length; i++) {
-            if (categories.length == i + 1) {
+        for (let i = 0; i < values.length; i++) {
+            if (values.length == i + 1) {
                 div.innerHTML += '<i style="opacity: ' + opacities[i] +
-                    '; background: ' + color + '"></i><span>' + categories[i] + ' - ' + categories[i] + ' ' +
+                    '; background: ' + color + '"></i><span>' + values[i] + ' - ' + values[i] + ' ' +
                     units + '</span><br>';
             } else {
                 div.innerHTML += '<i style="opacity: ' + opacities[i] +
-                    '; background: ' + color + '"></i><span>' + categories[i] + ' - ' + categories[i+1] + ' ' +
+                    '; background: ' + color + '"></i><span>' + values[i] + ' - ' + values[i+1] + ' ' +
                     units + '</span><br>';
             }
         }
