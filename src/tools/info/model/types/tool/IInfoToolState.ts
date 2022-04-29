@@ -21,8 +21,8 @@ interface IInfoToolState<
     TConfig extends IInfoToolConfig = IInfoToolConfig
 > extends IMapToolState<TProps, TDefaults, TConfig> {
     getContent(): void;
-    getInfoDataManager(): IInfoDataManager;
-    getMarkdown(): IInfoData;
+    getInfoDataManager(): IInfoDataManager | undefined;
+    getMarkdown(): IInfoData | undefined;
     setMarkdown(md: IInfoData): void;
     setInfoDataManager(manager: IInfoDataManager): void;
 }

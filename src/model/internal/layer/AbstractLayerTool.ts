@@ -169,7 +169,7 @@ abstract class AbstractLayerTool extends MapTool implements ILayerTool {
      * @param roundNumber number to be rounded
      * @param roundTo precision
      */
-    protected roundValues(roundNumber: string | number, roundTo: string | number): number {
+    public roundValues(roundNumber: string | number, roundTo: string | number): number {
         // Convert to number if needed
         if (typeof roundNumber == "string") {
             roundNumber = +roundNumber;

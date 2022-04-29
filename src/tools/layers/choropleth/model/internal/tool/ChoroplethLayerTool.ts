@@ -496,7 +496,7 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
     /**
      * Help function which returns a scale which can be used to distinguish value levels in choropleth.
      */
-    protected getScale(): number[] | undefined {
+    public getScale(): number[] | undefined {
         // get values
         const values: number[] = [];
         let id: string | number | undefined;
@@ -640,7 +640,7 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
      * @param val 
      * @param scale 
      */
-    protected computeColorIntensity(val: number, scale: number[]): number {
+    public computeColorIntensity(val: number, scale: number[]): number {
         for(let i = scale.length - 1; i >= 0; i--) {
             if(val > scale[i]) {
                 // round to 2 decimals

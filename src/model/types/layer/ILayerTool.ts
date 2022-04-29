@@ -47,5 +47,12 @@ interface ILayerTool<
      * @param renderType 
      */
     updateDimension(dimension: IMapDimension<unknown>, value: string, renderType: number | undefined): void;
+
+    /**
+     * It rounds number to specified precision
+     * @param roundNumber number to be rounded
+     * @param roundTo precision
+     */
+    roundValues(roundNumber: string | number, roundTo: string | number): number
 }
 export default ILayerTool;

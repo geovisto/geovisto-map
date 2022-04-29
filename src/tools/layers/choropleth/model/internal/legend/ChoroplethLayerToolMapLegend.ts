@@ -33,8 +33,8 @@ class ChoroplethLayerToolMapLegend extends MapLayerToolLegend<IChoroplethLayerTo
         const div = document.createElement('div');
         div.className = "legend";
         // Get scale
-        const scale = tool?.getState().mapObject.getScale();
-        if (scale[0] == undefined) {
+        const scale = tool.getScale();
+        if (!(scale) || scale[0] == undefined) {
             // If legend is already created
             if (this.htmlContent != undefined) {
                 div.id = "geovisto-tool-layer-choropleth-legend";
@@ -50,10 +50,10 @@ class ChoroplethLayerToolMapLegend extends MapLayerToolLegend<IChoroplethLayerTo
         const color = tool?.getState().getDimensions().color.getValue();
         // Compute color intensity
         for (let i = 0; i < scale.length; i++) {
-            color_opacities.push(tool?.getState().mapObject.computeColorIntensity(scale[i], scale));
+            color_opacities.push(tool?.computeColorIntensity(scale[i], scale));
         }
         // Shift the array
-        color_opacities.push(color_opacities.shift());
+        color_opacities.push(<number>color_opacities.shift());
         // Separate thousands for numerical ranges
         const separateThousands = (num: number): string => {
             const numParts = num.toString().split(".");
@@ -70,7 +70,7 @@ class ChoroplethLayerToolMapLegend extends MapLayerToolLegend<IChoroplethLayerTo
             }
         }
         for (let i = 0; i < scale.length; i++) {
-            categories[i] = separateThousands(categories[i]);
+            categories[i] = +separateThousands(categories[i]);
         }
         div.id = "geovisto-tool-layer-choropleth-legend";
         let units = tool.getState().getDimensions().units.getValue();

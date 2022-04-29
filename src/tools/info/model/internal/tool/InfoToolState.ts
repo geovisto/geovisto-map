@@ -21,8 +21,8 @@ import IInfoData from "../../types/infodata/IInfoData";
 class InfoToolState extends MapToolState implements IInfoToolState {
     
     private data: string | null;
-    private manager: IInfoDataManager;
-    private md_data: IInfoData;
+    private manager?: IInfoDataManager;
+    private md_data?: IInfoData;
 
     /**
      * It creates a tool state.
@@ -31,6 +31,7 @@ class InfoToolState extends MapToolState implements IInfoToolState {
      */
     public constructor(tool: IInfoTool) {
         super(tool);
+        this.data = null;
     }
 
     /**
@@ -41,10 +42,10 @@ class InfoToolState extends MapToolState implements IInfoToolState {
      * @param initProps
      */
     public initialize(defaults: IInfoToolDefaults, props: IInfoToolProps, initProps: IMapToolInitProps<IInfoToolConfig>): void {
-        // set theme manager - needs to be set before the theme
+        // set info manager
         this.setInfoDataManager(props.manager == undefined ? defaults.getInfoDataManager() : props.manager);
 
-        // set theme
+        // set info
         this.setMarkdown(props.md_data == undefined ? defaults.getMarkdown() : props.md_data);
 
         // initialize super props
@@ -58,7 +59,7 @@ class InfoToolState extends MapToolState implements IInfoToolState {
     /**
      * It returns the markdown property of the tool state.
      */
-    public getMarkdown(): IInfoData {
+    public getMarkdown(): IInfoData | undefined {
         return this.md_data;
     }
 
@@ -83,7 +84,7 @@ class InfoToolState extends MapToolState implements IInfoToolState {
     /**
      * It returns markdown manager.
      */
-    public getInfoDataManager(): IInfoDataManager {
+    public getInfoDataManager(): IInfoDataManager | undefined {
         return this.manager;
     }
 

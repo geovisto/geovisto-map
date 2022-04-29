@@ -42,6 +42,7 @@ class MarkDownData extends MapDomain implements IInfoData {
      * @returns string
      */
     protected validateData(originalData: unknown): unknown {
+        // @ts-ignore
         return originalData.default;
     }
 }
