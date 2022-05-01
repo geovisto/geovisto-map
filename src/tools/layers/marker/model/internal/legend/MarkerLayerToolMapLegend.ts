@@ -34,7 +34,7 @@ class MarkerLayerToolMapLegend extends MapLayerToolLegend<IMarkerLayerTool> impl
         let value_name: string | undefined;
         const categories = tool.getState().getCurrentDataCategories();
         // Define colors
-        const colors = ["#0006a7", "#c1c100", "#c10000"];
+        const colors = ["#c1c100", "#c10000", "#0006a7"];
         // Get category and value name
         try {category_name = tool?.getState().getDimensions().category.getValue()?.getName();}
         catch { category_name = tool?.getState().getDimensions().category.getName();}
