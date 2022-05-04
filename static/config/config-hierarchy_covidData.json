@@ -98,8 +98,7 @@
     {
       "type": "geovisto-tool-themes",
       "id": "geovisto-tool-themes",
-      "enabled": true,
-      "theme": "dark1"
+      "enabled": true
     },
     {
         "type": "geovisto-tool-downloader",
@@ -123,7 +122,7 @@
       "enabled": true,
       "layerName": "Hierarchy layer",
       "HierarchyConfig": [{
-        "name" : "debugger",
+        "name" : "Hierarchy covid",
         "aggregation" : true,
             "hierarchy": [
                 {
@@ -144,7 +143,7 @@
                 {
                     "id": "CZ_7_3",
                     "parent": "CZ_6_5",
-                    "zoomLevel": 10
+                    "zoomLevel": 15
                 },
                 {
                     "id": "CZ_7_4",
