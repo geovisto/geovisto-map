@@ -221,7 +221,7 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
          */
         const decideHierarchy = () : number | undefined => {
             const geoManager = this.getState().getDimensions().geoData.getDomainManager() as GeoDataManager;
-            if (geoManager.isHierarchyEnabled()) {                      
+            if (geoManager.isHierarchyEnabled()) {       
                 return this.getMap()?.getState().getLeafletMap()?.getMinZoom();
             } else {
                 return this.getMap()?.getState().getLeafletMap()?.getMaxZoom();
@@ -269,7 +269,7 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
      * It prepares data for markers.
      */
     protected updateData(): Map<string, Map<string, IMapAggregationBucket | null>> {
-let bucketHierarchyMap =  new Map<string, Map<string, IMapAggregationBucket | null>>();
+        let bucketHierarchyMap =  new Map<string, Map<string, IMapAggregationBucket | null>>();
         // initialize a hash map of aggreation buckets
         const bucketMaps = new Map<string, Map<string, IMapAggregationBucket | null>>();
 
@@ -283,7 +283,6 @@ let bucketHierarchyMap =  new Map<string, Map<string, IMapAggregationBucket | nu
 
         const geoManager = this.getState().getDimensions().geoData.getDomainManager() as GeoDataManager;
         const domainName = this.getState().getDimensions().geoData.getValue()?.getName() ?? "";
-        
         // test whether the dimension are set
         if(geoDimension && aggregationDimension && map) {
             const mapData: IMapDataManager = map.getState().getMapData();
@@ -323,9 +322,6 @@ let bucketHierarchyMap =  new Map<string, Map<string, IMapAggregationBucket | nu
                 }
             }
         }
-
-
-
 
         // Check if Hierarchy is enabled in general and if its defined for that particular domain.
         if (geoManager.isHierarchyEnabled() && geoManager.isHierarchyEnabledForDomain(domainName)) {
@@ -389,7 +385,7 @@ let bucketHierarchyMap =  new Map<string, Map<string, IMapAggregationBucket | nu
             } else {
                 bucketHierarchyMap = bucketMaps;
             }
-        
+
             this.getState().setBucketData(bucketHierarchyMap);
             return bucketHierarchyMap;
         } else {

@@ -48,7 +48,6 @@ import {
     IMapFormControl,
     IMapToolInitProps,
     LayerToolRenderType,
-    IGeoDataManager,
     GeoDataManager,
 IMapLegend
 } from '../../../../../../index.core';
@@ -66,8 +65,6 @@ import CustomMinMaxScale from '../scale/CustomMinMaxScale';
 import IScale from '../../types/scale/IScale';
 import RelativeScale from '../scale/RelativeScale';
 import GeoDataChangeEvent from '../../../../../../model/internal/event/generic/GeoDataChangeEvent';
-import IHierarchyManagerInterface from '../../../../../../model/types/geodata/IHierarchyManagerInterface';
-import DimensionChangeEvent from "../../../../../../model/internal/event/dimension/DimensionChangeEvent";
 import ChoroplethLayerToolMapLegend from "../legend/ChoroplethLayerToolMapLegend";
 
 /**
