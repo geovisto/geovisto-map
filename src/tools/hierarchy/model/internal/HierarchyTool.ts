@@ -57,7 +57,18 @@ class HierarchyTool extends MapTool implements IMapFormControl, IHierarchyTool {
     }
 
     public initialize(initProps: IMapToolInitProps<IMapToolConfig>): this {
-        return super.initialize(initProps);
+        
+        super.initialize(initProps);
+        
+        const geoDataManager = this.getMap()?.getState().getGeoDataManager() as GeoDataManager;
+        const conf = this.getState().getConfiguration();
+        if (conf.enabled) {
+            geoDataManager.enableHierarchy(true);
+        } else {
+            geoDataManager.enableHierarchy(false);
+        }
+
+        return this;
     }
 
     public getState(): IHierarchyToolState {
@@ -76,7 +87,6 @@ class HierarchyTool extends MapTool implements IMapFormControl, IHierarchyTool {
     public create(): this {
         // Bind event listener for zoom to dispatche zoom changed event. 
         this.getMap()?.getState().getLeafletMap()?.addEventListener("zoom" , this.zoomChanged, this);
-
         // Initialize manager by hierarchy configuration.
         this.manager.initialize(this.getState().getConfiguration());
 
@@ -134,7 +144,15 @@ class HierarchyTool extends MapTool implements IMapFormControl, IHierarchyTool {
             geoDataManager.updateTrees(newZoomLevel);
         }
 
-        const anythingCHnagedFlag = geoDataManager.didSomeTreeChanged();
+        let anythingCHnagedFlag = false;
+
+        this.changeStruct.forEach(val => {
+            if(val[0]) {
+                anythingCHnagedFlag = true;
+                return;
+            }
+        });
+        
         // In case of any change in trees, dispatch event for tools.
         if (anythingCHnagedFlag) {
             //console.log("Active:", geoDataManager.getActiveByTree("debugger"));

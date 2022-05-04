@@ -2,7 +2,9 @@ import IHierarchyToolDomain from "../types/IHierarchyToolDomain";
 import HierarchyZoomLevel from "./HierarchyZoomLevel";
 
 /**
- * Holds everything about domain and it's hierarchy
+ * Holds everything about domais hierarchy
+ * 
+ * @author Vojtěch Malý
  */
 class HierarchyDomain implements IHierarchyToolDomain{
     // Name of domain
@@ -14,13 +16,13 @@ class HierarchyDomain implements IHierarchyToolDomain{
     private parentChild : [string,string][] = [];
     // Zoom levels
     private zoomLevels : number[] = [];
-    /** Map of object <-> lowest child id */ 
+    // Map of object <-> lowest child id 
     public lowestChildMap : Map<string, string[]> = new Map();
     // Flag defining if lowestChildMap is cached. Performance enhancment.
     private cached = false;
-    /**Agregation flag, if enabled data are agregated in parents from lowest childs and not from their datasets. */
+    //Agregation flag, if enabled data are agregated in parents from lowest childs and not from their datasets. 
     public aggregationEnabled = false;
-    /** Array of [childID, parentID or True if parent, ZoomLevel of change] */
+    // Array of [childID, parentID or True if parent, ZoomLevel of change]
     public nodes : [string, string | boolean, number][] = [];
 
     public constructor(name : string) {
@@ -35,10 +37,6 @@ class HierarchyDomain implements IHierarchyToolDomain{
      * Based on zoom level returns object of hierarchyZoomLevel
      */
     public getLevelByZoom(zoom : number) : HierarchyZoomLevel | undefined {
-        /** 
-         * Iterate all zoom levels and return best suitable. 
-         * Best is the first higher level than zoom number.
-        */
         let lowestLevel : number;
         let max : number;
         let alreadyAssigned = true;
@@ -139,22 +137,42 @@ class HierarchyDomain implements IHierarchyToolDomain{
         return ans;
     }
 
+    /**
+     * Set parentChild array
+     * @param parentChild 
+     */
     public setParentChild(parentChild : [string, string][]) : void {
         this.parentChild = parentChild;
     }
 
+    /**
+     * Set parentChild Map
+     * @param map 
+     */
     public setParentChildMap(map : Map<string, string[]>) : void {
         this.parentChildMap = map;
     }
 
+    /**
+     * Get parent child array
+     * @returns 
+     */
     public getParentChild() : [string, string][] {
         return this.parentChild;
     }
 
+    /**
+     * Sets level of all defined zoom levels
+     * @param zoomLevels 
+     */
     public setZoomLevels(zoomLevels : number[]) : void {
         this.zoomLevels = zoomLevels;
     }
 
+    /**
+     * Returns name of a domain.
+     * @returns 
+     */
     public getName() : string {
         return this.name;
     }
