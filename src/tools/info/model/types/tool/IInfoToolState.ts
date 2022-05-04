@@ -25,5 +25,6 @@ interface IInfoToolState<
     getMarkdown(): IInfoData | undefined;
     setMarkdown(md: IInfoData): void;
     setInfoDataManager(manager: IInfoDataManager): void;
+    getDefaultFile(): string | undefined;
 }
 export default IInfoToolState;

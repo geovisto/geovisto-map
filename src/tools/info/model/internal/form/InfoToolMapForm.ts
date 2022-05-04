@@ -60,6 +60,10 @@ class InfoToolMapForm extends MapObjectForm<IInfoTool> implements IMapForm {
         }
         const changeInfoData = function(e: Event) {
             const newMarkdown: IInfoData | undefined = dataManager.getDomain((e.target as HTMLInputElement)?.value);
+            if (newMarkdown) {
+                // set new markdown data to tool state
+                tool.getState().setMarkdown(newMarkdown);
+            }
             const md_div = document.getElementById("md_wrapper");
             const markdown = tool.getState().getMarkdown();
             if(md_div != null && markdown != undefined) {
@@ -77,7 +81,16 @@ class InfoToolMapForm extends MapObjectForm<IInfoTool> implements IMapForm {
         const themeInput = new LabeledAutocompleteFormInput({ label: "Info file:", options: dataManager.getDomainNames(), onChangeAction: changeInfoData });
         this.htmlContent = document.createElement('div');
         this.htmlContent.appendChild(themeInput.create());
-        const markdown = tool.getState().getMarkdown();
+        const available_files = dataManager.getDomainNames();
+        let markdown: IInfoData | undefined;
+        const default_file = tool.getState().getDefaultFile();
+        if (available_files.length != 0 && default_file != "") {
+            if (default_file != undefined) {
+                markdown = dataManager.getDomain(default_file);
+            }
+        } else {
+            markdown = tool.getState().getMarkdown();
+        }
         if (markdown != undefined) {
             themeInput.setValue(markdown.getName());
             const data = markdown.getInfoMD();
@@ -86,7 +99,6 @@ class InfoToolMapForm extends MapObjectForm<IInfoTool> implements IMapForm {
             md_div.innerHTML = md.render(data);
             this.htmlContent.appendChild(md_div);
         }
-
         return this.htmlContent;
     }
 

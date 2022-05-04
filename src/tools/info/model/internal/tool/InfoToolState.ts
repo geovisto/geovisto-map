@@ -23,6 +23,7 @@ class InfoToolState extends MapToolState implements IInfoToolState {
     private data: string | null;
     private manager?: IInfoDataManager;
     private md_data?: IInfoData;
+    private defaultFile?: string;
 
     /**
      * It creates a tool state.
@@ -32,6 +33,7 @@ class InfoToolState extends MapToolState implements IInfoToolState {
     public constructor(tool: IInfoTool) {
         super(tool);
         this.data = null;
+        this.defaultFile = undefined;
     }
 
     /**
@@ -52,6 +54,27 @@ class InfoToolState extends MapToolState implements IInfoToolState {
         super.initialize(defaults, props, initProps);
     }
 
+    /**
+     * The method takes config and deserializes the values.
+     *
+     * @param config
+     */
+    public deserialize(config: IInfoToolConfig): void {
+        super.deserialize(config);
+        this.defaultFile = config.defaultFile;
+    }
+
+    /**
+     * The method serializes the tool state. Optionally, defaults can be set if property is undefined.
+     *
+     * @param defaults
+     */
+    public serialize(defaults: IInfoToolDefaults | undefined): IInfoToolConfig {
+        const config: IInfoToolConfig = <IInfoToolConfig> super.serialize(defaults);
+        config.defaultFile = this.getDeafultFile() ?? "";
+        return config;
+    }
+
     public getContent(): string | null {
         return this.data;
     }
@@ -61,6 +84,13 @@ class InfoToolState extends MapToolState implements IInfoToolState {
      */
     public getMarkdown(): IInfoData | undefined {
         return this.md_data;
+    }
+
+    /**
+     * It returns the default file property of the tool state.
+     */
+    public getDefaultFile(): string | undefined {
+        return this.defaultFile;
     }
 
     /**
