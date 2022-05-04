@@ -43,6 +43,8 @@ export type { default as IMapChangeEvent } from './model/types/event/IMapChangeE
 export type { default as IDataChangeAnimateOptions } from './model/types/event/data/IDataChangeAnimateOptions';
 export type { default as IMapDataChangeEvent } from './model/types/event/data/IMapDataChangeEvent';
 export type { default as IMapDataManagerChangeEvent } from './model/types/event/data/IMapDataManagerChangeEvent';
+export type { default as IGeoDataChangeEvent } from './model/types/event/IGeoDataChangeEvent';
+
 
 // form
 export type { default as IMapForm } from './model/types/form/IMapForm';
@@ -159,6 +161,7 @@ export { default as DimensionChangeEvent } from './model/internal/event/dimensio
 export { default as MapEvent } from './model/internal/event/generic/MapEvent';
 export { default as MapChangeEvent } from './model/internal/event/generic/MapChangeEvent';
 export { default as VisibilityChangeEvent } from './model/internal/event/visibility/VisibilityChangeEvent';
+export { default as GeoDataChangeEvent } from './model/internal/event/generic/GeoDataChangeEvent';
 
 // form
 export { default as MapLayerToolForm } from './model/internal/form/MapLayerToolForm';

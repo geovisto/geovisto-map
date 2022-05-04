@@ -7,6 +7,8 @@ import {
     IMapToolProps,
     GeoDataManager,
     IMapEvent,
+    VisibilityChangeEvent,
+    GeoDataChangeEvent
 } from "../../../../index.core";
 
 import IHierarchyTool from "../types/IHierarchyTool";
@@ -16,7 +18,6 @@ import HierarchyToolDefaults from "./HierarchyToolDefaults";
 import IHierarchyToolState from "../types/IHierarchyToolState";
 import HierarchyToolState from "./HierarchyToolState";
 import HierarchyToolManager from "./HierarchyToolManager";
-import GeoDataChangeEvent from "../../../../model/internal/event/generic/GeoDataChangeEvent";
 import HierarchyConfigurationType from "../types/IHierarchyConfigType";
 
 /**
@@ -194,7 +195,7 @@ class HierarchyTool extends MapTool implements IMapFormControl, IHierarchyTool {
     }
 
     public handleEvent(event: IMapEvent): void {
-        if (event.getType() === "visibility-change-event") {
+        if (event.getType() === VisibilityChangeEvent.TYPE()) {
             this.getMap()?.getState().getEventManager().scheduleEvent(new GeoDataChangeEvent(this), undefined, undefined);
         }
     } 

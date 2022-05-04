@@ -31,7 +31,8 @@ import {
     IMapForm,
     IMapFormControl,
     IMapToolInitProps,
-    LayerToolRenderType
+    LayerToolRenderType,
+    GeoDataChangeEvent
 } from '../../../../../../index.core';
 
 import ConnectionLayerToolMapForm from '../form/ConnectionLayerToolMapForm';
@@ -51,7 +52,6 @@ import IConnectionLayerToolState from '../../types/tool/IConnectionLayerToolStat
 import ProjectionUtil from '../util/ProjectionUtil';
 import SelectionChangeAdapter from '../adapters/SelectionChangeAdapter';
 import ThemeChangeAdapter from '../adapters/ThemeChangeAdapter';
-import GeoDataChangeEvent from '../../../../../../model/internal/event/generic/GeoDataChangeEvent';
 
 /**
  * This class represents Connection layer tool. It uses SVG layer and D3 to draw the lines.

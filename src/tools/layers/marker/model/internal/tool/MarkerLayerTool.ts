@@ -55,7 +55,8 @@ import {
     IMapLegendControl,
     IMapToolInitProps,
     LayerToolRenderType,
-    IGeoDataManager,
+    DimensionChangeEvent,
+    GeoDataChangeEvent,
     GeoDataManager
 } from '../../../../../../index.core';
 
@@ -73,9 +74,7 @@ import MarkerLayerToolDefaults from './MarkerLayerToolDefaults';
 import MarkerLayerToolMapForm from '../form/MarkerLayerToolMapForm';
 import MarkerLayerToolState from './MarkerLayerToolState';
 import IMarkerIcon from '../../types/marker/IMarkerIcon';
-import DimensionChangeEvent from "../../../../../../model/internal/event/dimension/DimensionChangeEvent";
 import MarkerLayerToolMapLegend from "../legend/MarkerLayerToolMapLegend";
-import GeoDataChangeEvent from '../../../../../../model/internal/event/generic/GeoDataChangeEvent';
 
 /**
  * This class represents Marker layer tool. It works with geojson polygons representing countries.

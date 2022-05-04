@@ -49,7 +49,8 @@ import {
     IMapToolInitProps,
     LayerToolRenderType,
     GeoDataManager,
-IMapLegend
+    GeoDataChangeEvent,
+    IMapLegend
 } from '../../../../../../index.core';
 
 import IChoroplethLayerTool from '../../types/tool/IChoroplethLayerTool';
@@ -64,7 +65,6 @@ import ChoroplethLayerToolState from './ChoroplethLayerToolState';
 import CustomMinMaxScale from '../scale/CustomMinMaxScale';
 import IScale from '../../types/scale/IScale';
 import RelativeScale from '../scale/RelativeScale';
-import GeoDataChangeEvent from '../../../../../../model/internal/event/generic/GeoDataChangeEvent';
 import ChoroplethLayerToolMapLegend from "../legend/ChoroplethLayerToolMapLegend";
 
 /**
@@ -214,6 +214,16 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
                 // create geojson layer
                 const geoJSONlayer: L.GeoJSON = this.createGeoJSONLayer();
                 this.getState().setGeoJSONLayer(geoJSONlayer);
+
+                // Check if hierarchy items are enabled, else it makes all polygons availibale at start.
+                const domManager = this.getState().getDimensions().geoData.getDomainManager() as GeoDataManager;
+                const domainName = this.getState().getDimensions().geoData.getValue()?.getName() ?? "";
+                const geo = domManager.getFeatures(domainName, [ GeoJSONTypes.MultiPolygon, GeoJSONTypes.Polygon ]);
+                const hierarchyFlag = (domManager.isHierarchyEnabled() && domManager.isHierarchyEnabledForDomain(domainName)) ? true : false;
+                
+                if (geo && hierarchyFlag) {
+                    this.updateGeoData();
+                }
             
                 return [ geoJSONlayer ];
             }
