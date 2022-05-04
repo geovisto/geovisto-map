@@ -85,9 +85,7 @@ class InfoToolMapForm extends MapObjectForm<IInfoTool> implements IMapForm {
         let markdown: IInfoData | undefined;
         const default_file = tool.getState().getDefaultFile();
         if (available_files.length != 0 && default_file != "") {
-            if (default_file != undefined) {
-                markdown = dataManager.getDomain(default_file);
-            }
+            markdown = dataManager.getDomain(default_file);
         } else {
             markdown = tool.getState().getMarkdown();
         }

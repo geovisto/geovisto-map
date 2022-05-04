@@ -23,7 +23,7 @@ class InfoToolState extends MapToolState implements IInfoToolState {
     private data: string | null;
     private manager?: IInfoDataManager;
     private md_data?: IInfoData;
-    private defaultFile?: string;
+    private defaultFile: string;
 
     /**
      * It creates a tool state.
@@ -33,7 +33,7 @@ class InfoToolState extends MapToolState implements IInfoToolState {
     public constructor(tool: IInfoTool) {
         super(tool);
         this.data = null;
-        this.defaultFile = undefined;
+        this.defaultFile = "";
     }
 
     /**
@@ -71,7 +71,7 @@ class InfoToolState extends MapToolState implements IInfoToolState {
      */
     public serialize(defaults: IInfoToolDefaults | undefined): IInfoToolConfig {
         const config: IInfoToolConfig = <IInfoToolConfig> super.serialize(defaults);
-        config.defaultFile = this.getDeafultFile() ?? "";
+        config.defaultFile = this.getDefaultFile() ?? "";
         return config;
     }
 
@@ -89,7 +89,7 @@ class InfoToolState extends MapToolState implements IInfoToolState {
     /**
      * It returns the default file property of the tool state.
      */
-    public getDefaultFile(): string | undefined {
+    public getDefaultFile(): string {
         return this.defaultFile;
     }
 
