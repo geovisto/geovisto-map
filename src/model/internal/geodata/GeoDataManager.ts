@@ -18,44 +18,53 @@ class GeoDataManager extends MapDomainArrayManager<IGeoData> implements IGeoData
 
 
     /*--- Hierarchy interface ---*/
-    private hierarchy = false;                                  
-    private TreeMap : Map<string, HierarchyTree> = new Map();
+    private hierarchyEnabledStatus = false;                                  
+    private treesMap : Map<string, HierarchyTree> = new Map();
 
     public enableHierarchy(enabled : boolean) : void{
-        this.hierarchy = enabled;
+        this.hierarchyEnabledStatus = enabled;
     }
 
     public isHierarchyEnabled() : boolean {
-        return this.hierarchy;
+        return this.hierarchyEnabledStatus;
     }
 
     public isHierarchyEnabledForDomain(domainName: string): boolean {
-        return this.TreeMap.has(domainName);
+        return this.treesMap.has(domainName);
     }
 
     public getFeatures(name : string, types : string[]) : FeatureCollection | undefined {
         const geoData = this.getDomain(name);
-        const list = geoData?.getFeatures(types);
+        const originalGeoData = geoData?.getFeatures(types);
+        
         let active : string[] = [];
         const answer: FeatureCollection = {
             type: GeoJSONTypes.FeatureCollection,
             features: []
         };
-        if (this.TreeMap.has(name)) {
-            active = this.TreeMap.get(name)?.getActive() ?? [];
+        
+        // Get active objects
+        if (this.treesMap.has(name)) {
+            active = this.treesMap.get(name)?.getActive() ?? [];
         }
-        list?.features.forEach(feat => {
+
+        // Filter original geo-objects.
+        originalGeoData?.features.forEach(feat => {
             if (feat.id) {
                 if(active.includes(feat.id.toString())) {
                     answer.features.push(feat);
                 }
             }
         });
-        if (!this.hierarchy) {
-            list?.features.forEach(feat => {
+        
+        // If hierarchy is disabled, return original geo data
+        if (!this.hierarchyEnabledStatus) {
+            answer.features = [];
+            originalGeoData?.features.forEach(feat => {
                 answer.features.push(feat);
             });
         }
+
         return answer;
     }
 
@@ -63,52 +72,41 @@ class GeoDataManager extends MapDomainArrayManager<IGeoData> implements IGeoData
         const newTree = new HierarchyTree(domainName);
         newTree.initByArray(nodes);
         newTree.setAggregationFlag(aggregationEnabled);
-        this.TreeMap.set(domainName, newTree);
-        
+
+        this.treesMap.set(domainName, newTree);
     }
 
     public startTree(domainName : string, zoom : number) : void {
-        if (this.TreeMap.has(domainName)) {
-            this.TreeMap.get(domainName)?.startActiveWatch(zoom);
+        if (this.treesMap.has(domainName)) {
+            this.treesMap.get(domainName)?.startActiveWatch(zoom);
         }
     }
 
     public updateTrees(zoom : number) : void {
-        this.TreeMap.forEach(tree => {
+        this.treesMap.forEach(tree => {
             tree.recalculate(zoom);
         });
     }
 
-
-    public didSomeTreeChanged() : boolean {
-        let x = false;
-        this.TreeMap.forEach(tr => {
-            if(tr.getChangeFlag()) {
-                x = true;
-            }
-        });
-        return x;
-    }
-
-    public treeAggregationFlag(name : string) : boolean {
-        if (this.TreeMap.has(name)) {
-            return this.TreeMap.get(name)?.getAggregationFlag() ?? false;
+    public treeAggregationFlag(domainName : string) : boolean {
+        if (this.treesMap.has(domainName)) {
+            return this.treesMap.get(domainName)?.getAggregationFlag() ?? false;
         }
         return false;
     }
 
-    public getActiveByTree(name : string) : string[] {
+    public getActiveByTree(domainName : string) : string[] {
         let answer : string[] = [];
-        if (this.TreeMap.has(name)) {
-            answer = this.TreeMap.get(name)?.getActive() ?? [];
+        if (this.treesMap.has(domainName)) {
+            answer = this.treesMap.get(domainName)?.getActive() ?? [];
         }
         return answer;
     }
 
-    public getChildsFromTree(name : string, geoOb : string) : string[] {
+    public getChildsFromTree(domainName : string, objectID : string) : string[] {
         let answer : string[] = [];
-        if (this.TreeMap.has(name)) {
-            answer = this.TreeMap.get(name)?.getAllLeafes(geoOb) ?? [];
+        if (this.treesMap.has(domainName)) {
+            answer = this.treesMap.get(domainName)?.getAllLeafes(objectID) ?? [];
         }
         return answer;
     }
