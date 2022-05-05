@@ -82,7 +82,7 @@ class ChoroplethLayerToolMapLegend extends MapLayerToolLegend<IChoroplethLayerTo
         for (let i = 0; i < values.length; i++) {
             if (values.length == i + 1) {
                 div.innerHTML += '<i style="opacity: ' + opacities[i] +
-                    '; background: ' + color + '"></i><span>' + values[i] + ' - ' + values[i] + ' ' +
+                    '; background: ' + color + '"></i><span>' + values[i] + ' + ' +
                     units + '</span><br>';
             } else {
                 div.innerHTML += '<i style="opacity: ' + opacities[i] +
