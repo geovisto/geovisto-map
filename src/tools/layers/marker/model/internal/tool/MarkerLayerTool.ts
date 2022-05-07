@@ -211,15 +211,10 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
      * It deletes layer items.
      */
     protected deleteLayerItems(): void {
-        //console.log("marker");
-        const markers = this.getState().getMarkers();
-
         // delete the 'value' property of every geo feature object if defined
         const markerLayerGroup = this.getState().getMarkerLayerGroup();
         if(markerLayerGroup) {
-            for(let i = 0; i < markers.length; i++) {
-                markerLayerGroup.removeLayer(markers[i]);
-            }
+            markerLayerGroup.clearLayers();
         }
         
         this.getState().setMarkers([]);
@@ -316,12 +311,14 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
                         bucketMap = new Map([...bucketMap.entries()].sort());
                         // create marker
                         marker = this.createMarker(pointFeature, bucketMap);
-                        layerGroup?.addLayer(marker);
                         markers.push(marker);
                     }
                 }
             }
         }
+        
+        // add all markers
+        (layerGroup as MarkerClusterGroup)?.addLayers(markers);
 
         // updates bucket data
         this.getState().setMarkers(markers);

@@ -141,14 +141,8 @@ class JsonMapDataManager extends AbstractMapDataManager implements IMapDataManag
         /*
          * Tests if an array contains an item
          */
-        const contains = function(dataDomains: IMapDataDomain[], dataDomain: IMapDataDomain) {
-            const dataDomainLabel = dataDomain.getName();
-            for(let i = 0; i < dataDomains.length; i++) {
-                if(dataDomains[i].getName() == dataDomainLabel) {
-                    return true;
-                }
-            }
-            return false;
+        const contains = function(dataDomains: IMapDataDomain[], dataDomain: string) {
+            return dataDomains.some(domain => domain.getName() == dataDomain);
         };
 
         /*
@@ -177,8 +171,9 @@ class JsonMapDataManager extends AbstractMapDataManager implements IMapDataManag
                 }
             } else {
                 // simple value
-                const newMapDataDomain = new FlattenedMapDataDomain(dataDomainValues);
-                if(!contains(dataDomains, newMapDataDomain)) {
+                const newMapDataDomainString: string = dataDomainValues.join().replace(/,/g, ".");
+                if(!contains(dataDomains, newMapDataDomainString)) {
+                    const newMapDataDomain = new FlattenedMapDataDomain(dataDomainValues);
                     dataDomains.push(newMapDataDomain);
                 }
             }
