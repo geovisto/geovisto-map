@@ -1,8 +1,23 @@
-import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
+import { 
+    Feature, 
+    FeatureCollection, 
+    GeoJsonProperties, 
+    Geometry 
+} from "geojson";
+
 import L, { LatLngBounds, Layer } from "leaflet";
 import osmtogeojson from "osmtogeojson";
 import * as turf from "@turf/turf";
-import { GeoDataFactory, GeoJSONTypes, LabeledAutocompleteFormInput, LabeledCheckboxFormInput, LabeledSliderFormInput, TabDOMUtil } from "../../../../../index.core";
+
+import { 
+    GeoDataFactory, 
+    GeoJSONTypes, 
+    LabeledAutocompleteFormInput, 
+    LabeledCheckboxFormInput, 
+    LabeledSliderFormInput, 
+    TabDOMUtil 
+} from "../../../../../index.core";
+
 import { AllGeoJSON, Polygon, Properties } from "@turf/turf";
 
 /**
@@ -11,7 +26,7 @@ import { AllGeoJSON, Polygon, Properties } from "@turf/turf";
  * Can generate automatic hierarchy definition from downloaded objects.
  * @author Vojtěch Malý
  */
-class DownloaderToolMapControl {
+class GeoDownloaderToolMapControl {
     // HTML elements and inputs
     public objectTypeInput : LabeledAutocompleteFormInput;
     public downloadGeojsonBTN : HTMLButtonElement;
@@ -113,6 +128,10 @@ class DownloaderToolMapControl {
      */
     public createAdminLevelSelection() : HTMLElement {
         this.adminLevelDIV.innerHTML = "";
+        if (this.countryInput.getValue() === "") {
+            return this.adminLevelDIV;
+        }
+
         if (this.levelMap.has(this.countryInput.getValue())) {
             // Create and filter OSM table.
             const countryPos = this.levelMap.get(this.countryInput.getValue());
@@ -704,7 +723,7 @@ class DownloaderToolMapControl {
         return this.countryInput.create();
     }
 }
-export default DownloaderToolMapControl;
+export default GeoDownloaderToolMapControl;
 
 /**
  * Type reference of iso file containing list of countries.

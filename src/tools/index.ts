@@ -10,4 +10,4 @@ export * from './selection';
 export * from './sidebar';
 export * from './themes';
 export * from './hierarchy';
-export * from './downloader';
+export * from './geoDownloader';

@@ -3,24 +3,25 @@ import {
     MapObjectForm,
     TabDOMUtil,
 } from "../../../../../index.core";
-import IDownloaderTool from "../../types/IDownloaderTool";
-import DownloaderToolMapControl from "./DownloaderToolMapControl";
+
+import IGeoDownloaderTool from "../../types/IGeoDownloaderTool";
+import GeoDownloaderToolMapControl from "./GeoDownloaderToolMapControl";
 
 /**
  * Form for DownloaderTool.
  * 
  * @author Vojtěch Malý
  */
-class DownloaderToolMapForm extends MapObjectForm<IDownloaderTool> implements IMapForm {
+class GeoDownloaderToolMapForm extends MapObjectForm<IGeoDownloaderTool> implements IMapForm {
     private htmlContent!: HTMLDivElement;                                       // Main content div
     private currentZoom : HTMLDivElement = document.createElement('div');       // Curent zoom indicator
-    private control : DownloaderToolMapControl;                                 // Controler
+    private control : GeoDownloaderToolMapControl;                                 // Controler
     public searchBtn : HTMLButtonElement | null = null;
     
-    public constructor(tool: IDownloaderTool) {
+    public constructor(tool: IGeoDownloaderTool) {
         super(tool);
         const mapLeaflet = this.getMapObject().getMap()?.getState().getLeafletMap();
-        this.control = new DownloaderToolMapControl(mapLeaflet);
+        this.control = new GeoDownloaderToolMapControl(mapLeaflet);
     }
 
     /**
@@ -94,4 +95,4 @@ class DownloaderToolMapForm extends MapObjectForm<IDownloaderTool> implements IM
     }
 }
 
-export default DownloaderToolMapForm;
+export default GeoDownloaderToolMapForm;

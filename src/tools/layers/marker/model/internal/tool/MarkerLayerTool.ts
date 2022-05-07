@@ -326,7 +326,6 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
         if (geoManager.isHierarchyEnabled() && geoManager.isHierarchyEnabledForDomain(domainName)) {
             const active = geoManager.getActiveByTree(domainName);
             
-            
             if (geoManager.treeAggregationFlag(domainName)) {
             // Iterate over active markers
                 for (let cnt = 0; cnt < active.length; cnt++) {
@@ -383,6 +382,13 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
                 }    
             } else {
                 bucketHierarchyMap = bucketMaps;
+            }
+
+            if (bucketHierarchyMap.size === 0) {
+                active.forEach(id => {
+                    const mapTemp = new Map<string, IMapAggregationBucket>();
+                    bucketHierarchyMap.set(id, mapTemp);
+                });
             }
 
             this.getState().setBucketData(bucketHierarchyMap);
