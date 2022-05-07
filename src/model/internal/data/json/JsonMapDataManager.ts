@@ -196,7 +196,7 @@ class JsonMapDataManager extends AbstractMapDataManager implements IMapDataManag
                 processDataDomain(dataDomains, dataDomainValues, data[i][actKeys[j]]);
             }
         }
-        console.log("data domains:", dataDomains);
+        // console.log("data domains:", dataDomains);
 
         return dataDomains;
     }
@@ -276,7 +276,7 @@ class JsonMapDataManager extends AbstractMapDataManager implements IMapDataManag
         
         const result: IMapData | null = transformObject(data);
         const dataRecords: IMapData = result != null ? result : [];
-        console.log("flattened data: ", dataRecords);
+        // console.log("flattened data: ", dataRecords);
 
         return dataRecords;
     }
