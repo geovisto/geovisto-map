@@ -339,6 +339,7 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
         // create icon
         const icon = this.getDefaults().getMarkerIcon({
             id: pointFeature.properties?.name,
+            shortId: pointFeature.id !== undefined ? pointFeature.id.toString() : "",
             useDonut: this.getState().getDimensions().category.getValue() !== undefined,
             isGroup: false,
             values: createMarkerIconValueOptions(bucketMap),

@@ -10,6 +10,7 @@ import {
  */
 export type IMarkerIconOptions = BaseIconOptions & {
     id: string;
+    shortId: string;
     values: IMarkerIconValueOptions;
     isGroup: boolean;
     useDonut: boolean;

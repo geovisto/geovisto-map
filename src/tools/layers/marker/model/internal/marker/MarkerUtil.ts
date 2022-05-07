@@ -33,6 +33,7 @@ export function createClusterMarkersData(markers: Marker<IMarkerIcon<IMarkerIcon
     }
     const options = {
         id: "<Group>",
+        shortId: "<Group>",
         name: "<Group>",
         values: values,
         isGroup: true,
@@ -69,8 +70,9 @@ export function createPopupMessage(name: string, bucketMap: Map<string, IMapAggr
     }
 
     // prepend title popup message
-    popupMsg = "<b>" + name + "</b><br>" + (value != null ? formatPopUpNumber(value) : "N/A") + "<br><br>"
-                + popupMsg;
+    popupMsg = "<span class='marker-popup-header'><b>" + name + "</b></span><br>" +
+                   "<span class='marker-popup-total'>" + (value != null ? formatPopUpNumber(value) : "N/A") + "</span><br><br>"
+                    + "<div class='marker-popup-data'>" + popupMsg + "</div>";
     return popupMsg;
 }
 

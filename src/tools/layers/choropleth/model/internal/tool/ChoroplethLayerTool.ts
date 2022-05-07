@@ -551,6 +551,9 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
             path.style.fill = null;
             path.style.fillOpacity = null;
         }
+        
+        //Add info about part of map to path attribute
+        path._current = {shortId: feature?.id};
 
         // selected / highlighted
         const selection: IMapSelection | null | undefined = this.getSelectionTool()?.getSelection() ?? undefined;

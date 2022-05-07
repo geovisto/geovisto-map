@@ -130,6 +130,7 @@ export class MarkerIcon extends Icon<IMarkerIconOptions> implements IMarkerIcon<
     public createIcon(oldIcon?: HTMLElement): HTMLElement {
         const div = (oldIcon && oldIcon.tagName === 'DIV') ? oldIcon : document.createElement('div'),
             options = this.options;
+        (div as any)._current = {shortId: this.options.shortId};
 
         const size = this.getSize();
         this.options.iconSize = [size,size];
