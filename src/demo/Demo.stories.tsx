@@ -24,7 +24,9 @@ import {
     GeovistoConnectionLayerTool,
     GeovistoDrawingLayerTool,
     GeovistoLegendTool,
-    GeovistoInfoTool
+    GeovistoInfoTool,
+    GeovistoGeoDownloaderTool,
+    GeovistoHierarchyTool
 } from '../tools';
 import { Geovisto } from '..';
 
@@ -44,6 +46,8 @@ class Demo extends Component<Record<string, never>, { data: unknown, config: Rec
     private centroids: unknown;
     private polygons2: unknown;
     private centroids2: unknown;
+    private hierarchyData : unknown;
+
     private infodata: unknown;
     private infodata2: unknown;
     private map: React.RefObject<ReactGeovistoMap>;
@@ -56,6 +60,12 @@ class Demo extends Component<Record<string, never>, { data: unknown, config: Rec
         this.centroids = require("/static/geo/country_centroids.json");
         this.polygons2 = require("/static/geo/czech_districts_polygons.json");
         this.centroids2 = require("/static/geo/czech_districts_centroids.json");
+        //this.hierarchyData = require("/static/geo/geo-hierarchy_covidData.json");
+        //this.hierarchyData = require("/static/geo/geoData.json");        
+        this.hierarchyData = require("/static/geo/geo-hierarchy_covidDataPoint.json");
+
+
+
 
         // initialize info objects
         this.infodata = require("/static/info/test.md");
@@ -228,7 +238,8 @@ class Demo extends Component<Record<string, never>, { data: unknown, config: Rec
                             Geovisto.getGeoDataFactory().geojson("world polygons", this.polygons),
                             Geovisto.getGeoDataFactory().geojson("world centroids", this.centroids),
                             Geovisto.getGeoDataFactory().geojson("czech polygons", this.polygons2),
-                            Geovisto.getGeoDataFactory().geojson("czech centroids", this.centroids2)
+                            Geovisto.getGeoDataFactory().geojson("czech centroids", this.centroids2),
+                            Geovisto.getGeoDataFactory().geojson("Hierarchy covid", this.hierarchyData)
                         ])}
                         config={Geovisto.getMapConfigManagerFactory().default(this.state.config)}
                         globals={undefined}
@@ -287,6 +298,12 @@ class Demo extends Component<Record<string, never>, { data: unknown, config: Rec
                             GeovistoDrawingLayerTool.createTool({
                                 id: "geovisto-tool-layer-drawing"
                             }),
+                            GeovistoGeoDownloaderTool.createTool({
+                                id: "geovisto-tool-geoDownloader"
+                            }),
+                            GeovistoHierarchyTool.createTool({
+                                id: "geovisto-tool-hierarchy"
+                            })
                         ])}
                     />
                 </div>
