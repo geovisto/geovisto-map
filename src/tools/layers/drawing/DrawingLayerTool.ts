@@ -12,7 +12,7 @@ import "leaflet-snap";
 import "leaflet-geometryutil";
 import "leaflet-draw";
 
-import * as d33 from "d3-3-5-5";
+// import * as d33 from "d3-3-5-5";
 import { SPACE_BAR, highlightStyles, normalStyles } from "./util/constants";
 
 import { polyDiff, polyIntersect, polyJoin } from "./rules";
@@ -51,7 +51,7 @@ import { IDrawingLayerToolConfig } from "./model/types/tool/IDrawingLayerToolCon
 import { GeoJSONTool } from "./tools/GeoJSONTool";
 
 // ! pather throws errors without this line
-window.d3 = d33;
+// window.d3 = d33;
 
 // * as advised in https://github.com/makinacorpus/Leaflet.Snap/issues/52
 L.Draw.Feature.include(L.Evented.prototype);
