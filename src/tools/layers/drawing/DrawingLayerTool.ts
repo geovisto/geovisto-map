@@ -198,9 +198,11 @@ class DrawingLayerTool
     tools[GeometricSliceTool.NAME()] = new GeometricSliceTool({
       drawingTool: this,
     });
-    tools[FreehandSliceTool.NAME()] = new FreehandSliceTool({
-      drawingTool: this,
-    });
+    
+    //Problem with tool - require old D3 version
+    // tools[FreehandSliceTool.NAME()] = new FreehandSliceTool({
+    //   drawingTool: this,
+    // });
 
     tools[PaintTool.NAME()] = new PaintTool({ drawingTool: this });
     tools[EraseTool.NAME()] = new EraseTool({ drawingTool: this });

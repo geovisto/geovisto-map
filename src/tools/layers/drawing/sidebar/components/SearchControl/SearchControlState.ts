@@ -29,7 +29,8 @@ class SearchControlState
   public constructor(props: ControlStateProps) {
     super(props);
 
-    this.countries = require("/static/geo/iso3166_countries.json");
+    // this.countries = require("/static/geo/iso3166_countries.json");
+    this.countries = [];
     this.countryCode = "";
 
     this.adminLevel = ADMIN_LEVELS[1].value;
