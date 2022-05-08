@@ -65,6 +65,8 @@ const diffLayers = (
           });
           replaceLayer(state, result, geoObject);
         } else {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           coords.forEach((coord) => {
             latlngs = L.GeoJSON.coordsToLatLngs([coord], depth);
             const result = new (L as any).polygon(latlngs, {

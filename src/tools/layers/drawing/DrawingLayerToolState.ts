@@ -311,6 +311,8 @@ class DrawingLayerToolState
         const vertLeafId = source.mappedVerticeId;
         const verticesObj = this.mappedMarkersToVertices[markerId];
         verticesKeyArr.forEach((vertKey) => {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           if (verticesObj[vertKey] === vertLeafId) {
             const spreadable = this.mappedMarkersToVertices[markerId] || {};
             this.mappedMarkersToVertices[markerId] = {

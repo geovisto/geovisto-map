@@ -130,6 +130,8 @@ class GeometricSliceTool extends AbstractTool implements TGeometricSliceTool {
 
           coords = clipped.geometry.coordinates;
           this.drawingTool.getState().removeSelectedLayer();
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           coords.forEach((coord) => {
             latlngs = L.GeoJSON.coordsToLatLngs(coord, 1);
             const result = new (L as any).polygon(latlngs, {
