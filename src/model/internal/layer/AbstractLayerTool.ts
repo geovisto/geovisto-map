@@ -10,7 +10,6 @@ import LayerToolDefaults from "./LayerToolDefaults";
 import LayerToolRenderType from "../../types/layer/LayerToolRenderType";
 import LayerToolState from "./LayerToolState";
 import MapTool from "../tool/MapTool";
-import {round} from "@turf/turf";
 
 /**
  * This class wraps filter tool. It provides methods for layer management.
@@ -162,23 +161,6 @@ abstract class AbstractLayerTool extends MapTool implements ILayerTool {
             this.getState().setLayerItems(layerItems);
         }
         return layerItems;
-    }
-
-    /**
-     * It rounds number to specified precision
-     * @param roundNumber number to be rounded
-     * @param roundTo precision
-     */
-    public roundValues(roundNumber: string | number, roundTo: string | number): number {
-        // Convert to number if needed
-        if (typeof roundNumber == "string") {
-            roundNumber = +roundNumber;
-        }
-        if (typeof roundTo == "string") {
-            roundTo = +roundTo;
-        }
-        roundNumber = round(roundNumber, roundTo);
-        return roundNumber;
     }
 
     /**

@@ -1,12 +1,11 @@
 // Geovisto core
 import {
     IMapLegend,
-    IMapTool,
-    MapLayerToolLegend
+    MapLayerToolLegend,
+    roundValues
 } from "../../../../../../index.core";
 
 import IChoroplethLayerTool from "../../types/tool/IChoroplethLayerTool";
-import IChoroplethLayerToolState from "../../types/tool/IChoroplethLayerToolState";
 
 /**
  * This class provides controls for management of the layer legend.
@@ -66,7 +65,7 @@ class ChoroplethLayerToolMapLegend extends MapLayerToolLegend<IChoroplethLayerTo
         // Check if rounding is set
         if (tool.getState().getDimensions().round.getValue() != undefined) {
             for (let i = 0; i < categories.length; i++) {
-                categories[i] = tool.roundValues(categories[i], <number>tool.getState().getDimensions().round.getValue());
+                categories[i] = roundValues(categories[i], <number>tool.getState().getDimensions().round.getValue());
             }
         }
         const values = [];

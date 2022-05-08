@@ -218,3 +218,4 @@ export { default as StringTypeManager } from './model/internal/type/StringTypeMa
 // UTIL
 
 export { default as TabDOMUtil } from './util/TabDOMUtil';
+export { roundValues } from './model/internal/utils/Utils';

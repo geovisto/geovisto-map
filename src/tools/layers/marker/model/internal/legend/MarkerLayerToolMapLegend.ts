@@ -1,6 +1,6 @@
 // Geovisto core
 import {
-    IMapLegend, IMapTool,
+    IMapLegend,
     MapLayerToolLegend,
 } from "../../../../../../index.core";
 

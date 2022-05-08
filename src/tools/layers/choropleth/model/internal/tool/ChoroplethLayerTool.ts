@@ -47,7 +47,9 @@ import {
     IMapForm,
     IMapFormControl,
     IMapToolInitProps,
-    LayerToolRenderType, IMapLegend
+    LayerToolRenderType,
+    IMapLegend,
+    roundValues
 } from '../../../../../../index.core';
 
 import IChoroplethLayerTool from '../../types/tool/IChoroplethLayerTool';
@@ -269,7 +271,7 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
             if (this.getState().getDimensions().round.getValue() != undefined) {
                 popupText = "<b>" + e.target.feature.name + "</b><br>"
                     + this.getState().getDimensions().aggregation.getValue()?.getName() + ": "
-                    + separateThousands(id ? (this.roundValues(this.getState().getBucketData().get(id)?.getValue() ?? 0,
+                    + separateThousands(id ? (roundValues(this.getState().getBucketData().get(id)?.getValue() ?? 0,
                         <number>this.getState().getDimensions().round.getValue())) : 0)
                     + (units == "" ? "" : (" " + units));
             }

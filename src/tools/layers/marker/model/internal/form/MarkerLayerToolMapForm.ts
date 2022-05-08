@@ -5,7 +5,8 @@ import {
     IMapDataDomain,
     IMapDomainDimension,
     IMapForm,
-    IMapFormInput, IMapTypeDimension,
+    IMapFormInput,
+    IMapTypeDimension,
     MapLayerToolForm
 } from "../../../../../../index.core";
 
