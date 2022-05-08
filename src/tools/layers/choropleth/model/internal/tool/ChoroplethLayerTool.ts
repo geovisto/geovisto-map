@@ -527,6 +527,9 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
      */
     public handleEvent(event: IMapEvent): void {
         switch (event.getType()) {
+            case GeoDataChangeEvent.TYPE():
+                this.render(LayerToolRenderType.LAYER);
+                break;
             case DataManagerChangeEvent.TYPE():
                 this.render(LayerToolRenderType.DATA);
                 break;
@@ -539,11 +542,6 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
             case this.getThemesTool()?.getChangeEventType():
                 this.updateTheme((<IThemesToolEvent> event).getChangedObject());
                 this.render(LayerToolRenderType.STYLE);
-                break;
-            case GeoDataChangeEvent.TYPE():
-                this.updateGeoData();
-                this.updateData();
-                this.updateStyle();
                 break;
 
             default:

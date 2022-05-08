@@ -38,26 +38,27 @@ import {
     AbstractLayerTool,
     DataChangeEvent,
     DataManagerChangeEvent,
+    DimensionChangeEvent,
+    GeoDataChangeEvent,
+    GeoDataManager,
+    GeoDataManagerChangeEvent,
     GeoJSONTypes,
     IDataChangeAnimateOptions,
-    IMapDataDomain,
     IMapAggregationBucket,
     IMapAggregationFunction,
     IMapData,
+    IMapDataDomain,
     IMapDataChangeEvent,
     IMapDataManager,
-    IMapDomainDimension,
     IMapDomain,
+    IMapDomainDimension,
     IMapEvent,
     IMapForm,
     IMapFormControl,
     IMapLegend,
     IMapLegendControl,
     IMapToolInitProps,
-    LayerToolRenderType,
-    DimensionChangeEvent,
-    GeoDataChangeEvent,
-    GeoDataManager
+    LayerToolRenderType
 } from '../../../../../../index.core';
 
 import { createClusterMarkersData, createMarkerIconValueOptions, createPopupMessage } from '../marker/MarkerUtil';
@@ -607,6 +608,12 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
      */
     public handleEvent(event: IMapEvent): void {
         switch (event.getType()) {
+            case GeoDataManagerChangeEvent.TYPE():
+                this.render(LayerToolRenderType.DATA);
+                break;
+            case GeoDataChangeEvent.TYPE():
+                this.render(LayerToolRenderType.DATA);
+                break;
             case DataManagerChangeEvent.TYPE():
                 this.render(LayerToolRenderType.DATA);
                 break;
@@ -619,9 +626,6 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
             case this.getThemesTool()?.getChangeEventType():
                 this.updateTheme((<IThemesToolEvent> event).getChangedObject());
                 this.render(LayerToolRenderType.STYLE);
-                break;
-            case GeoDataChangeEvent.TYPE():
-                this.render(LayerToolRenderType.DATA);
                 break;
             default:
                 break;

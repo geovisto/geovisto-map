@@ -10,6 +10,7 @@ import "../../../styles/style.scss";
 // Geovisto core
 import {
     DataManagerChangeEvent,
+    GeoDataManagerChangeEvent,
     IMapEvent,
     IMapTool,
     IMapToolInitProps,
@@ -244,6 +245,7 @@ class SidebarTool extends MapTool implements ISidebarTool {
         let tabs;
         switch (event.getType()) {
             case DataManagerChangeEvent.TYPE():
+            case GeoDataManagerChangeEvent.TYPE():
                 tabs = this.getState().getTabs();
                 for(let i = 0; i < tabs.length; i++) {
                     tabs[i].redraw();

@@ -17,22 +17,23 @@ import {
     CountAggregationFunction,
     DataChangeEvent,
     DataManagerChangeEvent,
+    GeoDataChangeEvent,
     GeoDataManager,
-    GeoJSONTypes ,
+    GeoDataManagerChangeEvent,
+    GeoJSONTypes,
     IDataChangeAnimateOptions,
     IMapAggregationBucket,
     IMapAggregationFunction,
     IMapData,
-    IMapDataChangeEvent,
     IMapDataDomain,
+    IMapDataChangeEvent,
     IMapDataManager,
     IMapDimension,
     IMapEvent,
     IMapForm,
     IMapFormControl,
     IMapToolInitProps,
-    LayerToolRenderType,
-    GeoDataChangeEvent
+    LayerToolRenderType
 } from '../../../../../../index.core';
 
 import ConnectionLayerToolMapForm from '../form/ConnectionLayerToolMapForm';
@@ -628,14 +629,17 @@ class ConnectionLayerTool extends AbstractLayerTool implements IConnectionLayerT
      */
     public handleEvent(event: IMapEvent): void {
         switch (event.getType()) {
+            case GeoDataManagerChangeEvent.TYPE():
+                this.render(LayerToolRenderType.DATA);
+                break;
+            case GeoDataChangeEvent.TYPE():
+                this.render(LayerToolRenderType.DATA);
+                break;
             case DataManagerChangeEvent.TYPE():
                 this.render(LayerToolRenderType.DATA);
                 break;
             case DataChangeEvent.TYPE():
                 this.render(LayerToolRenderType.DATA, (<IMapDataChangeEvent> event).getAnimateOptions());
-                break;
-            case GeoDataChangeEvent.TYPE():
-                this.render(LayerToolRenderType.DATA);
                 break;
             default:
                 this.getSelectionChangeAdapter().handleEvent(event);
