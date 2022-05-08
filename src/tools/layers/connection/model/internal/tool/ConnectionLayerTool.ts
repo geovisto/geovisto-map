@@ -17,6 +17,7 @@ import {
     CountAggregationFunction,
     DataChangeEvent,
     DataManagerChangeEvent,
+    GeoDataManager,
     GeoJSONTypes ,
     IDataChangeAnimateOptions,
     IMapAggregationBucket,
@@ -30,7 +31,8 @@ import {
     IMapForm,
     IMapFormControl,
     IMapToolInitProps,
-    LayerToolRenderType
+    LayerToolRenderType,
+    GeoDataChangeEvent
 } from '../../../../../../index.core';
 
 import ConnectionLayerToolMapForm from '../form/ConnectionLayerToolMapForm';
@@ -281,10 +283,104 @@ class ConnectionLayerTool extends AbstractLayerTool implements IConnectionLayerT
                 }    
             }
 
-            // update work data
-            this.getState().setBucketData(bucketData);
-        }
+            // Getting geoDataManager and active domain name.        
+            const geoManager = this.getState().getDimensions().geoData.getDomainManager() as GeoDataManager;
+            const domainName = this.getState().getDimensions().geoData.getValue()?.getName() ?? "";
+            const hierarchyBucket = {
+                nodes: new Set<string>(),
+                connections: new Map<string, IMapAggregationBucket>()
+            };
 
+            // Check if hierarchy is enabled.
+            if (geoManager.isHierarchyEnabled() && geoManager.isHierarchyEnabledForDomain(domainName)) {
+                const active = geoManager.getActiveByTree(domainName);
+                // If aggregation is enabled, aggregate from childrens
+                if (geoManager.treeAggregationFlag(domainName)) {
+                    const childsMap : Map<string, Set<string>> = new Map();
+                    // Iterate over active points
+                    active.forEach(activePoint => {
+                        const temp = geoManager.getChildsFromTree(domainName, activePoint);
+                        temp.push(activePoint);
+                        childsMap.set(activePoint, new Set(temp));
+                    });
+
+                    // Iterate over connections
+                    bucketData.connections.forEach((bucket, hashedNodes) => {
+                        // Unhashe nodes name
+                        const unhashed = this.bucketHashToGeoIds(hashedNodes);
+                        const boolGuards : boolean[] = [false, false];
+                        const stringGuards : string[] = [];
+                        // Check if both points are in childs.
+                        childsMap.forEach((ids, name) => {
+                            if (ids.has(unhashed[0])) {
+                                boolGuards[0] = true;
+                                stringGuards[0] = name;
+                            } else if (ids.has(unhashed[1])) {
+                                boolGuards[1] = true;
+                                stringGuards[1] = name;
+                            }
+                        });
+                        // If both points are in childs, and should be aggregated.
+                        if (boolGuards[0] && boolGuards[1]) {
+                            // Hash nodes back
+                            const hashedParents = this.geoIdsToBucketHash(stringGuards[0], stringGuards[1]);
+                            // If hierarchy bucket has connection already, just add another
+                            if (hierarchyBucket.connections.has(hashedParents)) {
+                                const agregBucket = hierarchyBucket.connections.get(hashedParents);
+                                agregBucket?.addValue(bucket.getValue());
+                                if(agregBucket) {
+                                    hierarchyBucket.connections.set(hashedParents, agregBucket);
+                                }
+                            } else {
+                                const agregBucket = aggregationDimension.getAggregationBucket();
+                                agregBucket.addValue(bucket.getValue());
+                                hierarchyBucket.connections.set(hashedParents, agregBucket);
+                            }
+
+                            // Add nodes in nodes set if not added already.
+                            if (!hierarchyBucket.nodes.has(stringGuards[0])) {
+                                hierarchyBucket.nodes.add(stringGuards[0]);
+                            }
+                            if (!hierarchyBucket.nodes.has(stringGuards[1])) {
+                                hierarchyBucket.nodes.add(stringGuards[1]);
+                            }
+                        }
+                    });
+                // If aggregation is disabled
+                } else {                        
+                    // Iterate over connections
+                    bucketData.connections.forEach((bucket, hashedNodes) => {
+                        const unhashedNodes = this.bucketHashToGeoIds(hashedNodes);
+                        let boolGuard = true;
+                        // Check if both points are in active
+                        for(let cnt = 0; cnt < unhashedNodes.length; cnt++) {
+                            boolGuard = active.includes(unhashedNodes[cnt]);
+                            if(!boolGuard){
+                                break;
+                            }
+                        }
+                        // If both are in active, add them to hierarchyBucket.
+                        if (boolGuard) {         
+                            hierarchyBucket.connections.set(hashedNodes, bucket);
+                            if (!hierarchyBucket.nodes.has(unhashedNodes[0])) {
+                                hierarchyBucket.nodes.add(unhashedNodes[0]);
+                            }
+                            if (!hierarchyBucket.nodes.has(unhashedNodes[1])) {
+                                hierarchyBucket.nodes.add(unhashedNodes[1]);
+                            }
+                        }
+                    });
+                }
+            }
+            // Set respective buckets
+            if (geoManager.isHierarchyEnabled() && geoManager.isHierarchyEnabledForDomain(domainName)) {
+                this.getState().setBucketData(hierarchyBucket);
+                return hierarchyBucket;
+            } else {
+                this.getState().setBucketData(bucketData);
+                return bucketData;
+            }
+        }
         return bucketData;
     }
 
@@ -537,6 +633,9 @@ class ConnectionLayerTool extends AbstractLayerTool implements IConnectionLayerT
                 break;
             case DataChangeEvent.TYPE():
                 this.render(LayerToolRenderType.DATA, (<IMapDataChangeEvent> event).getAnimateOptions());
+                break;
+            case GeoDataChangeEvent.TYPE():
+                this.render(LayerToolRenderType.DATA);
                 break;
             default:
                 this.getSelectionChangeAdapter().handleEvent(event);
