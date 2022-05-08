@@ -290,7 +290,7 @@ class GeovistoMap extends MapObject implements IMap {
     }
 
     /**
-     * It updates data and invokes notifies listeners.
+     * It updates data and notifies listeners.
      * 
      * @param dataManager
      */
@@ -306,7 +306,7 @@ class GeovistoMap extends MapObject implements IMap {
     }
 
     /**
-     * It updates geo data and invokes notifies listeners.
+     * It updates geo data and notifies listeners.
      * 
      * @param geoDataManager
      */
