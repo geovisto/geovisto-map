@@ -27,6 +27,19 @@ interface IChoroplethLayerTool<
      */
     copy(): IChoroplethLayerTool;
 
+    /**
+     * It returns color intensity for the current scale and given value.
+     *
+     * @param val
+     * @param scale
+     */
+    computeColorIntensity(val: number, scale: number[]): number;
+
+    /**
+     * Help function which returns a scale which can be used to distinguish value levels in choropleth.
+     */
+    getScale(): number[] | undefined;
+
 }
 
 export default IChoroplethLayerTool;

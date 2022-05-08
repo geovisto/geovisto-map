@@ -23,6 +23,10 @@ type IMarkerLayerToolDimensionsConfig = ILayerToolDimensionsConfig & {
     geoId?: string,
     value?: string,
     aggregation?: string,
-    category?: string
+    category?: string,
+    units?: string,
+    unitsDesc?: string,
+    unitsEnabled?: boolean,
+    round?: number
 }
 export type { IMarkerLayerToolConfig, IMarkerLayerToolDimensionsConfig };

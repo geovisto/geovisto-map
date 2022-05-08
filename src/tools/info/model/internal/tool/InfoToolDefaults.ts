@@ -23,7 +23,7 @@ class InfoToolDefaults extends MapToolDefaults implements IInfoToolDefaults {
      */
     public getConfig(): IInfoToolConfig {
         const config = <IInfoToolConfig> super.getConfig();
-        config.filterRules = undefined;
+        config.defaultFile = "";
         return config;
     }
 

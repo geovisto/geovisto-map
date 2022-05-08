@@ -46,43 +46,57 @@ class InfoToolMapForm extends MapObjectForm<IInfoTool> implements IMapForm {
      */
     public getContent(): HTMLDivElement {
         const tool: IInfoTool = this.getMapObject();
-        const dataManager: IInfoDataManager = tool.getState().getInfoDataManager();
+        const dataManager: IInfoDataManager = <IInfoDataManager>tool.getState().getInfoDataManager();
         const md = MarkdownIt({
             typographer: true,
             quotes: '“”‘’',
         });
-        if (dataManager.getDomains() != undefined) {
-            if (dataManager.getDomains().length > 0) {
-                const defaultMarkdown = dataManager.getDomains()[0];
+        const domains = dataManager.getDomains();
+        if (domains != undefined) {
+            if (domains.length > 0) {
+                const defaultMarkdown = domains[0];
                 tool.getState().setMarkdown(defaultMarkdown);
             }
         }
         const changeInfoData = function(e: Event) {
             const newMarkdown: IInfoData | undefined = dataManager.getDomain((e.target as HTMLInputElement)?.value);
-            const md_div = document.getElementById("md_wrapper");
-            if(newMarkdown) {
+            if (newMarkdown) {
+                // set new markdown data to tool state
                 tool.getState().setMarkdown(newMarkdown);
-                const data = tool.getState().getMarkdown().getInfoMD();
-                md_div.innerHTML = md.render(data);
-                md_div.setAttribute("style", "");
-            } else {
-                md_div.innerHTML = "";
-                md_div.setAttribute("style", "background-color: rgba(240, 240, 240, 0);");
+            }
+            const md_div = document.getElementById("md_wrapper");
+            const markdown = tool.getState().getMarkdown();
+            if(md_div != null && markdown != undefined) {
+                if (newMarkdown) {
+                    tool.getState().setMarkdown(newMarkdown);
+                    const data = markdown.getInfoMD();
+                    md_div.innerHTML = md.render(data);
+                    md_div.setAttribute("style", "");
+                } else {
+                    md_div.innerHTML = "";
+                    md_div.setAttribute("style", "background-color: rgba(240, 240, 240, 0);");
+                }
             }
         };
         const themeInput = new LabeledAutocompleteFormInput({ label: "Info file:", options: dataManager.getDomainNames(), onChangeAction: changeInfoData });
         this.htmlContent = document.createElement('div');
         this.htmlContent.appendChild(themeInput.create());
-        themeInput.setValue(tool.getState().getMarkdown().getName());
-
-        const data = tool.getState().getMarkdown().getInfoMD();
-        // tab pane
-        const md_div = document.createElement('div');
-        md_div.setAttribute("id", "md_wrapper");
-        md_div.innerHTML = md.render(data);
-        this.htmlContent.appendChild(md_div);
-
-
+        const available_files = dataManager.getDomainNames();
+        let markdown: IInfoData | undefined;
+        const default_file = tool.getState().getDefaultFile();
+        if (available_files.length != 0 && default_file != "") {
+            markdown = dataManager.getDomain(default_file);
+        } else {
+            markdown = tool.getState().getMarkdown();
+        }
+        if (markdown != undefined) {
+            themeInput.setValue(markdown.getName());
+            const data = markdown.getInfoMD();
+            const md_div = document.createElement('div');
+            md_div.setAttribute("id", "md_wrapper");
+            md_div.innerHTML = md.render(data);
+            this.htmlContent.appendChild(md_div);
+        }
         return this.htmlContent;
     }
 

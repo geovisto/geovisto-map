@@ -4,7 +4,7 @@ import {
     ILayerToolDimensions,
     IMapAggregationFunction,
     IMapDataDomain,
-    IMapDomainDimension
+    IMapDomainDimension, IMapTypeDimension
 } from "../../../../../../index.core";
 
 /**
@@ -17,6 +17,10 @@ type IMarkerLayerToolDimensions = ILayerToolDimensions & {
     geoId: IMapDomainDimension<IMapDataDomain>,
     value: IMapDomainDimension<IMapDataDomain>,
     aggregation: IMapDomainDimension<IMapAggregationFunction>,
-    category: IMapDomainDimension<IMapDataDomain>
+    category: IMapDomainDimension<IMapDataDomain>,
+    units: IMapTypeDimension<string>,
+    unitsDesc: IMapTypeDimension<string>,
+    unitsEnabled: IMapTypeDimension<boolean>,
+    round: IMapTypeDimension<number>
 }
 export default IMarkerLayerToolDimensions;

@@ -1,12 +1,11 @@
 // Geovisto core
 import {
     IMapLegend,
-    IMapTool,
-    MapLayerToolLegend
+    MapLayerToolLegend,
+    roundValues
 } from "../../../../../../index.core";
 
 import IChoroplethLayerTool from "../../types/tool/IChoroplethLayerTool";
-import IChoroplethLayerToolState from "../../types/tool/IChoroplethLayerToolState";
 
 /**
  * This class provides controls for management of the layer legend.
@@ -33,8 +32,8 @@ class ChoroplethLayerToolMapLegend extends MapLayerToolLegend<IChoroplethLayerTo
         const div = document.createElement('div');
         div.className = "legend";
         // Get scale
-        const scale = tool?.getState().mapObject.getScale();
-        if (scale[0] == undefined) {
+        const scale = tool.getScale();
+        if (!(scale) || scale[0] == undefined) {
             // If legend is already created
             if (this.htmlContent != undefined) {
                 div.id = "geovisto-tool-layer-choropleth-legend";
@@ -50,32 +49,49 @@ class ChoroplethLayerToolMapLegend extends MapLayerToolLegend<IChoroplethLayerTo
         const color = tool?.getState().getDimensions().color.getValue();
         // Compute color intensity
         for (let i = 0; i < scale.length; i++) {
-            color_opacities.push(tool?.getState().mapObject.computeColorIntensity(scale[i], scale));
+            color_opacities.push(tool?.computeColorIntensity(scale[i], scale));
         }
         // Shift the array
-        color_opacities.push(color_opacities.shift());
+        color_opacities.push(<number>color_opacities.shift());
         // Separate thousands for numerical ranges
         const separateThousands = (num: number): string => {
             const numParts = num.toString().split(".");
             numParts[0] = numParts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
             return numParts.join(".");
         };
-        for (let i = 0; i < scale.length; i++) {
-            scale[i] = separateThousands(scale[i]);
-        }
         // Conver values to string
-        const categories = scale.map(String);
+        const categories = scale;
         const opacities = color_opacities.map(String);
+        // Check if rounding is set
+        if (tool.getState().getDimensions().round.getValue() != undefined) {
+            for (let i = 0; i < categories.length; i++) {
+                categories[i] = roundValues(categories[i], <number>tool.getState().getDimensions().round.getValue());
+            }
+        }
+        const values = [];
+        for (let i = 0; i < scale.length; i++) {
+            values.push(separateThousands(categories[i]));
+        }
         div.id = "geovisto-tool-layer-choropleth-legend";
+        let units = tool.getState().getDimensions().units.getValue();
+        if (tool.getState().getDimensions().unitsEnabled.getValue() == false) {
+            units = "";
+        }
         // Create categories
-        for (let i = 0; i < categories.length; i++) {
-            if (categories.length == i + 1) {
+        for (let i = 0; i < values.length; i++) {
+            if (values.length == i + 1) {
                 div.innerHTML += '<i style="opacity: ' + opacities[i] +
-                    '; background: ' + color + '"></i><span>' + categories[i] + ' +</span><br>';
+                    '; background: ' + color + '"></i><span>' + values[i] + ' + ' +
+                    units + '</span><br>';
             } else {
                 div.innerHTML += '<i style="opacity: ' + opacities[i] +
-                    '; background: ' + color + '"></i><span>' + categories[i] + ' - ' + categories[i+1] + '</span><br>';
+                    '; background: ' + color + '"></i><span>' + values[i] + ' - ' + values[i+1] + ' ' +
+                    units + '</span><br>';
             }
+        }
+        // Check if longer units are available and allowed
+        if(tool.getState().getDimensions().unitsDesc.getValue() != "" && tool.getState().getDimensions().unitsEnabled.getValue() == true) {
+            div.innerHTML += "<span>Units: " + tool.getState().getDimensions().unitsDesc.getValue() + "</span>";
         }
         this.htmlContent = div;
         return this.htmlContent;

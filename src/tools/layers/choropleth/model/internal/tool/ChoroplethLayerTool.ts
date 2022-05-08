@@ -33,24 +33,25 @@ import {
     AbstractLayerTool,
     DataChangeEvent,
     DataManagerChangeEvent,
+    GeoDataChangeEvent,
+    GeoDataManager,
     GeoJSONTypes,
     IDataChangeAnimateOptions,
     IMapAggregationBucket,
     IMapAggregationFunction,
     IMapData,
-    IMapDataChangeEvent,
     IMapDataDomain,
+    IMapDataChangeEvent,
     IMapDataManager,
-    IMapDomainDimension,
     IMapDomain,
+    IMapDomainDimension,
     IMapEvent,
     IMapForm,
     IMapFormControl,
+    IMapLegend,
     IMapToolInitProps,
     LayerToolRenderType,
-    GeoDataManager,
-    GeoDataChangeEvent,
-    IMapLegend
+    roundValues
 } from '../../../../../../index.core';
 
 import IChoroplethLayerTool from '../../types/tool/IChoroplethLayerTool';
@@ -272,9 +273,25 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
             this.getState().setHoveredItem(id);
             this.hoverItem(layerItem, true);
             this.getState().getBucketData().get(layerItem.feature?.id?.toString() ?? "");
-            const popupText: string = "<b>" + e.target.feature.name + "</b><br>"
-                                + this.getState().getDimensions().aggregation.getValue()?.getName() + ": "
-                                + separateThousands(id ? (this.getState().getBucketData().get(id)?.getValue() ?? 0) : 0);
+            let popupText: string;
+            let units = this.getState().getDimensions().units.getValue();
+            // Check if units are not disabled
+            if (this.getState().getDimensions().unitsEnabled.getValue() == false) {
+                units = "";
+            }
+            if (this.getState().getDimensions().round.getValue() != undefined) {
+                popupText = "<b>" + e.target.feature.name + "</b><br>"
+                    + this.getState().getDimensions().aggregation.getValue()?.getName() + ": "
+                    + separateThousands(id ? (roundValues(this.getState().getBucketData().get(id)?.getValue() ?? 0,
+                        <number>this.getState().getDimensions().round.getValue())) : 0)
+                    + (units == "" ? "" : (" " + units));
+            }
+            else {
+                popupText = "<b>" + e.target.feature.name + "</b><br>"
+                    + this.getState().getDimensions().aggregation.getValue()?.getName() + ": "
+                    + separateThousands(id ? (this.getState().getBucketData().get(id)?.getValue() ?? 0) : 0)
+                    + (units == "" ? "" : (" " + units));
+            }
             e.target.bindTooltip(popupText,{className: 'leaflet-popup-content', sticky: true}).openTooltip();
         
             if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
@@ -563,7 +580,7 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
     /**
      * Help function which returns a scale which can be used to distinguish value levels in choropleth.
      */
-    protected getScale(): number[] | undefined {
+    public getScale(): number[] | undefined {
         // get values
         const values: number[] = [];
         let id: string | number | undefined;
@@ -710,7 +727,7 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
      * @param val 
      * @param scale 
      */
-    protected computeColorIntensity(val: number, scale: number[]): number {
+    public computeColorIntensity(val: number, scale: number[]): number {
         for(let i = scale.length - 1; i >= 0; i--) {
             if(val > scale[i]) {
                 // round to 2 decimals

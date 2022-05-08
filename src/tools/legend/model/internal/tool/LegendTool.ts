@@ -138,11 +138,14 @@ class LegendTool <T extends IMapTool & IMapLegendControl> extends MapTool implem
                     // You can achieve this from tool by returning 'undefined'
                     if (this.getTool(tools[i]).getMapLegend().getContent(tools[i]) != undefined) {
                         // And if they do want to get rendered, get div with legend
+                        // @ts-ignore
                         const legend = L.control({position: "bottomright"});
                         this.clearLegend(tools[i].getId());
                         // Get the div
                         legend.onAdd = () => {
-                            return this.getTool(tools[i]).getMapLegend().getContent(tools[i]);
+                            if (tools != undefined){
+                                return this.getTool(tools[i]).getMapLegend().getContent(tools[i]);
+                            }
                         };
                         // Add it to map
                         legend.addTo(map);

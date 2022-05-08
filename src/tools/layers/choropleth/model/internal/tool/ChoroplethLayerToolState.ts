@@ -53,6 +53,10 @@ class ChoroplethLayerToolState extends LayerToolState implements IChoroplethLaye
                 customMinMax: props.dimensions.customMinMax == undefined ? defaults.getCustomMinMaxDimension() : props.dimensions.customMinMax,
                 minValue: props.dimensions.minValue == undefined ? defaults.getMinValueDimension() : props.dimensions.minValue,
                 maxValue: props.dimensions.maxValue == undefined ? defaults.getMaxValueDimension() : props.dimensions.maxValue,
+                units: props.dimensions.units == undefined ? defaults.getUnitsDimension() : props.dimensions.units,
+                unitsDesc: props.dimensions.unitsDesc == undefined ? defaults.getUnitsDimension() : props.dimensions.unitsDesc,
+                unitsEnabled: props.dimensions.unitsEnabled == undefined ? defaults.getUnitsEnabledDimension() : props.dimensions.unitsEnabled,
+                round: props.dimensions.round == undefined ? defaults.getRoundDimension() : props.dimensions.round,
             });
         } else {
             this.setDimensions(defaults.getDimensions(initProps.map));
@@ -92,6 +96,10 @@ class ChoroplethLayerToolState extends LayerToolState implements IChoroplethLaye
         if(dimensionsConfig.customMinMax !== undefined) dimensions.customMinMax.setValue(dimensionsConfig.customMinMax);
         if(dimensionsConfig.minValue !== undefined) dimensions.minValue.setValue(dimensionsConfig.minValue);
         if(dimensionsConfig.maxValue !== undefined) dimensions.maxValue.setValue(dimensionsConfig.maxValue);
+        if(dimensionsConfig.units !== undefined) dimensions.units.setValue(dimensionsConfig.units);
+        if(dimensionsConfig.unitsDesc !== undefined) dimensions.unitsDesc.setValue(dimensionsConfig.unitsDesc);
+        if(dimensionsConfig.unitsEnabled !== undefined) dimensions.unitsEnabled.setValue(dimensionsConfig.unitsEnabled);
+        if(dimensionsConfig.round !== undefined) dimensions.round.setValue(dimensionsConfig.round);
         
     }
 
@@ -116,7 +124,11 @@ class ChoroplethLayerToolState extends LayerToolState implements IChoroplethLaye
             scaling: dimensions.scaling.getValue()?.getName(),
             customMinMax: dimensions.customMinMax.getValue(),
             minValue: dimensions.minValue.getValue(),
-            maxValue: dimensions.maxValue.getValue()
+            maxValue: dimensions.maxValue.getValue(),
+            units: dimensions.units.getValue(),
+            unitsDesc: dimensions.unitsDesc.getValue(),
+            unitsEnabled: dimensions.unitsEnabled.getValue(),
+            round: dimensions.round.getValue()
         };
 
         return config;

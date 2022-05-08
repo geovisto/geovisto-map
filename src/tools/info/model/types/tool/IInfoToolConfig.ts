@@ -10,10 +10,6 @@ import {
  * @author Tomas Koscielniak
  */
 type IInfoToolConfig = IMapToolConfig & {
-    filterRules?: {
-        domain: string,
-        operation: string,
-        pattern: string,
-    }[];
+    defaultFile: string
 }
 export default IInfoToolConfig;

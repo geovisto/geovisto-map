@@ -83,7 +83,11 @@ class ChoroplethLayerToolDefaults extends LayerToolDefaults implements IChorople
             scaling: this.getScalingDimension(),
             customMinMax: this.getCustomMinMaxDimension(),
             minValue: this.getMinValueDimension(),
-            maxValue: this.getMaxValueDimension()
+            maxValue: this.getMaxValueDimension(),
+            units: this.getUnitsDimension(),
+            unitsDesc: this.getUnitsDescDimension(),
+            unitsEnabled: this.getUnitsEnabledDimension(),
+            round: this.getRoundDimension(),
         };
     }
 
@@ -219,6 +223,50 @@ class ChoroplethLayerToolDefaults extends LayerToolDefaults implements IChorople
     public getMaxValueDimension(): IMapTypeDimension<number> {
         return new MapTypeDimension<number>(
             "maxValue",
+            new IntegerTypeManager(),
+            undefined
+        );
+    }
+
+    /**
+     * It returns the units dimension.
+     */
+    public getUnitsDimension(): IMapTypeDimension<string> {
+        return new MapTypeDimension<string>(
+            "units",
+            new StringTypeManager(),
+            ""
+        );
+    }
+
+    /**
+     * It returns the units description value dimension.
+     */
+    public getUnitsDescDimension(): IMapTypeDimension<string> {
+        return new MapTypeDimension<string>(
+            "unitsDesc",
+            new StringTypeManager(),
+            ""
+        );
+    }
+
+    /**
+     * It returns the units state value dimension.
+     */
+    public getUnitsEnabledDimension(): IMapTypeDimension<boolean> {
+        return new MapTypeDimension<boolean>(
+            "unitsEnabled",
+            new BooleanTypeManager(),
+            false
+        );
+    }
+
+    /**
+     * It returns the round dimension.
+     */
+    public getRoundDimension(): IMapTypeDimension<number> {
+        return new MapTypeDimension<number>(
+            "round",
             new IntegerTypeManager(),
             undefined
         );

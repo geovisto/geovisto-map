@@ -35,7 +35,10 @@ class ChoropolethLayerToolMapForm extends MapLayerToolForm<IChoroplethLayerTool>
         scaling: IMapFormInput,
         customMinMax: IMapFormInput,
         minValue: IMapFormInput,
-        maxValue: IMapFormInput
+        maxValue: IMapFormInput,
+        units: IMapFormInput,
+        unitsDesc: IMapFormInput,
+        unitsEnabled: IMapFormInput
     };
 
     /**
@@ -65,12 +68,17 @@ class ChoropolethLayerToolMapForm extends MapLayerToolForm<IChoroplethLayerTool>
         this.inputs?.customMinMax.setValue((dimensions.customMinMax.getValue()) ?? "");
         this.inputs?.minValue.setValue((dimensions.minValue.getValue()) ?? "");
         this.inputs?.maxValue.setValue((dimensions.maxValue.getValue()) ?? "");
+        this.inputs?.units.setValue((dimensions.units.getValue()) ?? "");
+        this.inputs?.unitsDesc.setValue((dimensions.unitsDesc.getValue()) ?? "");
 
         // update disabled attribute
         this.inputs?.color.setDisabled(!dimensions.customColor.getValue());
         this.inputs?.scaling.setDisabled(dimensions.customMinMax.getValue() ?? false);
         this.inputs?.minValue.setDisabled(!dimensions.customMinMax.getValue());
         this.inputs?.maxValue.setDisabled(!dimensions.customMinMax.getValue());
+        this.inputs?.unitsEnabled.setDisabled(dimensions.unitsEnabled.getValue() ?? false);
+        this.inputs?.units.setDisabled(!dimensions.unitsEnabled.getValue());
+        this.inputs?.unitsDesc.setDisabled(!dimensions.unitsEnabled.getValue());
     }
 
     /**
@@ -97,7 +105,10 @@ class ChoropolethLayerToolMapForm extends MapLayerToolForm<IChoroplethLayerTool>
                 scaling: this.getInputScaling(dimensions.scaling),
                 customMinMax: this.getInputCustomMinMax(dimensions.customMinMax),
                 minValue: this.getInputMinValue(dimensions.minValue),
-                maxValue: this.getInputMaxValue(dimensions.maxValue)
+                maxValue: this.getInputMaxValue(dimensions.maxValue),
+                unitsEnabled: this.getInputUnitsEnabled(dimensions.unitsEnabled),
+                units: this.getInputUnits(dimensions.units),
+                unitsDesc: this.getInputUnitsDesc(dimensions.unitsDesc),
             };
             
             // append to DOM
@@ -112,7 +123,10 @@ class ChoropolethLayerToolMapForm extends MapLayerToolForm<IChoroplethLayerTool>
             elem.appendChild(this.inputs.customMinMax.create());
             elem.appendChild(this.inputs.minValue.create());
             elem.appendChild(this.inputs.maxValue.create());
-    
+            elem.appendChild(this.inputs.unitsEnabled.create());
+            elem.appendChild(this.inputs.units.create());
+            elem.appendChild(this.inputs.unitsDesc.create());
+
             // set input values
             this.setInputValues(dimensions);
         }
@@ -165,6 +179,36 @@ class ChoropolethLayerToolMapForm extends MapLayerToolForm<IChoroplethLayerTool>
         return this.getCheckboxInput(dimension, (ev: Event) => {
             this.inputs?.color.setDisabled(!(<HTMLInputElement> ev.target).checked);
         });
+    }
+
+    /**
+     * It returns new input for the enabling inputs dimension.
+     *
+     * @param dimension
+     */
+    public getInputUnitsEnabled(dimension: IMapTypeDimension<boolean>): IMapFormInput {
+        return this.getCheckboxInput(dimension, (ev: Event) => {
+            this.inputs?.units.setDisabled(!(<HTMLInputElement> ev.target).checked);
+            this.inputs?.unitsDesc.setDisabled(!(<HTMLInputElement> ev.target).checked);
+        });
+    }
+
+    /**
+     * It returns new input for the units dimension.
+     *
+     * @param dimension
+     */
+    public getInputUnits(dimension: IMapTypeDimension<string>): IMapFormInput {
+        return this.getTextInput(dimension);
+    }
+
+    /**
+     * It returns new input for the units description dimension.
+     *
+     * @param dimension
+     */
+    public getInputUnitsDesc(dimension: IMapTypeDimension<string>): IMapFormInput {
+        return this.getTextInput(dimension);
     }
 
     /**
