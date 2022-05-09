@@ -9,6 +9,10 @@ import IGeoDownloaderToolDefaults from "../types/IGeoDownloaderToolDefaults";
 import IGeoDownloaderToolProps from "../types/IGeoDownloaderToolProps";
 import IGeoDownloaderToolState from "../types/IGeoDownloaderToolState";
 
+/**
+ * State class for GeoDownloaderTool.
+ * @author Vojtěch Malý
+ */
 class GeoDownloaderToolState extends MapToolState implements IGeoDownloaderToolState {
     private config : IMapToolConfig | undefined = undefined;
 

@@ -5,6 +5,10 @@ import {
 
 import IGeoDownloaderToolDefaults from "../types/IGeoDownloaderToolDefaults";
 
+/**
+ * Defaults class for GeoDownloaderTool
+ * @author Vojtěch Malý
+ */
 class GeoDownloaderToolDefaults extends MapToolDefaults implements IGeoDownloaderToolDefaults {
     public static TYPE="geovisto-tool-geoDownloader";
 

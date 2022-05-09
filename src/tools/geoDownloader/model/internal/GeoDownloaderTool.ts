@@ -14,7 +14,14 @@ import GeoDownloaderToolDefaults from "./GeoDownloaderToolDefaults";
 import GeoDownloaderToolState from "./GeoDownloaderToolState";
 import GeoDownloaderToolMapForm from "./forms/GeoDownloaderToolMapForm";
 
-
+/**
+ * GeoDownladerTool -- 
+ * Tool providing basic user interface for downloading GeoJSON objects from OverpassAPI.
+ * Objects can be downloaded for more than one administrative level of country. 
+ * Can be also used for generating hierarchy definition in case of downloading polygons.
+ * 
+ * @author Vojtěch Malý
+ */
 class GeoDownloaderTool extends MapTool implements IMapFormControl, IGeoDownloaderTool {
     private mapForm!: GeoDownloaderToolMapForm;                         
    
