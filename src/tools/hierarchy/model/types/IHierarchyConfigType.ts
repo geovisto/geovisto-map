@@ -1,5 +1,9 @@
 import { IMapToolConfig } from "../../../../index.core";
 
+/**
+ * Type for hierarchy configuration.
+ * @author Vojtěch Malý
+ */
 type HierarchyConfigurationType = IMapToolConfig & {
     HierarchyConfig? :{
         name : string,

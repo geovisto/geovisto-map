@@ -1,5 +1,6 @@
 /**
  * Interface of one zoom ply.
+ * @author Vojtěch Malý
  */
 interface IHierarchyToolZoomLevel {
 

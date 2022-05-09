@@ -1,5 +1,10 @@
 import HierarchyZoomLevel from "../internal/HierarchyZoomLevel";
 
+/**
+ * Interface for one domain hierarchy definiton. 
+ * Used by HierarchyToolManager.
+ * @author Vojtěch Malý
+ */
 interface IHierarchyToolDomain {
     /**
      * Return node array where:

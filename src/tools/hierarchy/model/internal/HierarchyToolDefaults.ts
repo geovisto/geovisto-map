@@ -1,6 +1,10 @@
 import { IMapToolConfig, MapToolDefaults } from "../../../..";
 import IHierarchyToolDefaults from "../types/IHierarchyToolDefaults";
 
+/**
+ * Class for default values of HierarchyTool.
+ * @author Vojtěch Malý
+ */
 class HierarchyToolDefaults extends MapToolDefaults implements IHierarchyToolDefaults {
     public static TYPE="geovisto-tool-hierarchy";
 

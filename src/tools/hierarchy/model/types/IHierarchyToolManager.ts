@@ -1,6 +1,12 @@
 import HierarchyZoomLevel from "../internal/HierarchyZoomLevel";
 import IHierarchyConfigType from "./IHierarchyConfigType";
 
+/**
+ * Interface for Hierarchy Tool manager. 
+ * Used only internaly in Hierarchy Tool.
+ * 
+ * @author Vojtěch Malý
+ */
 interface IHierarchyToolManager {
 
     initialize(geoData : IHierarchyConfigType) : void;

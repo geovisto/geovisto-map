@@ -5,7 +5,8 @@ import {
 import IHierarchyTool from "../../types/IHierarchyTool";
 
 /**
- * Hierarchy tool form
+ * Hierarchy tool map form.
+ * @author Vojtěch Malý
  */
 class HierarchyToolMapForm extends MapObjectForm<IHierarchyTool> implements IMapForm {
     // Form content element

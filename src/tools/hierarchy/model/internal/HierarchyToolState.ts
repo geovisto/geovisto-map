@@ -11,6 +11,7 @@ import HierarchyConfigurationType from "../types/IHierarchyConfigType";
 
 /**
  * State of hierarchy tool
+ * @author Vojtěch Malý
  */
 class HierarchyToolState extends MapToolState implements IHierarchyToolState {
     private config : HierarchyConfigurationType | undefined = undefined;
