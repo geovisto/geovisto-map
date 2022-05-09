@@ -123,7 +123,7 @@
       "layerName": "Hierarchy layer",
       "HierarchyConfig": [{
         "name" : "Hierarchy covid",
-        "aggregation" : false,
+        "aggregation" : true,
             "hierarchy": [
                 {
                     "id": "CZ_7_0",
