@@ -46,6 +46,7 @@ class Demo extends Component<Record<string, never>, { data: unknown, config: Rec
     private polygons2: unknown;
     private centroids2: unknown;
     private hierarchyPolygons: unknown;
+    private hierarchyPoints: unknown;
     private infodata: unknown;
     private infodata2: unknown;
     private map: React.RefObject<ReactGeovistoMap>;
@@ -59,6 +60,7 @@ class Demo extends Component<Record<string, never>, { data: unknown, config: Rec
         this.polygons2 = require("/static/geo/czech_districts_polygons.json");
         this.centroids2 = require("/static/geo/czech_districts_centroids.json");
         this.hierarchyPolygons = require("/static/geo/geo-hierarchy_covidData.json");
+        this.hierarchyPoints = require("/static/geo/geo-hierarchy_covidDataPoint.json");
 
         // initialize info objects
         this.infodata = require("/static/info/test.md");
@@ -232,6 +234,7 @@ class Demo extends Component<Record<string, never>, { data: unknown, config: Rec
                             Geovisto.getGeoDataFactory().geojson("world centroids", this.centroids),
                             Geovisto.getGeoDataFactory().geojson("czech polygons", this.polygons2),
                             Geovisto.getGeoDataFactory().geojson("Hierarchy covid", this.hierarchyPolygons),
+                            Geovisto.getGeoDataFactory().geojson("Hierarchy covid Point", this.hierarchyPoints),
                             Geovisto.getGeoDataFactory().geojson("czech centroids", this.centroids2)
                         ])}
                         config={Geovisto.getMapConfigManagerFactory().default(this.state.config)}
