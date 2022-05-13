@@ -7,16 +7,15 @@ import "../../../styles/style.scss";
 
 // Geovisto core
 import {
-    DataChangeEvent,
-    DataManagerChangeEvent,
     IMapEvent,
-    IMapToolInitProps,
-    MapTool,
     IMapLegendControl,
-    instanceOfMapLegend,
     IMapTool,
+    IMapToolInitProps,
+    instanceOfMapLegend,
+    LayerToolRenderedEvent,
+    MapTool,
+    ToolEnabledEvent,
 } from '../../../../../index.core';
-
 
 import ILegendTool from '../../types/tool/ILegendTool';
 import ILegendToolConfig from '../../types/tool/ILegendToolConfig';
@@ -25,8 +24,6 @@ import ILegendToolProps from '../../types/tool/ILegendToolProps';
 import ILegendToolState from '../../types/tool/ILegendToolState';
 import LegendToolDefaults from "./LegendToolDefaults";
 import LegendToolState from "./LegendToolState";
-import DimensionChangeEvent from "../../../../../model/internal/event/dimension/DimensionChangeEvent";
-import VisibilityChangeEvent from "../../../../../model/internal/event/visibility/VisibilityChangeEvent";
 
 /**
  * This class provides the legend tool.
@@ -133,18 +130,19 @@ class LegendTool <T extends IMapTool & IMapLegendControl> extends MapTool implem
         if (tools != undefined && map) {
             for (let i = 0; i < tools?.length; i++) {
                 // Check if tools implement legends
-                if (instanceOfMapLegend(this.getTool(tools[i]))) {
+                if (instanceOfMapLegend(tools[i]) && tools[i].isEnabled()) {
+                    const mapLegendControlTool: IMapLegendControl = (tools[i] as unknown as IMapLegendControl);
                     // Check if tool doesnt want the legend rendered for some reason
                     // You can achieve this from tool by returning 'undefined'
-                    if (this.getTool(tools[i]).getMapLegend().getContent(tools[i]) != undefined) {
+                    if (mapLegendControlTool.getMapLegend().getContent(tools[i]) != undefined) {
                         // And if they do want to get rendered, get div with legend
-                        // @ts-ignore
-                        const legend = L.control({position: "bottomright"});
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                        const legend = (L as any).control({position: "bottomright"});
                         this.clearLegend(tools[i].getId());
                         // Get the div
                         legend.onAdd = () => {
                             if (tools != undefined){
-                                return this.getTool(tools[i]).getMapLegend().getContent(tools[i]);
+                                return mapLegendControlTool.getMapLegend().getContent(tools[i]);
                             }
                         };
                         // Add it to map
@@ -167,9 +165,8 @@ class LegendTool <T extends IMapTool & IMapLegendControl> extends MapTool implem
      * This function clears legend.
      */
     public clearLegend(owner: string | undefined): void {
-        let div: HTMLElement | undefined = undefined;
-        div = L.DomUtil.get((owner + "-legend"))!;
-        if (div != undefined) {
+        const div = L.DomUtil.get(owner + "-legend");
+        if(div) {
             L.DomUtil.remove(div);
         }
     }
@@ -181,21 +178,14 @@ class LegendTool <T extends IMapTool & IMapLegendControl> extends MapTool implem
      */
     public handleEvent(event: IMapEvent): void {
         switch (event.getType()) {
-            case DataManagerChangeEvent.TYPE():
-            case DataChangeEvent.TYPE():
-            case DimensionChangeEvent.TYPE():
+            case LayerToolRenderedEvent.TYPE():
                 this.createLegend();
                 break;
-            case VisibilityChangeEvent.TYPE():
-                switch (VisibilityChangeEvent.getVisibility()) {
-                    // Layer is being enabled
-                    case true:
-                        this.createLegend();
-                        break;
-                    // Layer is being disabled
-                    case false:
-                        this.clearLegend(VisibilityChangeEvent.getSource().getId());
-                        break;
+            case ToolEnabledEvent.TYPE():
+                if((event as ToolEnabledEvent).getChangedObject()) {
+                    this.createLegend();
+                } else {
+                    this.clearLegend((event as ToolEnabledEvent).getSource().getId());
                 }
                 break;
             default:

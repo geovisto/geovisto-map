@@ -38,7 +38,6 @@ import {
     AbstractLayerTool,
     DataChangeEvent,
     DataManagerChangeEvent,
-    DimensionChangeEvent,
     GeoDataChangeEvent,
     GeoDataManager,
     GeoDataManagerChangeEvent,
@@ -546,9 +545,6 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
             }
         }
         super.updateDimension(dimension, value, redraw);
-        this.getState().getMap()?.getState().getEventManager().scheduleEvent(
-            new DimensionChangeEvent(this), undefined, undefined
-        );
     }
 
     /**
@@ -581,6 +577,8 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
                 }
                 break;
         }
+
+        super.render(type);
     }
     
     /**

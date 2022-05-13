@@ -69,8 +69,10 @@ class ChoroplethLayerToolMapLegend extends MapLayerToolLegend<IChoroplethLayerTo
             }
         }
         const values = [];
-        for (let i = 0; i < scale.length; i++) {
-            values.push(separateThousands(categories[i]));
+        for (let i = 0; i < categories.length; i++) {
+            if(categories[i]) {
+                values.push(separateThousands(categories[i]));
+            }
         }
         div.id = "geovisto-tool-layer-choropleth-legend";
         let units = tool.getState().getDimensions().units.getValue();

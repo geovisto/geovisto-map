@@ -26,7 +26,7 @@ import { ISidebarTabProps, ISidebarTabInitProps } from "../../types/tab/ISidebar
 import SidebarFragment from "../fragment/SidebarFragment";
 import SidebarTabDefaults from "./SidebarTabDefaults";
 import SidebarTabState from "./SidebarTabState";
-import VisibilityChangeEvent from "../../../../../model/internal/event/visibility/VisibilityChangeEvent";
+import ToolEnabledEvent from "../../../../../model/internal/event/tool/ToolEnabledEvent";
 
 const C_sidebar_header_class = "leaflet-sidebar-header";
 const C_sidebar_tab_content_class = "leaflet-sidebar-tab-content";
@@ -314,7 +314,7 @@ class SidebarTab<T extends IMapTool & IMapFormControl> extends MapObject impleme
 
             // trigger visibility change event
             this.getState().getTool().getMap()?.getState().getEventManager().scheduleEvent(
-                new VisibilityChangeEvent(tool, checked), undefined, undefined
+                new ToolEnabledEvent(tool, checked), undefined, undefined
             );
 
             // notify fragments

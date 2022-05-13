@@ -198,6 +198,12 @@
         "chartAggregationFn": ""
       },
       "stories": []
+    },
+    {
+        "type": "geovisto-tool-layer-drawing",
+        "id": "geovisto-tool-layer-drawing",
+        "enabled": false,
+        "layerName": "GeoJSON creator"
     }
   ]
 }

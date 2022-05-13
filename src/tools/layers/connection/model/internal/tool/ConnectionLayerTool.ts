@@ -593,6 +593,8 @@ class ConnectionLayerTool extends AbstractLayerTool implements IConnectionLayerT
                     break;
             }
         }
+
+        super.render(type);
     }
 
     /**

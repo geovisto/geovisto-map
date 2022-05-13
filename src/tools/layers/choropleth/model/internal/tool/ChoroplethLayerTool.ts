@@ -35,6 +35,7 @@ import {
     DataManagerChangeEvent,
     GeoDataChangeEvent,
     GeoDataManager,
+    GeoDataManagerChangeEvent,
     GeoJSONTypes,
     IDataChangeAnimateOptions,
     IMapAggregationBucket,
@@ -491,6 +492,8 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
                 this.updateStyle(animateOptions);
                 break;
         }
+
+        super.render(type);
     }
 
     /**
@@ -527,6 +530,9 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
      */
     public handleEvent(event: IMapEvent): void {
         switch (event.getType()) {
+            case GeoDataManagerChangeEvent.TYPE():
+                this.render(LayerToolRenderType.LAYER);
+                break;
             case GeoDataChangeEvent.TYPE():
                 this.render(LayerToolRenderType.LAYER);
                 break;

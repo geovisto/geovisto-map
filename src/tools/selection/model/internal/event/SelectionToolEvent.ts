@@ -12,7 +12,7 @@ import ISelectionToolEvent from "../../types/event/ISelectionToolEvent";
  * 
  * @author Jiri Hynek
  */
-class SelectionToolEvent extends MapChangeEvent<IMapTool, IMapSelection | null> implements ISelectionToolEvent {
+class SelectionToolEvent extends MapChangeEvent<IMapSelection | null, IMapTool> implements ISelectionToolEvent {
 
     /**
      * It initializes event.

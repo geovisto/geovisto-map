@@ -8,7 +8,7 @@ import MapChangeEvent from "../generic/MapChangeEvent";
  * 
  * @author Jiri Hynek
  */
-class GeoDataManagerChangeEvent<TSource extends IMapObject> extends MapChangeEvent<TSource, IGeoDataManager> implements IGeoDataManagerChangeEvent {
+class GeoDataManagerChangeEvent<TSource extends IMapObject = IMapObject> extends MapChangeEvent<IGeoDataManager, TSource> implements IGeoDataManagerChangeEvent {
 
     /**
      * It initializes event.

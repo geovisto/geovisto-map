@@ -45,7 +45,9 @@ export type { default as IMapDataChangeEvent } from './model/types/event/data/IM
 export type { default as IMapDataManagerChangeEvent } from './model/types/event/data/IMapDataManagerChangeEvent';
 export type { default as IGeoDataChangeEvent } from './model/types/event/geodata/IGeoDataChangeEvent';
 export type { default as IGeoDataManagerChangeEvent } from './model/types/event/geodata/IGeoDataManagerChangeEvent';
-
+export type { default as ILayerToolDimensionChangedEvent } from './model/types/event/tool/ILayerToolDimensionChangedEvent';
+export type { default as ILayerToolRenderedEvent } from './model/types/event/tool/ILayerToolRenderedEvent';
+export type { default as IToolEnabledEvent } from './model/types/event/tool/IToolEnabledEvent';
 
 // form
 export type { default as IMapForm } from './model/types/form/IMapForm';
@@ -158,12 +160,13 @@ export { default as MapDomainArrayManager } from './model/internal/domain/generi
 export { default as MapEventFactory } from './model/internal/event/MapEventFactory';
 export { default as DataChangeEvent } from './model/internal/event/data/DataChangeEvent';
 export { default as DataManagerChangeEvent } from './model/internal/event/data/DataManagerChangeEvent';
-export { default as DimensionChangeEvent } from './model/internal/event/dimension/DimensionChangeEvent';
 export { default as MapEvent } from './model/internal/event/generic/MapEvent';
 export { default as MapChangeEvent } from './model/internal/event/generic/MapChangeEvent';
-export { default as VisibilityChangeEvent } from './model/internal/event/visibility/VisibilityChangeEvent';
 export { default as GeoDataChangeEvent } from './model/internal/event/geodata/GeoDataChangeEvent';
 export { default as GeoDataManagerChangeEvent } from './model/internal/event/geodata/GeoDataManagerChangeEvent';
+export { default as LayerToolDimensionChangeEvent } from './model/internal/event/tool/LayerToolDimensionChangedEvent';
+export { default as LayerToolRenderedEvent } from './model/internal/event/tool/LayerToolRenderedEvent';
+export { default as ToolEnabledEvent } from './model/internal/event/tool/ToolEnabledEvent';
 
 // form
 export { default as MapLayerToolForm } from './model/internal/form/MapLayerToolForm';
@@ -220,7 +223,6 @@ export { default as IntegerRangeManager } from './model/internal/type/IntegerRan
 export { default as IntegerTypeManager } from './model/internal/type/IntegerTypeManager';
 export { default as StringTypeManager } from './model/internal/type/StringTypeManager';
 
-// UTIL
-
+// util
 export { default as TabDOMUtil } from './util/TabDOMUtil';
 export { roundValues } from './model/internal/utils/Utils';

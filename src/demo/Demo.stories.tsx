@@ -210,7 +210,8 @@ class Demo extends Component<Record<string, never>, { data: unknown, config: Rec
                         <option value="demo2.json">demo2.json</option>
                         <option value="covidCzechDistricts.json">covid czech districts</option>
                         <option value="covidCzechDistrictsCumulative.json">covid czech districts (cumulative)</option>
-                        <option value="ovidCzechDistrictsCategoric.json">covid czech districts (categoric)</option>
+                        <option value="covidCzechDistrictsCategoric.json">covid czech districts (categoric)</option>
+                        <option value="data-hierarchy_covidData.json">covid czech districts (hierarchy)</option>
                         <option disabled></option>
                     </select>
 

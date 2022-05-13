@@ -7,7 +7,7 @@ import MapChangeEvent from "../generic/MapChangeEvent";
  * 
  * @author Jiri Hynek
  */
-class GeoDataChangeEvent extends MapChangeEvent<IMapTool, null> implements IGeoDataChangeEvent {
+class GeoDataChangeEvent extends MapChangeEvent<null, IMapTool> implements IGeoDataChangeEvent {
     
     public constructor(tool: IMapTool) {
         super(GeoDataChangeEvent.TYPE(), tool, null);

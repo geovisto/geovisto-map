@@ -11,7 +11,7 @@ import IThemesToolEvent from "../../types/event/IThemesToolEvent";
  * 
  * @author Jiri Hynek
  */
-class ThemesToolEvent extends MapChangeEvent<IThemesTool, IMapTheme> implements IThemesToolEvent {
+class ThemesToolEvent extends MapChangeEvent<IMapTheme, IThemesTool> implements IThemesToolEvent {
 
     /**
      * It initializes event.
