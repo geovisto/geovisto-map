@@ -3,6 +3,7 @@ import { createButton, MAPPING_MODEL } from "../../../util/inputs";
 import AbstractControl from "../AbstractControl/AbstractControl";
 import { ControlProps } from "../AbstractControl/types";
 import DataControlState from "./DataControlState";
+import DataControlUtils from "./DataControlUtils";
 import { TDataControl } from "./types";
 
 class DataControl extends AbstractControl implements TDataControl {
@@ -79,7 +80,7 @@ class DataControl extends AbstractControl implements TDataControl {
     });
     elem.appendChild(inputDesc.create() as Node);
     inputDesc.setValue(
-      DataControl.convertDescfromPopText(
+      DataControlUtils.convertDescfromPopText(
         (this.state._getSelected()?.getPopup()?.getContent() || "") as string
       )
     );
@@ -87,22 +88,6 @@ class DataControl extends AbstractControl implements TDataControl {
   };
 
   // ************************* Data Inputs END ***************************************
-
-  /**
-   * for linebreak in poup text we use '<br>' tag
-   */
-  public static convertDescToPopText = (descText: string): string => {
-    if (!descText) return "";
-    return descText.replaceAll("\n", "<br />");
-  };
-
-  /**
-   * for linebreak in field we use '\n' character
-   */
-  public static convertDescfromPopText = (popText: string): string => {
-    if (!popText) return "";
-    return popText.replaceAll("<br />", "\n");
-  };
 
   // ************************* Filter Inputs ***************************************
 

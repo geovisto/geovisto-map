@@ -1,4 +1,12 @@
-import { AbstractMapFormInput, IMapFormInput, IMapFormInputProps, MapFormInputFactory } from "../../../..";
+
+
+import { 
+    AbstractMapFormInput,
+    IMapFormInput,
+    IMapFormInputProps,
+    MapFormInputFactory
+} from "../../../../index.core";
+
 import { SelectOpt } from "../util/constants";
 
 const ID = "geovisto-input-select-drawing";

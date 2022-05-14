@@ -52,6 +52,7 @@ export default {
             if(warning.importer.startsWith("node_modules/d3-transition")) return;
             if(warning.importer.startsWith("node_modules/d3-selection")) return;
             if(warning.importer.startsWith("node_modules/d3-interpolate")) return;
+            if(warning.importer.startsWith("node_modules/d3-voronoi")) return;
         }
         console.log(warning);
         warn(warning);

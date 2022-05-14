@@ -1,7 +1,7 @@
 import IMapData from "../../../../../../model/types/data/IMapData";
 import AbstractControlState from "../AbstractControl/AbstractControlState";
 import { ControlStateProps } from "../AbstractControl/types";
-import DataControl from "./DataControl";
+import DataControlUtils from "./DataControlUtils";
 import { TDataControlState, TFilterValue } from "./types";
 
 class DataControlState
@@ -164,7 +164,7 @@ class DataControlState
    */
   public changeDesc = (inputText: string): void => {
     const selectedEl = this._getSelected();
-    const modInputText = DataControl.convertDescToPopText(inputText);
+    const modInputText = DataControlUtils.convertDescToPopText(inputText);
 
     const popup1 = selectedEl?.getPopup();
     if (popup1) {

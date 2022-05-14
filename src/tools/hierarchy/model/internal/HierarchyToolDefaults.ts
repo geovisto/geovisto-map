@@ -1,4 +1,10 @@
-import { IMapToolConfig, MapToolDefaults } from "../../../..";
+
+
+import {
+	IMapToolConfig,
+	MapToolDefaults
+} from "../../../../index.core";
+
 import IHierarchyToolDefaults from "../types/IHierarchyToolDefaults";
 
 /**

@@ -1,7 +1,7 @@
 import { 
 	IMapToolConfig, 
 	MapToolDefaults 
-} from "../../../../index";
+} from "../../../../index.core";
 
 import IGeoDownloaderToolDefaults from "../types/IGeoDownloaderToolDefaults";
 
