@@ -60,8 +60,22 @@ class ChoroplethLayerToolMapLegend extends MapLayerToolLegend<IChoroplethLayerTo
             return numParts.join(".");
         };
         // Conver values to string
-        const categories = scale;
+        let categories = scale;
         const opacities = color_opacities.map(String);
+        // Get rid of duplicit values if there are any
+        const unique_vals = [];
+        for (let i = 0; i < categories.length; i++) {
+            let occurence_counter = 0;
+            for (let j = 0; j < categories.length; j++) {
+                if (categories[j] == categories[i]) {
+                    occurence_counter++;
+                }
+            }
+            if (occurence_counter == 1) {
+                unique_vals.push(categories[i]);
+            }
+        }
+        categories = unique_vals;
         // Check if rounding is set
         if (tool.getState().getDimensions().round.getValue() != undefined) {
             for (let i = 0; i < categories.length; i++) {
@@ -87,7 +101,7 @@ class ChoroplethLayerToolMapLegend extends MapLayerToolLegend<IChoroplethLayerTo
                     units + '</span><br>';
             } else {
                 div.innerHTML += '<i style="opacity: ' + opacities[i] +
-                    '; background: ' + color + '"></i><span>' + values[i] + ' - ' + values[i+1] + ' ' +
+                    '; background: ' + color + '"></i><span>(' + values[i] + ' - ' + values[i+1] + '] ' +
                     units + '</span><br>';
             }
         }
