@@ -47,12 +47,6 @@ class ChoroplethLayerToolMapLegend extends MapLayerToolLegend<IChoroplethLayerTo
         // Get colors
         const color_opacities: Array<number> = [];
         const color = tool?.getState().getDimensions().color.getValue();
-        // Compute color intensity
-        for (let i = 0; i < scale.length; i++) {
-            color_opacities.push(tool?.computeColorIntensity(scale[i], scale));
-        }
-        // Shift the array
-        color_opacities.push(<number>color_opacities.shift());
         // Separate thousands for numerical ranges
         const separateThousands = (num: number): string => {
             const numParts = num.toString().split(".");
@@ -61,7 +55,6 @@ class ChoroplethLayerToolMapLegend extends MapLayerToolLegend<IChoroplethLayerTo
         };
         // Conver values to string
         let categories = scale;
-        const opacities = color_opacities.map(String);
         // Get rid of duplicit values if there are any
         const unique_vals = [];
         for (let i = 0; i < categories.length; i++) {
@@ -76,6 +69,13 @@ class ChoroplethLayerToolMapLegend extends MapLayerToolLegend<IChoroplethLayerTo
             }
         }
         categories = unique_vals;
+        // Compute color intensity
+        for (let i = 0; i < categories.length; i++) {
+            color_opacities.push(tool?.computeColorIntensity(categories[i], categories));
+        }
+        // Shift the array
+        color_opacities.push(<number>color_opacities.shift());
+        const opacities = color_opacities.map(String);
         // Check if rounding is set
         if (tool.getState().getDimensions().round.getValue() != undefined) {
             for (let i = 0; i < categories.length; i++) {
