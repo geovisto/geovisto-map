@@ -57,7 +57,7 @@ class DrawingLayerToolMapForm
    * removes all elements of a sidebar and calls function to create new content of the sidebar
    */
   public redrawTabContent(layerType: LayerType | ""): void {
-    console.log("redrawing sidebar...");
+    //console.log("redrawing sidebar...");
 
     // create sidebar tab content
     const tabContent = document.getElementsByClassName(tabContentClassName)[

@@ -241,7 +241,6 @@ class SidebarTool extends MapTool implements ISidebarTool {
      * @param event 
      */
      public handleEvent(event: IMapEvent): void {
-        console.log(event);
         let tabs;
         switch (event.getType()) {
             case DataManagerChangeEvent.TYPE():
