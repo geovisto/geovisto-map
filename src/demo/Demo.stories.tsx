@@ -22,6 +22,7 @@ import {
     GeovistoChoroplethLayerTool,
     GeovistoMarkerLayerTool,
     GeovistoConnectionLayerTool,
+    GeovistoGeoDownloaderTool,
     GeovistoDrawingLayerTool,
     GeovistoLegendTool,
     GeovistoInfoTool,
@@ -301,6 +302,9 @@ class Demo extends Component<Record<string, never>, { data: unknown, config: Rec
                             }),
                             GeovistoDrawingLayerTool.createTool({
                                 id: "geovisto-tool-layer-drawing"
+                            }),
+                            GeovistoGeoDownloaderTool.createTool({
+                                id: "geovisto-tool-geodownloader"
                             }),
                         ])}
                     />
