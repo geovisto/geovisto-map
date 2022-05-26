@@ -18,7 +18,7 @@
             "checkButton": true
         },
         {
-            "tool": "geovisto-tool-geoDownloader",
+            "tool": "geovisto-tool-geodownloader",
             "enabled": true,
             "name": "Downloader tool",
             "icon": "<i class=\"fa fa-cloud-download\" />",
@@ -37,15 +37,21 @@
       "enabled": true
     },
     {
-        "type": "geovisto-tool-geoDownloader",
-        "id": "geovisto-tool-geoDownloader",
-        "enabled": true
+      "type": "geovisto-tool-geodownloader",
+      "id": "geovisto-tool-geodownloader",
+      "enabled": true
     },
     {
       "type": "geovisto-tool-layer-map",
       "id": "geovisto-tool-layer-map",
       "enabled": true,
       "layerName": "Map layer"
+    },
+    {
+      "type": "geovisto-tool-layer-drawing",
+      "id": "geovisto-tool-layer-drawing",
+      "enabled": false,
+      "layerName": "GeoJSON creator"
     }
   ]
 }
