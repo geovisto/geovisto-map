@@ -4,7 +4,6 @@ import 'leaflet/dist/leaflet.css';
 // TODO - move to index.ts
 import '../../../styles/common.scss';
 
-import { IGeoDataManager } from '../../../index.core';
 import { IMapProps, IMapInitProps } from '../../types/map/IMapProps';
 import DataChangeEvent from '../event/data/DataChangeEvent';
 import DataManagerChangeEvent from '../event/data/DataManagerChangeEvent';
@@ -12,6 +11,7 @@ import GeoDataManagerChangeEvent from '../event/geodata/GeoDataManagerChangeEven
 import GeovistoMapDefaults from './GeovistoMapDefaults';
 import GeovistoMapState from './GeovistoMapState';
 import IDataChangeAnimateOptions from '../../types/event/data/IDataChangeAnimateOptions';
+import IGeoDataManager from '../../types/geodata/IGeoDataManager';
 import IMap from '../../types/map/IMap';
 import IMapConfigManager from '../../types/config/IMapConfigManager';
 import IMapData from '../../types/data/IMapData';

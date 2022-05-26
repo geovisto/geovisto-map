@@ -1,10 +1,11 @@
 import { FeatureCollection} from "geojson";
+
 import GeoJSONTypes from "../../types/geodata/GeoJSONTypes";
+import HierarchyTree from "./HierarchyTree";
 import IGeoData from "../../types/geodata/IGeoData";
 import IGeoDataManager from "../../types/geodata/IGeoDataManager";
 import IHierarchyManagerInterface from "../../types/geodata/IHierarchyManagerInterface";
 import MapDomainArrayManager from "../domain/generic/MapDomainArrayManager";
-import HierarchyTree from "./HierarchyTree";
 
 /**
  * The class provides a basic implemention geographical data manager.

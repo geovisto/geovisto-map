@@ -1,6 +1,6 @@
 import ILayerTool from "../../types/layer/ILayerTool";
+import IMapTool from "../../types/tool/IMapTool";
 import MapObjectLegend from "./MapObjectLegend";
-import {IMapTool} from "../../../index.core";
 
 /**
  * The interface declares functions for management of legends.

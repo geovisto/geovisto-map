@@ -1,4 +1,4 @@
-import {IMapTool} from "../../../index.core";
+import IMapTool from "../tool/IMapTool";
 
 /**
  * The interface declares functions for management of legends.

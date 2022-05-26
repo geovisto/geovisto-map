@@ -56,7 +56,6 @@ class MarkerLayerToolMapForm extends MapLayerToolForm<IMarkerLayerTool> implemen
         this.inputs?.category.setValue((dimensions.category.getValue()?.getName())?? "");
         this.inputs?.units.setValue((dimensions.units.getValue()) ?? "");
         this.inputs?.unitsDesc.setValue((dimensions.unitsDesc.getValue()) ?? "");
-
         this.inputs?.unitsEnabled.setDisabled(dimensions.unitsEnabled.getValue() ?? false);
         this.inputs?.units.setDisabled(!dimensions.unitsEnabled.getValue());
         this.inputs?.unitsDesc.setDisabled(!dimensions.unitsEnabled.getValue());

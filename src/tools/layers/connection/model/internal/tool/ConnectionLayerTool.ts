@@ -230,7 +230,7 @@ class ConnectionLayerTool extends AbstractLayerTool implements IConnectionLayerT
      */
     protected updateData(): { nodes: Set<string>, connections: Map<string, IMapAggregationBucket> } {
         // initialize a bucket data
-        const bucketData = {
+        let bucketData = {
             nodes: new Set<string>(),
             connections: new Map<string, IMapAggregationBucket>()
         };
@@ -284,16 +284,19 @@ class ConnectionLayerTool extends AbstractLayerTool implements IConnectionLayerT
                 }    
             }
 
-            // Getting geoDataManager and active domain name.        
+            // hierarchy support
+
+            // getting geoDataManager and active domain name.        
             const geoManager = this.getState().getDimensions().geoData.getDomainManager() as GeoDataManager;
             const domainName = this.getState().getDimensions().geoData.getValue()?.getName() ?? "";
-            const hierarchyBucket = {
-                nodes: new Set<string>(),
-                connections: new Map<string, IMapAggregationBucket>()
-            };
 
             // Check if hierarchy is enabled.
             if (geoManager.isHierarchyEnabled() && geoManager.isHierarchyEnabledForDomain(domainName)) {
+                const hierarchyBucket = {
+                    nodes: new Set<string>(),
+                    connections: new Map<string, IMapAggregationBucket>()
+                };
+
                 const active = geoManager.getActiveByTree(domainName);
                 // If aggregation is enabled, aggregate from childrens
                 if (geoManager.treeAggregationFlag(domainName)) {
@@ -372,15 +375,12 @@ class ConnectionLayerTool extends AbstractLayerTool implements IConnectionLayerT
                         }
                     });
                 }
+                bucketData = hierarchyBucket;
             }
-            // Set respective buckets
-            if (geoManager.isHierarchyEnabled() && geoManager.isHierarchyEnabledForDomain(domainName)) {
-                this.getState().setBucketData(hierarchyBucket);
-                return hierarchyBucket;
-            } else {
-                this.getState().setBucketData(bucketData);
-                return bucketData;
-            }
+
+            // update work data
+            this.getState().setBucketData(bucketData);
+            return bucketData;
         }
         return bucketData;
     }

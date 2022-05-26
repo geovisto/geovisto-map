@@ -221,7 +221,7 @@ class DrawingLayerTool
    * It creates layer items.
    */
   protected createLayerItems(): FeatureGroup[] {
-    console.log("%c ...creating", "color: #ff5108");
+    //console.log("%c ...creating", "color: #ff5108");
     const map = this.getMap()?.getState()?.getLeafletMap();
 
     this.getMapForm().getState().initializeControls();
@@ -232,7 +232,9 @@ class DrawingLayerTool
       tool: this,
       selectedTool: null,
     });
-    map?.addControl(this.controlDrawingToolbar);
+    if(this.isEnabled()) {
+      map?.addControl(this.controlDrawingToolbar);
+    }
 
     // * eventlistener for when object is created
     map?.on("draw:created" as any, this.createdListener as any);

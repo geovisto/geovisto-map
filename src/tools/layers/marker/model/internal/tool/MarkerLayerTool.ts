@@ -61,20 +61,20 @@ import {
 } from '../../../../../../index.core';
 
 import { createClusterMarkersData, createMarkerIconValueOptions, createPopupMessage } from '../marker/MarkerUtil';
-import IMarker from '../../types/marker/IMarker';
 import { IMarkerIconOptions, IMarkerIconValueOptions } from '../../types/marker/IMarkerIconOptions';
-import IMarkerLayerTool from '../../types/tool/IMarkerLayerTool';
 import { IMarkerLayerToolConfig } from '../../types/tool/IMarkerLayerToolConfig';
+import IMarker from '../../types/marker/IMarker';
+import IMarkerIcon from '../../types/marker/IMarkerIcon';
+import IMarkerLayerTool from '../../types/tool/IMarkerLayerTool';
 import IMarkerLayerToolDefaults from '../../types/tool/IMarkerLayerToolDefaults';
 import IMarkerLayerToolDimensions from '../../types/tool/IMarkerLayerToolDimensions';
-import IMarkerLayerToolState from '../../types/tool/IMarkerLayerToolState';
 import IMarkerLayerToolProps from '../../types/tool/IMarkerLayerToolProps';
+import IMarkerLayerToolState from '../../types/tool/IMarkerLayerToolState';
 import Marker from '../marker/Marker';
 import MarkerLayerToolDefaults from './MarkerLayerToolDefaults';
 import MarkerLayerToolMapForm from '../form/MarkerLayerToolMapForm';
-import MarkerLayerToolState from './MarkerLayerToolState';
-import IMarkerIcon from '../../types/marker/IMarkerIcon';
 import MarkerLayerToolMapLegend from "../legend/MarkerLayerToolMapLegend";
+import MarkerLayerToolState from './MarkerLayerToolState';
 
 /**
  * This class represents Marker layer tool. It works with geojson polygons representing countries.
