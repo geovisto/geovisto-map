@@ -64,7 +64,6 @@ class Demo extends Component<Record<string, never>, { data: unknown, config: Rec
         this.hierarchyPoints = require("/static/geo/geo-hierarchy_covidDataPoint.json");
         this.hierarchyConnection = require("/static/geo/geo-hierarchy_connection.json");
 
-
         // initialize info objects
         this.infodata = require("/static/info/test.md");
         this.infodata2 = require("/static/info/test2.md");
@@ -215,6 +214,7 @@ class Demo extends Component<Record<string, never>, { data: unknown, config: Rec
                         <option value="covidCzechDistrictsCumulative.json">covid czech districts (cumulative)</option>
                         <option value="covidCzechDistrictsCategoric.json">covid czech districts (categoric)</option>
                         <option value="data-hierarchy_covidData.json">covid czech districts (hierarchy)</option>
+                        <option value="data-hierarchy_connection.json">demo (hierarchy connections)</option>
                         <option disabled></option>
                     </select>
 

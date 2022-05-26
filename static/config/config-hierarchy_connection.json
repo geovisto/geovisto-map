@@ -162,6 +162,12 @@
           "geoData":"Hierarchy Connection",
           "animateDirection": false
         }
+      },
+      {
+          "type": "geovisto-tool-layer-drawing",
+          "id": "geovisto-tool-layer-drawing",
+          "enabled": false,
+          "layerName": "GeoJSON creator"
       }
     ]
   }
