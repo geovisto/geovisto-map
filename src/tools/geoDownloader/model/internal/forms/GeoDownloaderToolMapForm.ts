@@ -93,6 +93,19 @@ class GeoDownloaderToolMapForm extends MapObjectForm<IGeoDownloaderTool> impleme
         this.searchBtn = btn;
         return btn;
     }
+
+    /**
+     * Method for enabling and disabling tool.
+     * Method can't be used for clearing saved data. 
+     * @param enable True if going from disabled to enabled status. 
+     */
+    public stateChange(enable : boolean) : void {
+        if (enable) {
+            this.control.enableLast();
+        } else {
+            this.control.disableLast();
+        }
+    }
 }
 
 export default GeoDownloaderToolMapForm;
