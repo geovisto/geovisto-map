@@ -131,6 +131,10 @@ class GeoDownloaderToolMapControl {
         if (this.countryInput.getValue() === "") {
             return this.adminLevelDIV;
         }
+        this.data.level = [];
+        this.data.geoFIltered = [];
+        this.data.geo = [];
+        this.adminLevelMAP.clear();
 
         if (this.levelMap.has(this.countryInput.getValue())) {
             // Create and filter OSM table.
@@ -257,6 +261,9 @@ class GeoDownloaderToolMapControl {
      * Generate hierarchy editation interface
      */
     protected generateHierarchyEdit() : void {
+        this.previewGeo.clear();
+        this.hierarchyPreviewButtons = [];
+        console.log(this.data.level.length);
         // Iterate over every downloaded level of geo-objects.
         for (let cnt = 0; cnt < this.data.level.length; cnt++) {
             // Create prewiew buttons.
