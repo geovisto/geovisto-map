@@ -127,6 +127,7 @@ class GeoDownloaderToolMapControl {
      * @returns Div element containing buttons.
      */
     public createAdminLevelSelection() : HTMLElement {
+        this.adminLevelMAP.clear();
         this.adminLevelDIV.innerHTML = "";
         if (this.countryInput.getValue() === "") {
             return this.adminLevelDIV;
@@ -188,6 +189,18 @@ class GeoDownloaderToolMapControl {
         return this.adminLevelDIV;
     }
 
+    /** 
+     * Method to hide all previewed objects. 
+    */
+    private previewCleaner() : void {
+        this.hierarchyPreviewButtons.forEach((button, level) =>{
+            if (this.leafletMap) {
+                if (this.previewGeo.has(level)) {
+                    this.previewGeo.get(level)?.removeFrom(this.leafletMap);
+                }
+            }
+        });
+    }
 
     /**
      * Call back function for start of download.
@@ -231,6 +244,7 @@ class GeoDownloaderToolMapControl {
         this.data.geoFIltered = [];
         this.data.level = [];
         this.hierarchy.hierarchy = [];
+        this.previewCleaner();
         this.hierarchyEditToolDiv.innerHTML = "";
 
         // Fetch all data
@@ -257,6 +271,8 @@ class GeoDownloaderToolMapControl {
      * Generate hierarchy editation interface
      */
     protected generateHierarchyEdit() : void {
+        this.previewGeo.clear();
+        this.hierarchyPreviewButtons = [];
         // Iterate over every downloaded level of geo-objects.
         for (let cnt = 0; cnt < this.data.level.length; cnt++) {
             // Create prewiew buttons.
@@ -267,7 +283,7 @@ class GeoDownloaderToolMapControl {
                     this.togglePreview(cnt);
                 }
             });
-
+    
             this.hierarchyPreviewButtons.push(temp);
             this.hierarchyEditToolDiv.appendChild(temp.create());
             
@@ -417,6 +433,22 @@ class GeoDownloaderToolMapControl {
         return this.data;
     }
 
+    /**
+     * Method for making selected previews visible.
+     */
+    public enableLast() : void {
+        this.hierarchyPreviewButtons.forEach((button, level) =>{
+            if (this.leafletMap) {
+                if (this.previewGeo.has(level) && button.getValue()) {
+                    this.previewGeo.get(level)?.addTo(this.leafletMap);
+                }
+            }
+        });
+    }
+
+    public disableLast() : void {
+        this.previewCleaner();
+    }
     /**
      * Filters and simplify downloaded data.
      */

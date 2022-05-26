@@ -1,6 +1,8 @@
 import {
     IMapToolInitProps,
-    MapToolState
+    MapToolState,
+    IMapToolConfig,
+    IMapToolDefaults
 } from "../../../../index.core";
 import IHierarchyTool from "../types/IHierarchyTool";
 import IHierarchyToolDefaults from "../types/IHierarchyToolDefaults";
@@ -27,6 +29,13 @@ class HierarchyToolState extends MapToolState implements IHierarchyToolState {
     public deserialize(config: HierarchyConfigurationType): void {
         super.deserialize(config);
         this.config = config;
+    }
+
+    public serialize(defaults: IMapToolDefaults | undefined): IMapToolConfig {
+        const config: HierarchyConfigurationType = <HierarchyConfigurationType> super.serialize(defaults);
+        config.enabled = true;
+        config.HierarchyConfig = this.config?.HierarchyConfig;
+        return config;
     }
 
     public getConfiguration() : IHierarchyConfigType {
