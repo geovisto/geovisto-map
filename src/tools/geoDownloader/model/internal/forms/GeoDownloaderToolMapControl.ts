@@ -131,6 +131,7 @@ class GeoDownloaderToolMapControl {
         if (this.countryInput.getValue() === "") {
             return this.adminLevelDIV;
         }
+        this.previewCleaner();
         this.data.level = [];
         this.data.geoFIltered = [];
         this.data.geo = [];
@@ -192,6 +193,20 @@ class GeoDownloaderToolMapControl {
         return this.adminLevelDIV;
     }
 
+    /**
+     * Clears all active previews.
+     * Erases DIV element with edit of each downloaded administrative layer.
+     */
+    private previewCleaner() : void {
+        this.hierarchyPreviewButtons.forEach((button, level) =>{
+            if (this.leafletMap) {
+                if (this.previewGeo.has(level)) {
+                    this.previewGeo.get(level)?.removeFrom(this.leafletMap);
+                }
+            }
+        });
+        this.hierarchyEditToolDiv.innerHTML = "";
+    }
 
     /**
      * Call back function for start of download.
