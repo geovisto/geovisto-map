@@ -94,8 +94,17 @@ class GeoDownloaderToolMapForm extends MapObjectForm<IGeoDownloaderTool> impleme
         return btn;
     }
 
-    public eraseState() : void {
-        this.control.eraseState();
+    /**
+     * Method for enabling and disabling tool.
+     * Method can't be used for clearing saved data. 
+     * @param enable True if going from disabled to enabled status. 
+     */
+    public stateChange(enable : boolean) : void {
+        if (enable) {
+            this.control.enableLast();
+        } else {
+            this.control.disableLast();
+        }
     }
 }
 

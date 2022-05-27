@@ -1,5 +1,4 @@
 import { 
-    IMapEvent,
     IMapForm, 
     IMapFormControl, 
     IMapToolConfig, 
@@ -86,9 +85,7 @@ class GeoDownloaderTool extends MapTool implements IMapFormControl, IGeoDownload
     }
 
     public setEnabled(enabled: boolean): void {
-        if (!enabled) {
-            this.mapForm.eraseState();
-        }
+        this.mapForm.stateChange(enabled);
         super.setEnabled(enabled);
     }
 
