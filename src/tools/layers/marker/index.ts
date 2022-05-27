@@ -15,6 +15,7 @@ export type { default as IMarkerLayerToolState } from './model/types/tool/IMarke
 
 // internal
 export { default as MarkerLayerToolMapForm } from './model/internal/form/MarkerLayerToolMapForm';
+export { default as MarkerLayerToolMapLegend } from './model/internal/legend/MarkerLayerToolMapLegend';
 
 export { default as Marker } from './model/internal/marker/Marker';
 export { MarkerIcon } from './model/internal/marker/MarkerIcon';

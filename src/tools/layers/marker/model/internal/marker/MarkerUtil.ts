@@ -3,10 +3,10 @@ import {
     IMapAggregationBucket
 } from "../../../../../../index.core";
 
-import IMarkerIcon from "../../types/marker/IMarkerIcon";
 import { IMarkerIconOptions, IMarkerIconValueOptions } from "../../types/marker/IMarkerIconOptions";
-import Marker from "./Marker";
+import IMarkerIcon from "../../types/marker/IMarkerIcon";
 import IMarkerLayerTool from "../../types/tool/IMarkerLayerTool";
+import Marker from "./Marker";
 
 /**
  * Help function which creates cluster marker icon options

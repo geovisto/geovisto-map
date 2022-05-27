@@ -1,4 +1,5 @@
-import { ILayerTool } from "../../../../index.core";
+
+import ILayerTool from "../../../types/layer/ILayerTool";
 import MapEvent from "../generic/MapEvent";
 
 /**

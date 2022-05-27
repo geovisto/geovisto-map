@@ -12,7 +12,8 @@ export type { default as IChoroplethLayerToolProps } from './model/types/tool/IC
 export type { default as IChoroplethLayerToolState } from './model/types/tool/IChoroplethLayerToolState';
 
 // internal
-export { default as ChoroplethLayerToolSidebarTab } from './model/internal/form/ChoroplethLayerToolMapForm';
+export { default as ChoroplethLayerToolMapForm } from './model/internal/form/ChoroplethLayerToolMapForm';
+export { default as ChoroplethLayerToolMapLegend } from './model/internal/legend/ChoroplethLayerToolMapLegend';
 export { default as ChoroplethLayerTool } from './model/internal/tool/ChoroplethLayerTool';
 export { default as ChoroplethLayerToolDefaults } from './model/internal/tool/ChoroplethLayerToolDefaults';
 export { default as ChoroplethLayerToolState } from './model/internal/tool/ChoroplethLayerToolState';

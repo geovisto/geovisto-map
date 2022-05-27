@@ -416,10 +416,11 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
                 }   
             }
 
+            // hierarchy support
             const domManager = this.getState().getDimensions().geoData.getDomainManager() as GeoDataManager;
             const domainName = this.getState().getDimensions().geoData.getValue()?.getName() ?? "";
             
-            // If aggregation is enabled in hierarchy mode, aggregate.
+            // if aggregation is enabled in hierarchy mode, aggregate.
             if(domManager.isHierarchyEnabledForDomain(domainName) && domManager.isHierarchyEnabled()) {
                 const active = domManager.getActiveByTree(domainName);
 
@@ -462,10 +463,10 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
         }
 
         // Updates bucket data
-        if (hierarchySucces) {
+        if(hierarchySucces) {
             this.getState().setBucketData(bucketHierarchyMap);
             return bucketHierarchyMap;
-        }else {
+        } else {
             this.getState().setBucketData(bucketMap);
             return bucketMap;
         }
@@ -679,7 +680,7 @@ class ChoroplethLayerTool extends AbstractLayerTool implements IChoroplethLayerT
             path.style.fillOpacity = null;
         }
         
-        //Add info about part of map to path attribute
+        // add info about part of map to path attribute (for testing purposes)
         path._current = {shortId: feature?.id};
 
         // selected / highlighted

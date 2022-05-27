@@ -11,9 +11,10 @@ import {
 // Geovisto core
 import {
     IMapFormControl,
-    instanceOfMapForm,
     IMapTool,
-    MapObject
+    instanceOfMapForm,
+    MapObject,
+    ToolEnabledEvent
 } from "../../../../../index.core";
 
 import ISidebarTab from "../../types/tab/ISidebarTab";
@@ -26,7 +27,6 @@ import { ISidebarTabProps, ISidebarTabInitProps } from "../../types/tab/ISidebar
 import SidebarFragment from "../fragment/SidebarFragment";
 import SidebarTabDefaults from "./SidebarTabDefaults";
 import SidebarTabState from "./SidebarTabState";
-import ToolEnabledEvent from "../../../../../model/internal/event/tool/ToolEnabledEvent";
 
 const C_sidebar_header_class = "leaflet-sidebar-header";
 const C_sidebar_tab_content_class = "leaflet-sidebar-tab-content";

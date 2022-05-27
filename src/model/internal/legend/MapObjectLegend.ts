@@ -1,5 +1,5 @@
 import IMapObject from "../../types/object/IMapObject";
-import {IMapTool} from "../../../index.core";
+import IMapTool from "../../types/tool/IMapTool";
 
 /**
  * The interface declares functions for management of legends.

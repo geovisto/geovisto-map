@@ -1,7 +1,7 @@
 import ILabeledAutocompleteFormInputProps from "../../../../types/inputs/labeled/autocomplete/ILabeledAutocompleteFormInputProps";
 import IMapFormInput from "../../../../types/inputs/IMapFormInput";
 import AbstractMapFormInput from "../../abstract/AbstractMapFormInput";
-import TabDOMUtil from "../../../../../util/TabDOMUtil";
+import TabDOMUtil from "../../../utils/TabDOMUtil";
 
 const ID = "geovisto-input-autocomplete";
 

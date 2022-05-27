@@ -224,5 +224,5 @@ export { default as IntegerTypeManager } from './model/internal/type/IntegerType
 export { default as StringTypeManager } from './model/internal/type/StringTypeManager';
 
 // util
-export { default as TabDOMUtil } from './util/TabDOMUtil';
-export { roundValues } from './model/internal/utils/Utils';
+export { default as TabDOMUtil } from './model/internal/utils/TabDOMUtil';
+export { roundValues } from './model/internal/utils/MathUtils';

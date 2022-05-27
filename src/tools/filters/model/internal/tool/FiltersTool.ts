@@ -163,6 +163,7 @@ class FiltersTool extends MapTool implements IFiltersTool, IMapFormControl {
                     map.updateCurrentData(map.getState().getMapData().getDataRecords(), this);
                 }
             }
+            super.setEnabled(enabled);
         }
     }
 }
