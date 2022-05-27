@@ -193,10 +193,6 @@ class GeoDownloaderToolMapControl {
         return this.adminLevelDIV;
     }
 
-    /**
-     * Clears all active previews.
-     * Erases DIV element with edit of each downloaded administrative layer.
-     */
     private previewCleaner() : void {
         this.hierarchyPreviewButtons.forEach((button, level) =>{
             if (this.leafletMap) {
@@ -437,6 +433,10 @@ class GeoDownloaderToolMapControl {
         }
 
         return this.data;
+    }
+
+    public eraseState() : void {
+        this.previewCleaner();
     }
 
     /**

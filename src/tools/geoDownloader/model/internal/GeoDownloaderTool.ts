@@ -1,4 +1,5 @@
 import { 
+    IMapEvent,
     IMapForm, 
     IMapFormControl, 
     IMapToolConfig, 
@@ -80,6 +81,14 @@ class GeoDownloaderTool extends MapTool implements IMapFormControl, IGeoDownload
             const temp = this.getMap()?.getState().getLeafletMap()?.getZoom();
             if (temp) {
                 this.mapForm.changeCurrentZoom(temp);
+            }
+        }
+    }
+
+    public handleEvent(event: IMapEvent): void {
+        if (event.getSource() == this) {
+            if (!(this.getState().isEnabled())) {
+                this.mapForm.eraseState();
             }
         }
     }
