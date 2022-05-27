@@ -131,11 +131,8 @@ class GeoDownloaderToolMapControl {
         if (this.countryInput.getValue() === "") {
             return this.adminLevelDIV;
         }
-        this.previewCleaner();
-        this.data.level = [];
-        this.data.geoFIltered = [];
-        this.data.geo = [];
-        this.adminLevelMAP.clear();
+
+        this.progressBar.value = 0;
 
         if (this.levelMap.has(this.countryInput.getValue())) {
             // Create and filter OSM table.
@@ -193,6 +190,9 @@ class GeoDownloaderToolMapControl {
         return this.adminLevelDIV;
     }
 
+    /** 
+     * Method to hide all previewed objects. 
+    */
     private previewCleaner() : void {
         this.hierarchyPreviewButtons.forEach((button, level) =>{
             if (this.leafletMap) {
@@ -201,7 +201,6 @@ class GeoDownloaderToolMapControl {
                 }
             }
         });
-        this.hierarchyEditToolDiv.innerHTML = "";
     }
 
     /**
@@ -246,6 +245,8 @@ class GeoDownloaderToolMapControl {
         this.data.geoFIltered = [];
         this.data.level = [];
         this.hierarchy.hierarchy = [];
+        this.previewCleaner();
+        this.adminLevelMAP.clear();
         this.hierarchyEditToolDiv.innerHTML = "";
 
         // Fetch all data
@@ -285,7 +286,7 @@ class GeoDownloaderToolMapControl {
                     this.togglePreview(cnt);
                 }
             });
-
+    
             this.hierarchyPreviewButtons.push(temp);
             this.hierarchyEditToolDiv.appendChild(temp.create());
             
@@ -435,10 +436,22 @@ class GeoDownloaderToolMapControl {
         return this.data;
     }
 
-    public eraseState() : void {
-        this.previewCleaner();
+    /**
+     * Method for making selected previews visible.
+     */
+    public enableLast() : void {
+        this.hierarchyPreviewButtons.forEach((button, level) =>{
+            if (this.leafletMap) {
+                if (this.previewGeo.has(level) && button.getValue()) {
+                    this.previewGeo.get(level)?.addTo(this.leafletMap);
+                }
+            }
+        });
     }
 
+    public disableLast() : void {
+        this.previewCleaner();
+    }
     /**
      * Filters and simplify downloaded data.
      */
