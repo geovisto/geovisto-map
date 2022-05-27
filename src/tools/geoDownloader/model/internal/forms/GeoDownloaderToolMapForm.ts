@@ -93,6 +93,10 @@ class GeoDownloaderToolMapForm extends MapObjectForm<IGeoDownloaderTool> impleme
         this.searchBtn = btn;
         return btn;
     }
+
+    public eraseState() : void {
+        this.control.eraseState();
+    }
 }
 
 export default GeoDownloaderToolMapForm;
