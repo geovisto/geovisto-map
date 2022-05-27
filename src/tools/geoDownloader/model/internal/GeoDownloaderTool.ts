@@ -85,13 +85,13 @@ class GeoDownloaderTool extends MapTool implements IMapFormControl, IGeoDownload
         }
     }
 
-    public handleEvent(event: IMapEvent): void {
-        if (event.getSource() == this) {
-            if (!(this.getState().isEnabled())) {
-                this.mapForm.eraseState();
-            }
+    public setEnabled(enabled: boolean): void {
+        if (!enabled) {
+            this.mapForm.eraseState();
         }
+        super.setEnabled(enabled);
     }
+
 }
 
 export default GeoDownloaderTool;
