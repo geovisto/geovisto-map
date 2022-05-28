@@ -635,7 +635,7 @@ class ConnectionLayerTool extends AbstractLayerTool implements IConnectionLayerT
                 this.render(LayerToolRenderType.DATA);
                 break;
             case GeoDataChangeEvent.TYPE():
-                this.render(LayerToolRenderType.DATA);
+                this.getState().isEnabled() ? this.render(LayerToolRenderType.DATA) : null;
                 break;
             case DataManagerChangeEvent.TYPE():
                 this.render(LayerToolRenderType.DATA);
