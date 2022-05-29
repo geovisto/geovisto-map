@@ -4,9 +4,9 @@ import {
 } from "../../../../../index.core";
 
 import ILegendTool from "../../types/tool/ILegendTool";
-import ILegendToolState from "../../types/tool/ILegendToolState";
-import {ILegendToolConfig} from "../../../index";
+import ILegendToolConfig from "../../types/tool/ILegendToolConfig";
 import ILegendToolDefaults from "../../types/tool/ILegendToolDefaults";
+import ILegendToolState from "../../types/tool/ILegendToolState";
 
 /**
  * This class provide legend tool model.

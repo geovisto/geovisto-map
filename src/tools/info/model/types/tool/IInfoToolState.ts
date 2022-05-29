@@ -3,11 +3,11 @@ import {
     IMapToolState
 } from "../../../../../index.core";
 
+import IInfoData from "../infodata/IInfoData";
+import IInfoDataManager from "../infodata/IInfoDataManager";
 import IInfoToolConfig from "./IInfoToolConfig";
 import IInfoToolDefaults from "./IInfoToolDefaults";
 import IInfoToolProps from "./IInfoToolProps";
-import IInfoDataManager from "../infodata/IInfoDataManager";
-import IInfoData from "../infodata/IInfoData";
 
 /**
  * This indetrface declares functions for using info data.

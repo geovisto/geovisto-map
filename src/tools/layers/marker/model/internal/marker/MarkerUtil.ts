@@ -57,7 +57,8 @@ function formatPopUpNumber(num: number) {
  * @param name 
  * @param bucketMap 
  */
-export function createPopupMessage(name: string, bucketMap: Map<string, IMapAggregationBucket | null>, tool: IMarkerLayerTool): string {
+export function createPopupMessage(name: string, bucketMap: Map<string, IMapAggregationBucket | null>, tool: IMarkerLayerTool,
+                                    useCategories: boolean): string {
     // build categories popup messages
     let popupMsg = "";
     let subValue, value = 0;
@@ -66,11 +67,13 @@ export function createPopupMessage(name: string, bucketMap: Map<string, IMapAggr
         units = "";
     }
 
-    for(const [category, bucket] of bucketMap) {
-        subValue = bucket ? bucket.getValue() : 0;
-        if(subValue) {
-            popupMsg += category + ": " + formatPopUpNumber(subValue) + units + "<br>";
-            value += subValue;
+    if(useCategories) {
+        for(const [category, bucket] of bucketMap) {
+            subValue = bucket ? bucket.getValue() : 0;
+            if(subValue) {
+                popupMsg += category + ": " + formatPopUpNumber(subValue) + units + "<br>";
+                value += subValue;
+            }
         }
     }
 

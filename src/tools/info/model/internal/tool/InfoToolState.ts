@@ -4,13 +4,13 @@ import {
     MapToolState
 } from "../../../../../index.core";
 
-import IInfoToolState from "../../types/tool/IInfoToolState";
+import IInfoData from "../../types/infodata/IInfoData";
+import IInfoDataManager from "../../types/infodata/IInfoDataManager";
 import IInfoTool from "../../types/tool/IInfoTool";
 import IInfoToolConfig from "../../types/tool/IInfoToolConfig";
-import IInfoToolProps from "../../types/tool/IInfoToolProps";
 import IInfoToolDefaults from "../../types/tool/IInfoToolDefaults";
-import IInfoDataManager from "../../types/infodata/IInfoDataManager";
-import IInfoData from "../../types/infodata/IInfoData";
+import IInfoToolProps from "../../types/tool/IInfoToolProps";
+import IInfoToolState from "../../types/tool/IInfoToolState";
 
 /**
  * This class provide functions for using filters.

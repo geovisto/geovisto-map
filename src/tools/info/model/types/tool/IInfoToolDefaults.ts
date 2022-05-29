@@ -3,9 +3,9 @@ import {
     IMapToolDefaults
 } from "../../../../../index.core";
 
-import IInfoToolConfig from "./IInfoToolConfig";
-import IInfoDataManager from "../infodata/IInfoDataManager";
 import IInfoData from "../infodata/IInfoData";
+import IInfoDataManager from "../infodata/IInfoDataManager";
+import IInfoToolConfig from "./IInfoToolConfig";
 /**
  * This interface declares functions which return the default state values.
  * 

@@ -17,7 +17,6 @@ import InfoToolMapForm from "../form/InfoToolMapForm";
 
 // styles
 import "../../../styles/style.scss";
-import IInfoData from "../../types/infodata/IInfoData";
 
 /**
  * This class implements Info Tool

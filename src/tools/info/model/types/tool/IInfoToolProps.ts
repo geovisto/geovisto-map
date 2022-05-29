@@ -2,9 +2,9 @@
 import {
     IMapToolProps
 } from "../../../../../index.core";
-import IInfoDataManager from "../infodata/IInfoDataManager";
-import IInfoData from "../infodata/IInfoData";
 
+import IInfoData from "../infodata/IInfoData";
+import IInfoDataManager from "../infodata/IInfoDataManager";
 
 /**
  * This type provides the specification of the info tool props model.

@@ -3,7 +3,6 @@ import {
     IMapToolConfig
 } from "../../../../../index.core";
 
-
 /**
  * This interface provides specification of legend tool config model.
  * 

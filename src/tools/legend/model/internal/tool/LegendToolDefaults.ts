@@ -1,5 +1,5 @@
 // Geovisto core
-import {MapToolDefaults} from "../../../../../index.core";
+import { MapToolDefaults } from "../../../../../index.core";
 
 import ILegendToolConfig from "../../types/tool/ILegendToolConfig";
 import ILegendToolDefaults from "../../types/tool/ILegendToolDefaults";

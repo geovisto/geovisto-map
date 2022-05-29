@@ -300,19 +300,20 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
                     // find the 'category' properties
                     foundCategories = categoryDimension ? mapData.getDataRecordValues(categoryDimension, data[i]) : [ "" ];
                     // since the data are flattened we can expect max one found item
+                    foundCategory = "";
                     if(foundCategories.length == 1) {
                         foundCategory = typeof foundCategories[0] === "string" ? foundCategories[0] : new String(foundCategories[0]).toString();
-                        // get the aggregation bucket for the category or create a new one
-                        aggregationBucket = bucketMap.get(foundCategory);
-                        if(!aggregationBucket) {
-                            aggregationBucket = aggregationDimension.getAggregationBucket();
-                            bucketMap.set(foundCategory, aggregationBucket);
-                        }
-                        // find the 'value' properties
-                        foundValues = valueDimension ? mapData.getDataRecordValues(valueDimension, data[i]) : [ 1 ];
-                        // since the data are flattened we can expect max one found item
-                        aggregationBucket.addValue(foundValues.length == 1 ? (typeof foundValues[0] == "number" ? foundValues[0] : 1) : 0);
                     }
+                    // get the aggregation bucket for the category or create a new one
+                    aggregationBucket = bucketMap.get(foundCategory);
+                    if(!aggregationBucket) {
+                        aggregationBucket = aggregationDimension.getAggregationBucket();
+                        bucketMap.set(foundCategory, aggregationBucket);
+                    }
+                    // find the 'value' properties
+                    foundValues = valueDimension ? mapData.getDataRecordValues(valueDimension, data[i]) : [ 1 ];
+                    // since the data are flattened we can expect max one found item
+                    aggregationBucket.addValue(foundValues.length == 1 ? (typeof foundValues[0] == "number" ? foundValues[0] : 1) : 0);
                 }
             }
         }
@@ -455,13 +456,15 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
      */
     protected createMarker(pointFeature: Feature, bucketMap: Map<string, IMapAggregationBucket | null>): IMarker<IMarkerIcon<IMarkerIconOptions>> {
         // create icon
+        const currentDataCategories = this.getState().getCurrentDataCategories() ?? [];
+
         const icon = this.getDefaults().getMarkerIcon({
             id: pointFeature.properties?.name,
             shortId: pointFeature.id !== undefined ? pointFeature.id.toString() : "",
-            useDonut: this.getState().getDimensions().category.getValue() !== undefined,
+            useDonut: this.getState().getDimensions().category.getValue() !== undefined && currentDataCategories.length !== 0,
             isGroup: false,
             values: createMarkerIconValueOptions(bucketMap),
-            categories: this.getState().getCurrentDataCategories() ?? []
+            categories: currentDataCategories
         });
 
         // create marker
@@ -473,7 +476,7 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
         });
 
         // create popop
-        marker.bindPopup(createPopupMessage(pointFeature.properties?.name ?? "", bucketMap, this));
+        marker.bindPopup(createPopupMessage(pointFeature.properties?.name ?? "", bucketMap, this, icon.options.useDonut));
 
         return marker;
     }
@@ -497,7 +500,8 @@ class MarkerLayerTool extends AbstractLayerTool implements IMarkerLayerTool, IMa
                 marker.getPopup()?.setContent(createPopupMessage(
                     marker.getOptions().name,
                     bucketData,
-                    this
+                    this,
+                    marker.getIcon().options.useDonut
                 ));
                 
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any

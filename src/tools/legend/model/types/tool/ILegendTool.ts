@@ -4,7 +4,6 @@ import {
     IMapToolInitProps
 } from '../../../../../index.core';
 
-
 import ILegendToolConfig from './ILegendToolConfig';
 import ILegendToolDefaults from './ILegendToolDefaults';
 import ILegendToolProps from './ILegendToolProps';

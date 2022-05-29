@@ -53,7 +53,7 @@
         "id": "geovisto-tool-hierarchy",
         "enabled": true,
         "layerName": "Hierarchy layer",
-        "HierarchyConfig": [{
+        "hierarchies": [{
           "name" : "Hierarchy Connection",
           "aggregation" : true,
               "hierarchy": [

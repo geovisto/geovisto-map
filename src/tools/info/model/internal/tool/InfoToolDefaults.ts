@@ -3,11 +3,11 @@ import {
     MapToolDefaults
 } from "../../../../../index.core";
 
+import IInfoData from "../../types/infodata/IInfoData";
+import IInfoDataManager from "../../types/infodata/IInfoDataManager";
 import IInfoToolConfig from "../../types/tool/IInfoToolConfig";
 import IInfoToolDefaults from "../../types/tool/IInfoToolDefaults";
-import IInfoDataManager from "../../types/infodata/IInfoDataManager";
 import InfoDataManager from "../infodata/InfoDataManager";
-import IInfoData from "../../types/infodata/IInfoData";
 import MarkDownData from "../infodata/markdown/MarkDownData";
 
 /**

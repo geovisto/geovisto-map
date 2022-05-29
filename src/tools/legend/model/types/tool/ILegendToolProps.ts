@@ -8,6 +8,5 @@ import {
  * 
  * @author Tomas Koscielniak
  */
-type ILegendToolProps = IMapToolProps & {
-}
+type ILegendToolProps = IMapToolProps
 export default ILegendToolProps;

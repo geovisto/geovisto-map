@@ -1,3 +1,5 @@
+import MarkdownIt from "markdown-it";
+
 // Geovisto core
 import {
     IMapForm,
@@ -6,11 +8,9 @@ import {
     MapObjectForm,
 } from "../../../../../index.core";
 
-import IInfoTool from "../../types/tool/IInfoTool";
-
-import MarkdownIt from "markdown-it";
-import IInfoDataManager from "../../types/infodata/IInfoDataManager";
 import IInfoData from "../../types/infodata/IInfoData";
+import IInfoDataManager from "../../types/infodata/IInfoDataManager";
+import IInfoTool from "../../types/tool/IInfoTool";
 
 /**
  * This class provides controls for management of info map form inputs.

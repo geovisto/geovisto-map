@@ -1,4 +1,5 @@
-import {MapDomain} from '../../../../../../index.core';
+import { MapDomain } from '../../../../../../index.core';
+
 import IInfoData from "../../../types/infodata/IInfoData";
 
 /**
@@ -42,8 +43,8 @@ class MarkDownData extends MapDomain implements IInfoData {
      * @returns string
      */
     protected validateData(originalData: unknown): unknown {
-        // @ts-ignore
-        return originalData.default;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return (originalData as any).default;
     }
 }
 export default MarkDownData;

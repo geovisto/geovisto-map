@@ -93,7 +93,7 @@
             "id": "geovisto-tool-hierarchy",
             "enabled": true,
             "layerName": "Hierarchy layer",
-            "HierarchyConfig": [{
+            "hierarchies": [{
               "name" : "Hierarchy covid",
               "aggregation" : true,
                   "hierarchy": [

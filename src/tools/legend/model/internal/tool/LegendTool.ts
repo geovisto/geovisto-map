@@ -2,14 +2,12 @@
 import * as L from 'leaflet';
 
 // styles
-import "font-awesome/css/font-awesome.min.css";
 import "../../../styles/style.scss";
 
 // Geovisto core
 import {
     IMapEvent,
     IMapLegendControl,
-    IMapTool,
     IMapToolInitProps,
     instanceOfMapLegend,
     LayerToolRenderedEvent,
@@ -30,8 +28,7 @@ import LegendToolState from "./LegendToolState";
  *
  * @author Tomas Koscielniak
  */
-class LegendTool <T extends IMapTool & IMapLegendControl> extends MapTool implements ILegendTool {
-
+class LegendTool extends MapTool implements ILegendTool {
 
     /**
      * It creates a new tool with respect to the props.
@@ -101,14 +98,6 @@ class LegendTool <T extends IMapTool & IMapLegendControl> extends MapTool implem
         this.createLegend();
         return this;
     }
-
-    /**
-     * Help function which returns the tool.
-     */
-    public getTool(tool: IMapTool): T {
-        return <T> tool;
-    }
-
 
     /**
      * It creates a legend tool and its parts (new legend for each layer that implements it).
