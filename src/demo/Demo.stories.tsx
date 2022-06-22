@@ -284,8 +284,8 @@ class Demo extends Component<Record<string, never>, { data: unknown, config: Rec
                             GeovistoInfoTool.createTool({
                                 id: "geovisto-tool-info",
                                 manager: GeovistoInfoTool.createInfoManager([
-                                    GeovistoInfoTool.getInfoDataFactory().markdown("General", this.infodata),
-                                    GeovistoInfoTool.getInfoDataFactory().markdown("Concrete", this.infodata2)
+                                    GeovistoInfoTool.getInfoDataFactory().markdown("General", this.infodata.default),
+                                    GeovistoInfoTool.getInfoDataFactory().markdown("Concrete", this.infodata2.default)
                                 ])
                             }),
                             GeovistoTilesLayerTool.createTool({

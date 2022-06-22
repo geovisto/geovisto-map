@@ -11,6 +11,6 @@ interface IInfoDataFactory {
     /**
      * It creates the Markdown info data object.
      */
-    markdown(name: string, data: unknown): IInfoData;
+    markdown(name: string, data: string): IInfoData;
 }
 export default IInfoDataFactory;

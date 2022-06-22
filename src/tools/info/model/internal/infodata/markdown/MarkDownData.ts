@@ -10,10 +10,10 @@ import IInfoData from "../../../types/infodata/IInfoData";
  */
 class MarkDownData extends MapDomain implements IInfoData {
 
-    private originalData: unknown;
+    private originalData: string;
     private MarkDown?: string;
 
-    public constructor(name: string, originalData: unknown) {
+    public constructor(name: string, originalData: string) {
         super(name);
         this.originalData = originalData;
     }
@@ -30,21 +30,9 @@ class MarkDownData extends MapDomain implements IInfoData {
      */
     public getInfoMD(): string {
         if(!this.MarkDown) {
-            this.MarkDown = <string>this.validateData(this.originalData);
+            this.MarkDown = this.originalData;
         }
         return this.MarkDown;
-    }
-
-
-    /**
-     * It transforms original data to a string with data to be rendered
-     *
-     * @param originalData
-     * @returns string
-     */
-    protected validateData(originalData: unknown): unknown {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return (originalData as any).default;
     }
 }
 export default MarkDownData;

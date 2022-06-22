@@ -13,7 +13,7 @@ class InfoDataFactory implements IInfoDataFactory {
     /**
      * It creates the Markdown info data object.
      */
-    public markdown(name: string, data: unknown): IInfoData {
+    public markdown(name: string, data: string): IInfoData {
         return new MarkDownData(name, data);
     }
 }
