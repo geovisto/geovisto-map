@@ -1,11 +1,7 @@
-// Geovisto core
-import {
-    IMapData,
-    IMapDataDomain,
-    IMapDataManager,
-    IMapDomainArrayManager
-} from "../../../../../index.core";
-
+import IMapData from "../data/IMapData";
+import IMapDataDomain from "../data/IMapDataDomain";
+import IMapDataManager from "../data/IMapDataManager";
+import IMapDomainArrayManager from "../domain/IMapDomainArrayManager";
 import IMapFilterOperation from "./IMapFilterOperation";
 import IMapFilterRule from "./IMapFilterRule";
 

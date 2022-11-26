@@ -1,6 +1,7 @@
 // Geovisto core
 import {
     IMap,
+    IMapFilterRule,
     IMapForm,
     IMapFormControl,
     IMapToolInitProps,
@@ -12,7 +13,6 @@ import IFiltersToolConfig from "../../types/tool/IFiltersToolConfig";
 import IFiltersToolDefaults from "../../types/tool/IFiltersToolDefaults";
 import IFiltersToolProps from "../../types/tool/IFiltersToolProps";
 import IFiltersToolState from "../../types/tool/IFiltersToolState";
-import IMapFilterRule from "../../types/filter/IMapFilterRule";
 import FiltersToolDefaults from "./FiltersToolDefaults";
 import FiltersToolState from "./FiltersToolState";
 import FiltersToolMapForm from "../form/FiltersToolMapForm";

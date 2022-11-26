@@ -121,6 +121,11 @@ export type { default as IMapToolState } from './model/types/tool/IMapToolState'
 export type { default as IIntegerRangeManager } from './model/types/type/IIntegerRangeManager';
 export type { default as ITypeManager } from './model/types/type/ITypeManager';
 
+// filter
+export type { default as IMapFilterManager } from './model/types/filter/IMapFilterManager';
+export type { default as IMapFilterOperation } from './model/types/filter/IMapFilterOperation';
+export type { default as IMapFilterRule } from './model/types/filter/IMapFilterRule';
+
 // MODEL / INTERNAL
 
 // aggregation
@@ -131,6 +136,18 @@ export { default as MapAggregationFunction } from './model/internal/aggregation/
 
 // api
 export { Geovisto } from './model/internal/api/Geovisto';
+
+// filter
+export  { default as MapFilterOperation } from './model/internal/filter/basic/MapFilterOperation';
+export  { default as MapFilterRule } from './model/internal/filter/basic/MapFilterRule';
+export  { default as MapFiltersManager } from './model/internal/filter/basic/MapFiltersManager';
+export  { default as EqFilterOperation } from './model/internal/filter/custom/EqFilterOperation';
+export  { default as GtEqFilterOperation } from './model/internal/filter/custom/GtEqFilterOperation';
+export  { default as GtFilterOperation } from './model/internal/filter/custom/GtFilterOperation';
+export  { default as LtEqFilterOperation } from './model/internal/filter/custom/LtEqFilterOperation';
+export  { default as LtFilterOperation } from './model/internal/filter/custom/LtFilterOperation';
+export  { default as NeqFilterOperation } from './model/internal/filter/custom/NeqFilterOperation';
+export  { default as RegFilterOperation } from './model/internal/filter/custom/RegFilterOperation';
 
 // config
 export { default as MapConfigManagerFactory } from './model/internal/config/MapConfigManagerFactory';

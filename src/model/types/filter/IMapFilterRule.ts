@@ -1,8 +1,4 @@
-// Geovisto core
-import {
-    IMapDataDomain
-} from "../../../../../index.core";
-
+import IMapDataDomain from "../data/IMapDataDomain";
 import IMapFilterOperation from "./IMapFilterOperation";
 
 /**

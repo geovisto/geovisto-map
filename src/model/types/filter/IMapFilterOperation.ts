@@ -1,7 +1,4 @@
-// Geovisto core
-import {
-    IMapDomain
-} from "../../../../../index.core";
+import { IMapDomain } from "../../../index.core";
 
 /**
  * This interface declares a filter operation.

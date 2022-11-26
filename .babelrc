@@ -1,5 +1,8 @@
 {
   "presets": ["@babel/env", "@babel/preset-react"],
-  "plugins": ["@babel/plugin-transform-runtime", "@babel/plugin-proposal-class-properties"],
+  "plugins": [
+    ["@babel/plugin-transform-runtime", { "loose": true }],
+    ["@babel/plugin-proposal-class-properties", { "loose": true }]
+  ],
   "exclude": "**/*.{spec,test,stories}.{js,jsx,tsx,ts}"
 }

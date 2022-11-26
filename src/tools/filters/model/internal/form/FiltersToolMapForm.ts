@@ -5,12 +5,13 @@ import {
     FilterAutocompleteFormInput,
     LabeledAutocompleteFormInput,
     MapObjectForm,
-    TabDOMUtil
+    TabDOMUtil,
+    IMapFilterManager,
+    IMapFilterRule
 } from "../../../../../index.core";
 
 import IFiltersTool from "../../types/tool/IFiltersTool";
-import IMapFilterManager from "../../types/filter/IMapFilterManager";
-import IMapFilterRule from "../../types/filter/IMapFilterRule";
+
 
 /**
  * This interface provides a help type which represents double (html element container, input).
