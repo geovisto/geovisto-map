@@ -11,3 +11,4 @@ export * from './sidebar';
 export * from './themes';
 export * from './hierarchy';
 export * from './geo-downloader';
+export * from './layers/heat';

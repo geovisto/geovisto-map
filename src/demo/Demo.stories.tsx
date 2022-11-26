@@ -24,6 +24,7 @@ import {
     GeovistoConnectionLayerTool,
     GeovistoGeoDownloaderTool,
     GeovistoDrawingLayerTool,
+    GeovistoHeatLayerTool,
     GeovistoLegendTool,
     GeovistoInfoTool,
     GeovistoHierarchyTool
@@ -72,7 +73,7 @@ class Demo extends Component<Record<string, never>, { data: unknown, config: Rec
         // data and config can be changed
         this.state = {
             // implicit data
-            data: require('/static/data/timeData.json'),
+            data: require("/static/data/test.json"),
             // implicit config
             config: require('/static/config/config.json')
         };
@@ -208,6 +209,7 @@ class Demo extends Component<Record<string, never>, { data: unknown, config: Rec
                 <div className="demo-toolbar">
                     <span>Data file: </span>
                     <select id={C_ID_select_data}>
+                        <option value="test.json">test.json</option>
                         <option value="timeData.json">timeData.json</option>
                         <option value="demo1.json">demo1.json</option>
                         <option value="demo2.json">demo2.json</option>
@@ -305,6 +307,9 @@ class Demo extends Component<Record<string, never>, { data: unknown, config: Rec
                             }),
                             GeovistoGeoDownloaderTool.createTool({
                                 id: "geovisto-tool-geodownloader"
+                            }),
+                           	GeovistoHeatLayerTool.createTool({
+                                id: "geovisto-tool-layer-heat"
                             }),
                         ])}
                     />
