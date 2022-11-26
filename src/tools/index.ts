@@ -3,6 +3,7 @@ export * from './info';
 export * from './layers/connection';
 export * from './layers/drawing';
 export * from './layers/choropleth';
+export * from './layers/dot';
 export * from './layers/marker';
 export * from './layers/tiles';
 export * from './legend';
