@@ -26,6 +26,7 @@ import {
     GeovistoInfoTool,
     GeovistoHierarchyTool,
     GeovistoDotLayerTool,
+    GeovistoSpikeLayerTool,
 } from "../tools";
 import { Geovisto } from "..";
 
@@ -73,7 +74,7 @@ class Demo extends Component<
         // data and config can be changed
         this.state = {
             // implicit data
-            data: require("/static/data/test.json"),
+            data: require("/static/data/timeData.json"),
             // implicit config
             config: require("/static/config/config.json"),
         };
@@ -231,7 +232,8 @@ class Demo extends Component<
                 <div className="demo-toolbar">
                     <span>Data file: </span>
                     <select id={C_ID_select_data}>
-                        <option value="test.json">test.json</option>
+                        <option value="test-dot1.json">test-dot1.json</option>
+                        <option value="test-dot2.json">test-dot2.json</option>
                         <option value="czech_cities.json">czech_cities.json</option>
                         <option value="timeData.json">timeData.json</option>
                         <option value="demo1.json">demo1.json</option>
@@ -378,6 +380,9 @@ class Demo extends Component<
                             }),
                            	GeovistoHeatLayerTool.createTool({
                                 id: "geovisto-tool-layer-heat"
+                            }),
+                            GeovistoSpikeLayerTool.createTool({
+                                id: "geovisto-tool-layer-spike",
                             }),
                         ])}
                     />

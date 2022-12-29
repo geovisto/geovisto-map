@@ -6,6 +6,7 @@ export * from './layers/choropleth';
 export * from './layers/dot';
 export * from './layers/marker';
 export * from './layers/tiles';
+export * from './layers/spike';
 export * from './legend';
 export * from './selection';
 export * from './sidebar';

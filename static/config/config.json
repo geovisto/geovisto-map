@@ -95,6 +95,13 @@
 					"name": "GeoJSON creator",
 					"icon": "<i class=\"fa fa-pencil\"></i>",
 					"checkButton": true
+				},
+				{
+					"tool": "geovisto-tool-layer-spike",
+					"enabled": true,
+					"name": "Spike layer setting",
+					"icon": "<i class=\"fa fa-arrow-up\"></i>",
+					"checkButton": true
 				}
 			]
 		},
@@ -226,6 +233,17 @@
 			"id": "geovisto-tool-layer-drawing",
 			"enabled": false,
 			"layerName": "GeoJSON creator"
+		},
+		{
+			"type": "geovisto-tool-layer-spike",
+			"id": "geovisto-tool-layer-spike",
+			"enabled": true,
+			"layerName": "Spike layer",
+			"data": {
+				"latitude": "lat",
+				"longitude": "long",
+				"value": "data.value"
+			}
 		}
 	]
 }
