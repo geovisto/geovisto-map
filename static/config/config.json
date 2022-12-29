@@ -102,6 +102,13 @@
 					"name": "Spike layer setting",
 					"icon": "<i class=\"fa fa-arrow-up\"></i>",
 					"checkButton": true
+				},
+				{
+					"tool": "geovisto-tool-layer-bubble",
+					"enabled": true,
+					"name": "Bubble layer settings",
+					"icon": "<i class=\"fa fa-pie-chart\"></i>",
+					"checkButton": true
 				}
 			]
 		},
@@ -239,6 +246,17 @@
 			"id": "geovisto-tool-layer-spike",
 			"enabled": true,
 			"layerName": "Spike layer",
+			"data": {
+				"latitude": "lat",
+				"longitude": "long",
+				"value": "data.value"
+			}
+		},
+		{
+			"type": "geovisto-tool-layer-bubble",
+			"id": "geovisto-tool-layer-bubble",
+			"enabled": true,
+			"layerName": "Buble layer",
 			"data": {
 				"latitude": "lat",
 				"longitude": "long",

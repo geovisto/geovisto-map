@@ -27,6 +27,7 @@ import {
     GeovistoHierarchyTool,
     GeovistoDotLayerTool,
     GeovistoSpikeLayerTool,
+    GeovistoBubbleLayerTool
 } from "../tools";
 import { Geovisto } from "..";
 
@@ -107,7 +108,6 @@ class Demo extends Component<
         };
         document.getElementById(C_ID_input_config)?.setAttribute("disabled", "disabled");
         document.getElementById(C_ID_check_config)?.addEventListener("change", enableConfigInput);
-
         // ------ process files ------ //
 
         // process path
@@ -383,6 +383,9 @@ class Demo extends Component<
                             }),
                             GeovistoSpikeLayerTool.createTool({
                                 id: "geovisto-tool-layer-spike",
+                            }),
+                            GeovistoBubbleLayerTool.createTool({
+                                id: "geovisto-tool-layer-bubble",
                             }),
                         ])}
                     />
