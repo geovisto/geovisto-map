@@ -1,14 +1,17 @@
 // Geovisto core
-import { IMapFilterManager, IMapFilterOperation } from "../../index.core";
+import {
+  EqFilterOperation,
+  IMapFilterManager,
+  IMapFilterOperation,
+  MapFiltersManager,
+  NeqFilterOperation,
+  RegFilterOperation
+} from "../../index.core";
 
 import IFiltersTool from "./model/types/tool/IFiltersTool";
 import IFiltersToolProps from "./model/types/tool/IFiltersToolProps";
-import EqFilterOperation from "../../model/internal/filter/custom/EqFilterOperation";
 import FiltersTool from "./model/internal/tool/FiltersTool";
 import FiltersToolDefaults from "./model/internal/tool/FiltersToolDefaults";
-import MapFiltersManager from "../../model/internal/filter/basic/MapFiltersManager";
-import NeqFilterOperation from "../../model/internal/filter/custom/NeqFilterOperation";
-import RegFilterOperation from "../../model/internal/filter/custom/RegFilterOperation";
 
 
 export const GeovistoFiltersTool: {

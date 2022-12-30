@@ -21,11 +21,7 @@ class MapFilterRule implements IMapFilterRule {
    * @param operation
    * @param pattern
    */
-  public constructor(
-    dataDomain: IMapDataDomain,
-    operation: IMapFilterOperation,
-    pattern: string
-  ) {
+  public constructor(dataDomain: IMapDataDomain, operation: IMapFilterOperation, pattern: string) {
     this.dataDomain = dataDomain;
     this.operation = operation;
     this.pattern = pattern;

@@ -1,12 +1,16 @@
 // Geovisto core
-import { IMapFilterManager, IMapFilterRule, MapToolDefaults } from "../../../../../index.core";
+import {
+  EqFilterOperation,
+  IMapFilterManager,
+  IMapFilterRule,
+  MapFiltersManager,
+  MapToolDefaults,
+  NeqFilterOperation,
+  RegFilterOperation
+} from "../../../../../index.core";
 
 import IFiltersToolConfig from "../../types/tool/IFiltersToolConfig";
 import IFiltersToolDefaults from "../../types/tool/IFiltersToolDefaults";
-import EqFilterOperation from "../../../../../model/internal/filter/custom/EqFilterOperation";
-import NeqFilterOperation from "../../../../../model/internal/filter/custom/NeqFilterOperation";
-import RegFilterOperation from "../../../../../model/internal/filter/custom/RegFilterOperation";
-import MapFiltersManager from "../../../../../model/internal/filter/basic/MapFiltersManager";
 
 /**
  * This class provide functions which return the default state values.

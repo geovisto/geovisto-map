@@ -1,4 +1,4 @@
-import { IMapDomain } from "../../../index.core";
+import IMapDomain from "../domain/IMapDomain";
 
 /**
  * This interface declares a filter operation.

@@ -6,9 +6,7 @@ import AbstractMapDomain from "../../domain/abstract/AbstractMapDomain";
  *
  * @author Jiri Hynek
  */
-class MapFilterOperation
-  extends AbstractMapDomain
-  implements IMapFilterOperation
+class MapFilterOperation extends AbstractMapDomain implements IMapFilterOperation
 {
   private label: string;
 
@@ -26,10 +24,7 @@ class MapFilterOperation
    * @param label
    * @param acceptFunction
    */
-  public constructor(
-    label: string,
-    acceptFunction: (value: unknown, pattern: unknown) => boolean
-  ) {
+  public constructor(label: string, acceptFunction: (value: unknown, pattern: unknown) => boolean) {
     super();
     this.label = label;
     this.match = acceptFunction;

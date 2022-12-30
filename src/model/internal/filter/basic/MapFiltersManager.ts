@@ -12,9 +12,7 @@ import MapFilterRule from "./MapFilterRule";
  *
  * @author Jiri Hynek
  */
-class MapFiltersManager
-  extends MapDomainArrayManager<IMapFilterOperation>
-  implements IMapFilterManager
+class MapFiltersManager extends MapDomainArrayManager<IMapFilterOperation> implements IMapFilterManager
 {
   public constructor(filterOperations: IMapFilterOperation[]) {
     super(filterOperations);
@@ -28,11 +26,7 @@ class MapFiltersManager
    * @param label
    * @param pattern
    */
-  public createRule(
-    dataDomain: IMapDataDomain,
-    opName: string,
-    pattern: string
-  ): IMapFilterRule | null {
+  public createRule(dataDomain: IMapDataDomain, opName: string, pattern: string): IMapFilterRule | null {
     const operation: IMapFilterOperation | undefined = this.getDomain(opName);
     if (operation) {
       return new MapFilterRule(dataDomain, operation, pattern);

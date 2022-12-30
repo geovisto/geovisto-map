@@ -8,9 +8,6 @@ import {
     LayerToolState,
 } from "../../../../../../index.core";
 
-// Filters
-import { FiltersToolDefaults } from "../../../../../filters";
-
 // Internal
 import { IReactiveRadiusRules } from "../../types/reactiveRadius/IReactiveRadius";
 import IHeatLayerTool from "../../types/tool/IHeatLayerTool";
