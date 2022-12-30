@@ -1,9 +1,7 @@
-import {
-    SpikeLayerTool,
-    SpikeLayerToolDefaults,
-    ISpikeLayerTool,
-    ISpikeLayerToolProps,
-} from ".";
+import SpikeLayerTool from "./model/internal/tool/SpikeLayerTool";
+import SpikeLayerToolDefaults from "./model/internal/tool/SpikeLayerToolDefaults";
+import ISpikeLayerTool from "./model/types/tool/ISpikeLayerTool";
+import ISpikeLayerToolProps from "./model/types/tool/ISpikeLayerToolProps";
 
 export const GeovistoSpikeLayerTool: {
     getType: () => string;
