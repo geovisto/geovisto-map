@@ -281,8 +281,9 @@ class HeatLayerTool
     public changeHeatRadius(): void {
         const zoom = this.getMap()?.getState().getLeafletMap()?.getZoom();
         const heatLayer = this.getState().getLayers()[0];
-        const options = heatLayer.options as HeatMapOptions;
+        const options = heatLayer?.options as HeatMapOptions;
         if (
+            !options ||
             !options.blur ||
             !options.radius ||
             !options.gradient ||
