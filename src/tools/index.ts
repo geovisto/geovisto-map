@@ -15,3 +15,4 @@ export * from './legend';
 export * from './selection';
 export * from './sidebar';
 export * from './themes';
+export * from './timeline';

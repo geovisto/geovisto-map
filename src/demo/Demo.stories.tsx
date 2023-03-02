@@ -27,7 +27,8 @@ import {
     GeovistoHierarchyTool,
     GeovistoDotLayerTool,
     GeovistoSpikeLayerTool,
-    GeovistoBubbleLayerTool
+    GeovistoBubbleLayerTool,
+    GeovistoTimelineTool
 } from "../tools";
 import { Geovisto } from "..";
 
@@ -75,7 +76,7 @@ class Demo extends Component<
         // data and config can be changed
         this.state = {
             // implicit data
-            data: require("/static/data/timeData.json"),
+            data: require('/static/data/covidCzechDistrictsCategoric.json'),
             // implicit config
             config: require("/static/config/config.json"),
         };
@@ -387,6 +388,7 @@ class Demo extends Component<
                             GeovistoBubbleLayerTool.createTool({
                                 id: "geovisto-tool-layer-bubble",
                             }),
+                            GeovistoTimelineTool.createTool({ id: "geovisto-tool-timeline" }),
                         ])}
                     />
                 </div>
