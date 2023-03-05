@@ -1,4 +1,4 @@
-import { IMapDomain } from "../../../../..";
+import { IMapDomain } from "../../../../../index.core";
 
 /**
  * This interface declares functions for using timeline time granularity.

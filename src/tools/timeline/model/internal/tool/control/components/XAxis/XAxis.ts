@@ -7,7 +7,7 @@ interface IXAxisProps {
     tickFormat: string;
 }
 
-export class XAxis {
+class XAxis {
     private props: IXAxisProps
 
     public constructor(props: IXAxisProps) {
@@ -49,3 +49,5 @@ export class XAxis {
     }
 
 }
+
+export default XAxis;

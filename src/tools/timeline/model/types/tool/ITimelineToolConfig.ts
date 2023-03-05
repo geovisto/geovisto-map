@@ -1,5 +1,5 @@
 // Geovisto core
-import { IMapToolConfig } from "../../../../..";
+import { IMapToolConfig } from "../../../../../index.core";
 
 import { TimelineStoryConfig } from "./TimelineStory";
 

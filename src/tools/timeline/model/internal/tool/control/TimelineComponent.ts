@@ -4,7 +4,7 @@ import { path as getFromPath } from "../../utils";
 import { TimeGranularity } from "../../constants";
 import Slider from "./components/Slider/Slider";
 import MultiSlider from "./components/MultiSlider/MultiSlider";
-import { XAxis } from "./components/XAxis/XAxis";
+import XAxis from "./components/XAxis/XAxis";
 import Chart from "./components/Chart/Chart";
 
 export type OnTimesChangedParams = {
