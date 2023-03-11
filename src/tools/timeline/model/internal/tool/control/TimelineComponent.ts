@@ -29,16 +29,9 @@ export type TimelineProps = {
         transitionDuration,
     }: Partial<StoryState>) => void;
     onRecordDeleteClick: (time: number) => void;
-    timeGranularity?: string;
+    timeGranularity?: TimeGranularity;
 };
 
-const TickFormat = {
-    [TimeGranularity.HOUR]: "hh:mm dd/MM/yyyy",
-    [TimeGranularity.DAY]: "dd/MM/yyyy",
-    [TimeGranularity.WEEK]: "dd/MM/yyyy",
-    [TimeGranularity.MONTH]: "MM/yyyy",
-    [TimeGranularity.YEAR]: "yyyy",
-};
 const BUTTON_PLAY = 'fa fa-play';
 const BUTTON_PAUSE = 'fa fa-pause';
 
@@ -52,7 +45,7 @@ export class TimelineComponent {
     private _timeState: TimeState;
     private _isPlaying = false;
     private _isExpanded = false;
-    private readonly tickFormat: string = TickFormat[TimeGranularity.HOUR];
+    private readonly tickFormat: TimeGranularity = TimeGranularity.HOUR;
     private readonly _onPlayClick: () => void;
     private readonly _onRecordClick: ({
         stepTimeLength,
@@ -97,9 +90,8 @@ export class TimelineComponent {
         this._onPlayClick = props.onPlayClick;
         this._onRecordClick = props.onRecordClick;
         this._onRecordDeleteClick = props.onRecordDeleteClick;
-        this.tickFormat = props.timeGranularity
-            ? TickFormat[props.timeGranularity as keyof typeof TickFormat]
-            : "hh:mm dd/MM/yyyy";
+        this.tickFormat = props.timeGranularity ? props.timeGranularity as TimeGranularity : TimeGranularity.HOUR;
+
         if (props.data.charts) {
             this.chartData = this.createChartData(props.data);
         }
@@ -111,29 +103,6 @@ export class TimelineComponent {
     }
 
     private render(): void {
-        // ReactDOM.render(
-        //     React.createElement(
-        //         Timeline,
-        //         {
-        //             times: this._times,
-        //             startTimeIndex: this._timeState.start,
-        //             endTimeIndex: this._timeState.end,
-        //             currentTimeIndex: this._timeState.current,
-        //             onCurrentTimeIndexChange: this.handleCurrentTimeIndexChange.bind(this),
-        //             onRangeTimesIndexChange: this.handleRangeTimesIndexChange.bind(this),
-        //             isPlaying: this._isPlaying,
-        //             onPlayClick: this._onPlayClick,
-        //             chartData: this.chartData,
-        //             onRecordClick: this._onRecordClick,
-        //             onRecordDeleteClick: () => this._onRecordDeleteClick(this._times[this._timeState.current]),
-        //             story: this._story,
-        //             tickFormat: this.tickFormat,
-        //         },
-        //     ),
-        //     this.container,
-        // );
-
-
         const playPauseButton = this.createRunPauseButton();
 
         this.createRangeSlider(); 

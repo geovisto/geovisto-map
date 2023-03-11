@@ -1,10 +1,9 @@
-import { eachWeekOfInterval } from 'date-fns';
-
 // Geovisto core
 import { MapDomain } from "../../../../../index.core";
 
 import { ITimeGranularity } from "../../types/timeGranularity/ITimeGranularity";
 import { TimeGranularity } from "../constants";
+import { getWeeksOfInterval } from './intervals';
 
 /**
  * This class provides time interval granularity.
@@ -34,7 +33,6 @@ export class WeekGranularity extends MapDomain implements ITimeGranularity {
      * @param end 
      */
     public getTimesWithinInterval(start: Date, end: Date): Date[] {
-        const interval = eachWeekOfInterval({ start, end });
-        return interval;
+        return getWeeksOfInterval(start, end);
     }
 }

@@ -1,10 +1,11 @@
 import * as d3 from "d3";
-import { format } from "date-fns";
+import { TimeGranularity } from "../../../../constants";
+import { formatDate } from "../../../../utils";
 
 interface IXAxisProps {
     range: number[];
     domain: number[];
-    tickFormat: string;
+    tickFormat: TimeGranularity;
 }
 
 class XAxis {
@@ -20,7 +21,8 @@ class XAxis {
             const scale = d3.scaleLinear().domain(this.props.domain).range(this.props.range).nice();
 
             const numberOfTicks = domain.length - 1 <= 5 ? domain.length - 1 : 5;
-            const mappedDomain = domain.map(dom => format(dom, this.props.tickFormat));
+       
+            const mappedDomain = domain.map(dom => formatDate(new Date(dom), this.props.tickFormat));
 
             const formatTicks = (_dom: d3.NumberValue, index: number) =>  scale.ticks(numberOfTicks).includes(index) && index < domain.length ? mappedDomain[index] : '';
 

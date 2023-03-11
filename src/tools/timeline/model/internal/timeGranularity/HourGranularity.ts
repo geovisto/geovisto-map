@@ -1,10 +1,10 @@
-import { eachHourOfInterval } from 'date-fns';
 
 // Geovisto core
 import { MapDomain } from "../../../../../index.core";
 
 import { ITimeGranularity } from "../../types/timeGranularity/ITimeGranularity";
 import { TimeGranularity } from "../constants";
+import { getHoursOfInterval } from './intervals';
 
 /**
  * This class provides time interval granularity.
@@ -34,7 +34,6 @@ export class HourGranularity extends MapDomain implements ITimeGranularity {
      * @param end 
      */
     public getTimesWithinInterval(start: Date, end: Date): Date[] {
-        const interval = eachHourOfInterval({ start, end });
-        return interval;
+        return getHoursOfInterval(start, end);
     }
 }

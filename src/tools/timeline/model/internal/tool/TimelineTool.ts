@@ -1,5 +1,4 @@
 import { LatLng } from "leaflet";
-import { compareAsc } from "date-fns";
 import { AbstractLayerTool, DataChangeEvent, IMapData, IMapEvent, IMapToolInitProps } from "../../../../../index.core";
 import { Story, StoryState, TimeData, TimelineService } from "./TimelineService";
 import { TimelineControl } from "./control/TimelineControl";
@@ -14,6 +13,7 @@ import ITimelineToolState from "../../types/tool/ITimelineToolState";
 import { ITimelineToolConfig } from "../../types/tool/ITimelineToolConfig";
 import { ITimeGranularity } from "../../types/timeGranularity/ITimeGranularity";
 import TimelineToolState from "./TimelineToolState";
+import { compareDateAsc } from "../utils";
 
 export class TimelineTool extends AbstractLayerTool implements ITimelineTool, IMapFormControl {
     private mapForm!: IMapForm;
@@ -110,7 +110,7 @@ export class TimelineTool extends AbstractLayerTool implements ITimelineTool, IM
         if (data) {
             let times = data.map((record) => record[timePath]);
             times = [...new Set(times)];
-            const mappedTimes = times.map((time) => new Date(time as string)).sort(compareAsc);
+            const mappedTimes = times.map((time) => new Date(time as string)).sort(compareDateAsc);
  
             let resultTimes;
             if (timeGranularity != null) {
@@ -196,25 +196,21 @@ export class TimelineTool extends AbstractLayerTool implements ITimelineTool, IM
     public initializeTimeline(): void {
         const dimensions = this.getState().getDimensions();
         const timePath = dimensions.timePath.getValue()?.getName();
-        const aggregationFn = dimensions.chartAggregationFn.getValue()?.getName();
+        const aggregationFn = dimensions.chartAggregationFn.getValue()?.getName();       
 
-        if (!timePath || !aggregationFn) {
-            return;
-        }
-
-        this.times = this.calculateTimes(timePath, dimensions.granularity.getValue());
+        this.times = this.calculateTimes(timePath ?? '', dimensions.granularity.getValue());
 
 
         this.data = this.createData(
-            timePath,
+            timePath ?? "",
             dimensions.chartEnabled.getValue() ?
                 {
                     chartValuePath: dimensions.chartValuePath.getValue()?.getName(),
-                    chartAggregationFn: aggregationFn,
+                    chartAggregationFn: aggregationFn ?? "",
                 } :
                 undefined
         );
-
+    
         this.timelineService = new TimelineService({
             stepTimeLength: dimensions.stepTimeLength.getValue() ?? 0,
 
