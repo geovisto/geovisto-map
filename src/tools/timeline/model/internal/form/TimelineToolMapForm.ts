@@ -1,6 +1,4 @@
-import { IMapAggregationFunction, IMapDataDomain, IMapDomainDimension, IMapFormInput, IMapTypeDimension, TabDOMUtil } from "../../../../../index.core";
-import MapLayerToolForm from "../../../../../model/internal/form/MapLayerToolForm";
-import IMapForm from "../../../../../model/types/form/IMapForm";
+import { IMapAggregationFunction, IMapDataDomain, IMapDomainDimension, IMapFormInput, IMapTypeDimension, TabDOMUtil, MapLayerToolForm, IMapForm } from "../../../../../index.core";
 import { ITimeGranularity } from "../../types/timeGranularity/ITimeGranularity";
 import ITimelineTool from "../../types/tool/ITimelineTool";
 import ITimelineToolDimensions from "../../types/tool/ITimelineToolDimensions";
@@ -40,6 +38,7 @@ class TimelineToolMapForm extends MapLayerToolForm<ITimelineTool> implements IMa
         this.inputs?.chartEnabled.setValue(dimensions.chartEnabled.getValue());
         this.inputs?.chartValuePath.setValue(dimensions.chartValuePath.getValue()?.getName());
         this.inputs?.chartAggregationFn.setValue(dimensions.chartAggregationFn.getValue() ?? "");
+
 
         // update disabled attribute
         // this.inputs?.story.setDisabled(!dimensions.storyEnabled.getValue());

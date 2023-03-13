@@ -1,5 +1,5 @@
 // Geovisto core
-import ILayerToolState from "../../../../../model/types/layer/ILayerToolState";
+import { ILayerToolState } from "../../../../../index.core";
 import { ITimelineToolConfig, ITimelineToolDimensionsConfig } from "./ITimelineToolConfig";
 import ITimelineToolDefaults from "./ITimelineToolDefaults";
 import ITimelineToolDimensions from "./ITimelineToolDimensions";

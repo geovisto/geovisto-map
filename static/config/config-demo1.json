@@ -150,7 +150,7 @@
     {
       "type": "geovisto-tool-timeline",
       "id": "geovisto-tool-timeline",
-      "enabled": false,
+      "enabled": true,
       "layerName": "Timeline",
       "data": {
         "timePath": "",

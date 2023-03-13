@@ -1,3 +1,4 @@
+// Geovisto core
 import {
     BooleanTypeManager,
     CountAggregationFunction,
@@ -10,12 +11,12 @@ import {
     MapDomainDimension,
     MapDynamicDomainDimension,
     MapTypeDimension,
-    SumAggregationFunction
+    SumAggregationFunction,
+    IMapTypeDimension,
+    StringTypeManager,
+    LayerToolDefaults,
 } from '../../../../../index.core';
-import AverageAggregationFunction from '../../../../../model/internal/aggregation/basic/AverageAggregationFunction';
-import LayerToolDefaults from '../../../../../model/internal/layer/LayerToolDefaults';
-import StringTypeManager from '../../../../../model/internal/type/StringTypeManager';
-import IMapTypeDimension from '../../../../../model/types/dimension/IMapTypeDimension';
+
 import { ITimeGranularity } from '../../types/timeGranularity/ITimeGranularity';
 import ITimelineToolDefaults from '../../types/tool/ITimelineToolDefaults';
 import ITimelineToolDimensions from '../../types/tool/ITimelineToolDimensions';
@@ -164,7 +165,6 @@ class TimelineToolDefaults extends LayerToolDefaults implements ITimelineToolDef
             [
                 new CountAggregationFunction(),
                 new SumAggregationFunction(),
-                new AverageAggregationFunction()
             ]
         );
 

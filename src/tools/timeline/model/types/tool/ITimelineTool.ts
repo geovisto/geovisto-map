@@ -1,6 +1,5 @@
 // Geovisto core
-import { ILayerTool } from "../../../../../index.core";
-import { IMapToolInitProps } from "../../../../../model/types/tool/IMapToolProps";
+import { ILayerTool, IMapToolInitProps } from "../../../../../index.core";
 
 import { ITimelineToolConfig } from "./ITimelineToolConfig";
 import ITimelineToolDefaults from "./ITimelineToolDefaults";

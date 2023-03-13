@@ -8,6 +8,9 @@ interface IChartProps {
     height: number;
 }
 
+/**
+ * @author Vladimir Korencik
+ */
 export class Chart {
     private props: IChartProps;
 
@@ -23,12 +26,15 @@ export class Chart {
             .range([ 0, width ]);
     
         const yScale = d3.scaleLinear()
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             .domain([0, d3.max(data, ([_, value]) => value)] as Iterable<NumberValue>).nice()
             .range([height, 0]);
     
         const line = d3.line()
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             .defined(([_, value]) => !isNaN(value))
             .x(([time]) => xScale(time))
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             .y(([_, value]) => yScale(value)) ; 
         
         const svg = d3.select(node)

@@ -1,10 +1,12 @@
+// Leaflet
 import { LatLng } from "leaflet";
-import { AbstractLayerTool, DataChangeEvent, IMapData, IMapEvent, IMapToolInitProps } from "../../../../../index.core";
+
+// Geovisto core
+import { AbstractLayerTool, DataChangeEvent, IMapData, IMapEvent, IMapToolInitProps, IMapFormControl, IMapForm } from "../../../../../index.core";
+
 import { Story, StoryState, TimeData, TimelineService } from "./TimelineService";
 import { TimelineControl } from "./control/TimelineControl";
 import TimelineToolDefaults from "./TimelineToolDefaults";
-import IMapFormControl from "../../../../../model/types/form/IMapFormControl";
-import IMapForm from "../../../../../model/types/form/IMapForm";
 import ITimelineTool from "../../types/tool/ITimelineTool";
 import TimelineToolMapForm from "../form/TimelineToolMapForm";
 import ITimelineToolProps from "../../types/tool/ITimelineToolProps";

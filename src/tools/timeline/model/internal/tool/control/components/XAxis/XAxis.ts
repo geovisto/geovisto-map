@@ -7,7 +7,9 @@ interface IXAxisProps {
     domain: number[];
     tickFormat: TimeGranularity;
 }
-
+/**
+ * @author Vladimir Korencik
+ */
 class XAxis {
     private props: IXAxisProps
 

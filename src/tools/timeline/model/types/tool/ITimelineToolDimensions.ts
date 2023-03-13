@@ -1,6 +1,6 @@
 // Geovisto core
-import { IMapAggregationFunction, IMapDataDomain, IMapDomainDimension, IMapTypeDimension } from "../../../../../index.core";
-import ILayerToolDimensions from "../../../../../model/types/layer/ILayerToolDimensions";
+import { IMapAggregationFunction, IMapDataDomain, IMapDomainDimension, IMapTypeDimension, ILayerToolDimensions} from "../../../../../index.core";
+
 import { ITimeGranularity } from "../timeGranularity/ITimeGranularity";
 
 /**

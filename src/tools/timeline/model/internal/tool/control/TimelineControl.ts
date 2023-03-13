@@ -5,6 +5,7 @@ import ITimelineToolDimensions from "../../../types/tool/ITimelineToolDimensions
 import "./TimelineControl.scss";
 import "./components/Slider/Slider.scss";
 import "./components/MultiSlider/MultiSlider.scss";
+import { TimeGranularity } from "../../constants";
 
 export class TimelineControl extends Control {
     private readonly timelineService: TimelineService;
@@ -45,7 +46,7 @@ export class TimelineControl extends Control {
                 transitionDuration,
             }),
             onRecordDeleteClick: (time: number) => this.timelineService.deleteState(time),
-            timeGranularity: this.dimensions.granularity.getValue()?.getName(),
+            timeGranularity: this.dimensions.granularity.getValue()?.getName() as TimeGranularity,
         };
         const timelineComponent = new TimelineComponent(container, props);
 

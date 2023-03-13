@@ -13,6 +13,10 @@ interface ISliderProps {
     value: string;
 }
 
+/**
+ * @author Vladimir Korencik
+ */
+
 class Slider {
     private container?: HTMLDivElement;
     private slider?: HTMLInputElement;

@@ -8,6 +8,9 @@ interface IMultiSliderProps  {
     style: string;
 }
 
+/**
+ * @author Vladimir Korencik
+ */
 class MultiSlider {
     private container?: HTMLDivElement;
     private lowerSlider?: HTMLInputElement;
