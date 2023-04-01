@@ -25,7 +25,6 @@ $range-handle-graph-size: 40px !default;
 .slider {
   width: 100%;
   height: $range-track-height;
-  background: #FFF;
   -webkit-appearance: none; 
   appearance: none;
   margin: 0;
@@ -46,7 +45,6 @@ $range-handle-graph-size: 40px !default;
     &::-webkit-slider-thumb {
       height: $range-handle-graph-size;
     }
-  
   }
 
   &::-moz-range-thumb {
@@ -59,6 +57,12 @@ $range-handle-graph-size: 40px !default;
     transition: background .15s ease-in-out;   
   }
 }
+
+.disabled {
+  background: repeating-linear-gradient(-45deg, transparent, transparent 3px, #bbbbbc 4px, #D0D3D7 2px);
+  cursor: default;
+}
+
 
 // Firefox Overrides
 ::-moz-range-track {

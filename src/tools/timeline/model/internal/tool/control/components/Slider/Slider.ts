@@ -46,7 +46,7 @@ class Slider {
             this.slider.max = max;
             this.slider.min = min;
             this.slider.value = value;
-            this.slider.className = CLASSNAME;
+            this.slider.className = min === max ? CLASSNAME + ' disabled' :  CLASSNAME;
             this.container.id = ID;    
 
             this.container.appendChild(this.slider);

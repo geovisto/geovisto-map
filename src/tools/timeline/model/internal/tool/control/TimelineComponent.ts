@@ -103,6 +103,11 @@ export class TimelineComponent {
     }
 
     private render(): void {
+        if (this._timeState.start >= this._timeState.end) {
+            this.createSlider();
+            return;
+        }
+
         const playPauseButton = this.createRunPauseButton();
 
         this.createRangeSlider(); 
@@ -151,10 +156,10 @@ export class TimelineComponent {
     }
 
 
-    private createSlider = (playPauseButton: HTMLElement) => {
+    private createSlider = (playPauseButton?: HTMLElement) => {
         const handleOnSliderChange = (event: Event) => {
             this.handleCurrentTimeIndexChange(event);
-            if (this._timeState.current === this._timeState.end) {
+            if (playPauseButton && this._timeState.current === this._timeState.end) {
                 playPauseButton.className = BUTTON_PLAY;
             }
         };
@@ -176,8 +181,11 @@ export class TimelineComponent {
 
         if (!document.getElementById(Slider.ID())) {
             const sliderElement = this.slider.create();  
-    
-            this.container.appendChild(playPauseButton); 
+            
+            if (playPauseButton) {
+                this.container.appendChild(playPauseButton); 
+            }
+     
             this.container.appendChild(sliderElement);
         } else {
             this.slider.setValue(`${this._timeState.current}`);
