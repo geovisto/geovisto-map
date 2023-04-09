@@ -226,6 +226,8 @@ class BubbleLayerTool
                         value: 0,
                         subvalues: {},
                         colors: {},
+                        aggregationCount: 0,
+                        aggregationValue: 0,
                     };
                     if (
                         typeof foundLats[0] === "number" &&
@@ -240,12 +242,8 @@ class BubbleLayerTool
                     workData.push(dataItem);
                 }
 
-                if (aggregationDimension?.getName() === "count") {
-                    dataItem.value++;
-                    this.max++;
-                } else if (typeof foundValues[0] === "number") {
-                    dataItem.value += foundValues[0];
-                    this.max += foundValues[0];
+                if (aggregationDimension && typeof foundValues[0] === "number" ) {
+                    this.aggregateValues(dataItem, aggregationDimension, foundValues[0]);
                 }
 
                 foundCategories = mapData.getDataRecordValues(
@@ -264,27 +262,59 @@ class BubbleLayerTool
                     typeof foundCategories[0] === "string" &&
                     typeof foundValues[0] === "number"
                 ) {
-                    dataItem.subvalues[foundCategories[0]] = foundValues[0];
-                    dataItem.category = foundCategories[0];
-
-                    const rules = this.getState().getCategoryColorRules();
-
-                    for (let j = 0; j < rules.length; ++j) {
-                        if (
-                            dataItem &&
-                            rules[j].operation?.match(dataItem.category, rules[j].value)
-                        ) {
-                            dataItem.colors = dataItem.colors ?? {};
-
-                            dataItem.colors[foundCategories[0]] = rules[j].color ?? "red";
-                            break;
-                        }
-                    }
+                    this.setCategoryColor(dataItem, foundCategories[0], foundValues[0]);
                 }
             }
         }
         this.getState().setWorkData(workData);
     }
+
+
+    private setCategoryColor(dataItem: IWorkData, category: string, value: number): void {
+        dataItem.subvalues[category] = value;
+        dataItem.category = category;
+
+        const rules = this.getState().getCategoryColorRules();
+
+        for (let j = 0; j < rules.length; ++j) {
+            if (
+                dataItem &&
+                rules[j].operation?.match(dataItem.category, rules[j].value)
+            ) {
+                dataItem.colors = dataItem.colors ?? {};
+
+                dataItem.colors[category] = rules[j].color ?? "red";
+                break;
+            }
+        }
+    }
+
+
+    private aggregateValues(dataItem: IWorkData, aggregationDimension: IMapAggregationFunction, foundValue: number): void {
+        switch (aggregationDimension?.getName()) {
+            case 'count': {
+                dataItem.value++;
+                this.max++;
+                break;
+            }
+            case 'sum': {
+                dataItem.value += foundValue;
+                this.max += foundValue;
+                break;
+            }
+            case 'average': {
+                if (dataItem.aggregationCount !== undefined && dataItem.aggregationValue !== undefined) {
+                    dataItem.aggregationValue += foundValue;
+                    dataItem.aggregationCount++;
+                    dataItem.value = Math.floor(dataItem.aggregationValue / dataItem.aggregationCount);
+                    this.max += dataItem.value;
+                }
+                break;             
+            }
+        }
+    }
+
+
 
     protected updateStyle(): void {
         const dimensions = this.getState().getDimensions();

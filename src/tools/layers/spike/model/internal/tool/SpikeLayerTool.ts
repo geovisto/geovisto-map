@@ -132,7 +132,7 @@ class SpikeLayerTool
             dimensions.aggregation.getValue();
 
         const map = this.getMap();
-        let dataItem: IWorkData | undefined;
+        let dataItem: IWorkData & {count?: number} | undefined;
         const workData: IWorkData[] = [];
         this.max = 0;
 
@@ -151,6 +151,7 @@ class SpikeLayerTool
                 foundLongs: unknown[],
                 foundCategories: unknown[],
                 foundValues: unknown[];
+
 
             for (let i = 0; i < dataLen; ++i) {
                 foundLats = mapData.getDataRecordValues(latitudeDimension, data[i]);
@@ -181,6 +182,8 @@ class SpikeLayerTool
                         color: undefined,
                         height: 0,
                         width: 0,
+                        aggregationCount: 0,
+                        aggregationValue: 0,
                     };
                     if (
                         typeof foundLats[0] === "number" &&
@@ -195,13 +198,12 @@ class SpikeLayerTool
                     workData.push(dataItem);
                 }
 
-                if (aggregationDimension?.getName() === "count") {
-                    dataItem.value++;
-                    this.max++;
-                } else if (typeof foundValues[0] === "number") {
-                    dataItem.value += foundValues[0];
-                    this.max = this.max > foundValues[0] ? this.max : foundValues[0];
+
+                if (aggregationDimension && typeof foundValues[0] === "number" ) {
+                    this.aggregateValues(dataItem, aggregationDimension, foundValues[0]);
                 }
+
+                
 
                 foundCategories = mapData.getDataRecordValues(
                     categoryDimension,
@@ -212,22 +214,51 @@ class SpikeLayerTool
                     foundCategories.length === 1 &&
                     typeof foundCategories[0] === "string"
                 ) {
-                    dataItem.category = foundCategories[0];
-                    const rules = this.getState().getCategoryColorRules();
-
-                    for (let j = 0; j < rules.length; j++) {
-                        const filter = rules[j];
-                        if (filter.operation?.match(dataItem.category, filter.value)) {
-                            dataItem.color = filter.color ?? (dataItem.color || "red");
-                            break;
-                        }
-                    }
+                    this.setCategoryColor(dataItem, foundCategories[0]);
                 }
             }
         }
 
         this.getState().setWorkData(workData);
     }
+
+    private setCategoryColor(dataItem: IWorkData, category: string): void {
+        dataItem.category = category;
+        const rules = this.getState().getCategoryColorRules();
+
+        for (let j = 0; j < rules.length; j++) {
+            const filter = rules[j];
+            if (filter.operation?.match(dataItem.category, filter.value)) {
+                dataItem.color = filter.color ?? (dataItem.color || "red");
+                break;
+            }
+        }
+    }
+
+    private aggregateValues(dataItem: IWorkData, aggregationDimension: IMapAggregationFunction, foundValue: number): void {
+        switch (aggregationDimension?.getName()) {
+            case 'count': {
+                dataItem.value++;
+                this.max++;
+                break;
+            }
+            case 'sum': {
+                dataItem.value += foundValue;
+                this.max = this.max > dataItem.value ? this.max : dataItem.value;
+                break;
+            }
+            case 'average': {
+                if (dataItem.aggregationCount !== undefined && dataItem.aggregationValue !== undefined) {
+                    dataItem.aggregationValue += foundValue;
+                    dataItem.aggregationCount++;
+                    dataItem.value = Math.floor(dataItem.aggregationValue / dataItem.aggregationCount);
+                    this.max = this.max > dataItem.value ? this.max : dataItem.value;
+                }
+                break;             
+            }
+        }
+    }
+
 
     protected createMarkers(): void {
         const data = this.getState().getWorkData();

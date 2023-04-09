@@ -20,6 +20,7 @@ import {
     StringTypeManager,
     SumAggregationFunction,
 } from "../../../../../../index.core";
+import AverageAggregationFunction from "../../../../../../model/internal/aggregation/basic/AverageAggregationFunction";
 
 
 class SpikeLayerToolDefaults
@@ -104,6 +105,7 @@ class SpikeLayerToolDefaults
         const domainManager = new MapDomainArrayManager([
             new CountAggregationFunction(),
             new SumAggregationFunction(),
+            new AverageAggregationFunction(),
         ]);
 
         return new MapDomainDimension(

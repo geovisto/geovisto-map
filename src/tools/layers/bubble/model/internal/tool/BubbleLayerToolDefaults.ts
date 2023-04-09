@@ -22,6 +22,7 @@ import {
     StringTypeManager,
     SumAggregationFunction,
 } from "../../../../../../index.core";
+import AverageAggregationFunction from "../../../../../../model/internal/aggregation/basic/AverageAggregationFunction";
 
 
 class BubbleLayerToolDefaults
@@ -108,6 +109,7 @@ class BubbleLayerToolDefaults
         const domainManager = new MapDomainArrayManager([
             new CountAggregationFunction(),
             new SumAggregationFunction(),
+            new AverageAggregationFunction(),
         ]);
 
         return new MapDomainDimension(

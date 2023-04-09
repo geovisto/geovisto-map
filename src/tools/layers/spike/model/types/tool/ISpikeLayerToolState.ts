@@ -10,7 +10,7 @@ import ISpikeLayerToolDefaults from "./ISpikeLayerToolDefaults";
 import ISpikeLayerToolDimensions from "./ISpikeLayerToolDimensions";
 import ISpikeLayerToolProps from "./ISpikeLayerToolProps";
 
-export type IWorkData = Partial<LatLngLiteral> & ISpikeIconOptions;
+export type IWorkData = Partial<LatLngLiteral> & ISpikeIconOptions & {aggregationCount?: number, aggregationValue?: number};
 
 interface ISpikeLayerToolState<
     TProps extends ISpikeLayerToolProps = ISpikeLayerToolProps,

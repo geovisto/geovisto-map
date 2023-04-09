@@ -10,7 +10,7 @@ import IBubbleLayerToolDefaults from "./IBubbleLayerToolDefaults";
 import IBubbleLayerToolDimensions from "./IBubbleLayerToolDimensions";
 import IBubbleLayerToolProps from "./IBubbleLayerToolProps";
 
-export type IWorkData = Partial<LatLngLiteral> & IBubbleIconValues;
+export type IWorkData = Partial<LatLngLiteral> & IBubbleIconValues & {aggregationCount?: number, aggregationValue?: number}
 
 interface IBubbleLayerToolState<
     TProps extends IBubbleLayerToolProps = IBubbleLayerToolProps,
