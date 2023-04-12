@@ -1,3 +1,4 @@
+// Geovisto core
 import {
     ILayerToolDefaults,
     IMap,
@@ -7,10 +8,16 @@ import {
     IMapFilterOperation,
     IMapTypeDimension,
 } from "../../../../../../index.core";
+
 import { IGradient } from "../gradient/IGradient";
 import { IZoomLevel } from "../zoom/IZoomLevel";
 import IHeatLayerToolDimensions from "./IHeatLayerToolDimensions";
 
+/**
+ * This interface provides functions which return the default state values.
+ * 
+ * @author Vladimir Korencik
+ */
 interface IHeatLayerToolDefaults extends ILayerToolDefaults {
     getFiltersManager(): IMapFilterManager;
 

@@ -29,10 +29,14 @@ import { IZoomLevel, ZoomLevels } from "../../types/zoom/IZoomLevel";
 import Gradient from "../gradient/Gradient";
 import ZoomLevel from "../zoom/ZoomLevel";
 
+/**
+ * This class provide functions which return the default state values.
+ * 
+ * @author Vladimir Korencik
+ */
 class HeatLayerToolDefaults
     extends LayerToolDefaults
-    implements IHeatLayerToolDefaults
-{
+    implements IHeatLayerToolDefaults {
     public static TYPE = "geovisto-tool-layer-heat";
 
     public getType(): string {

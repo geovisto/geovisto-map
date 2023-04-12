@@ -1,4 +1,4 @@
-import { ISpikeLayerToolDefaults, ISpikeLayerToolDimensions } from "../../..";
+// Geovisto core
 import {
     CountAggregationFunction,
     EqFilterOperation,
@@ -20,13 +20,18 @@ import {
     StringTypeManager,
     SumAggregationFunction,
 } from "../../../../../../index.core";
-import AverageAggregationFunction from "../../../../../../model/internal/aggregation/basic/AverageAggregationFunction";
 
+import ISpikeLayerToolDefaults from "../../types/tool/ISpikeLayerToolDefaults";
+import ISpikeLayerToolDimensions from "../../types/tool/ISpikeLayerToolDimensions";
 
+/**
+ * This class provide functions which return the default state values.
+ * 
+ * @author Vladimir Korencik
+ */
 class SpikeLayerToolDefaults
     extends LayerToolDefaults
-    implements ISpikeLayerToolDefaults
-{
+    implements ISpikeLayerToolDefaults {
     public static TYPE = "geovisto-tool-layer-bubble";
 
     public getType(): string {
@@ -46,12 +51,12 @@ class SpikeLayerToolDefaults
     }
 
     public getFiltersManager(): IMapFilterManager {
-    return new MapFiltersManager([
-      new EqFilterOperation(),
-      new NeqFilterOperation(),
-      new RegFilterOperation(),
-    ]);
-  }
+        return new MapFiltersManager([
+            new EqFilterOperation(),
+            new NeqFilterOperation(),
+            new RegFilterOperation(),
+        ]);
+    }
 
     public getDimensions(map?: IMap): ISpikeLayerToolDimensions {
         return {
@@ -105,7 +110,6 @@ class SpikeLayerToolDefaults
         const domainManager = new MapDomainArrayManager([
             new CountAggregationFunction(),
             new SumAggregationFunction(),
-            new AverageAggregationFunction(),
         ]);
 
         return new MapDomainDimension(

@@ -1,3 +1,4 @@
+// Geovisto core
 import {
     IIntegerRangeManager,
     ILayerToolDefaults,
@@ -12,9 +13,14 @@ import {
 
 import IBubbleLayerToolDimensions from "./IBubbleLayerToolDimensions";
 
+/**
+ * This interface provides functions which return the default state values.
+ * 
+ * @author Vladimir Korencik
+ */
 interface IBubbleLayerToolDefaults extends ILayerToolDefaults {
     getFiltersManager(): IMapFilterManager;
-    
+
     getDimensions(map?: IMap): IBubbleLayerToolDimensions;
 
     getLatitudeDimension(map?: IMap): IMapDomainDimension<IMapDataDomain>;

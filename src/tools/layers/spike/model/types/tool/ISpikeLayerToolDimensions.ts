@@ -1,3 +1,4 @@
+// Geovisto core
 import {
     ILayerToolDimensions,
     IMapAggregationFunction,
@@ -7,6 +8,11 @@ import {
     IMapTypeDimension,
 } from "../../../../../../index.core";
 
+/**
+ * This type provides the specification of the spike layer tool dimensions model.
+ * 
+ * @author Vladimir Korencik
+ */
 type ISpikeLayerToolDimensions = ILayerToolDimensions & {
     latitude: IMapDomainDimension<IMapDataDomain>;
     longitude: IMapDomainDimension<IMapDataDomain>;

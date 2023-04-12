@@ -1,4 +1,7 @@
+// Leaflet
 import { ColorGradientConfig } from "leaflet";
+
+// Geovisto core
 import { IMapDomain } from "../../../../../../index.core";
 
 enum Gradients {
@@ -9,12 +12,25 @@ enum Gradients {
     MONOCHROMATIC = "Monochromatic",
 }
 
+/**
+ * Defines type for gradient
+ * 
+ * @author Vladimir Korencik
+ */
 type IGradientType = {
     name: Gradients;
     values: ColorGradientConfig;
 };
 
+/**
+ * This intreface describes methods for working with gradients.
+ * 
+ * @author Vladimir Korencik
+ */
 interface IGradient extends IMapDomain {
+    /**
+     * Returns gradient config
+     */
     getGradient(): ColorGradientConfig;
 }
 

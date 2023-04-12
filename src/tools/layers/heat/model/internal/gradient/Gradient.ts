@@ -61,8 +61,9 @@ const GRADIENTS: IGradientType[] = [
 
 /**
  *  This class provides functions for using different color gradient in the heatmap form input.
+ * 
+ * @author Vladimir Korencik
  */
-
 class Gradient extends MapDomain implements IGradient {
     private gradient: Gradients;
 

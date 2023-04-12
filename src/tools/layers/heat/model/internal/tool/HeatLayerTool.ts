@@ -40,10 +40,16 @@ import HeatLayerToolMapForm from "../form/HeatLayerToolMapForm";
 import HeatLayerToolDefaults from "./HeatLayerToolDefaults";
 import HeatLayerToolState from "./HeatLayerToolState";
 
+/**
+* This class represents Heat layer tool. It works with leaflet.heat plugin
+* provided for Leaflet
+* 
+* @author Vladimir Korencik
+* @author Petr Kaspar
+*/
 class HeatLayerTool
     extends AbstractLayerTool
-    implements IHeatLayerTool, IMapFormControl
-{
+    implements IHeatLayerTool, IMapFormControl {
     private selectionToolAPI: ISelectionToolAPI | undefined;
     private mapForm!: IMapForm;
     private maxValue: number | undefined;

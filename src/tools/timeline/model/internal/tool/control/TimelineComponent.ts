@@ -35,6 +35,12 @@ export type TimelineProps = {
 const BUTTON_PLAY = 'fa fa-play';
 const BUTTON_PAUSE = 'fa fa-pause';
 
+/**
+ * Servers as a timeline
+ * 
+ * @author Krystof Rykala
+ * @author Vladimir Korencik
+ */
 export class TimelineComponent {
     public onTimesChanged = new Subject<OnTimesChangedParams>();
     public onCurrentTimeIndexChange = new Subject<number>();
@@ -110,15 +116,15 @@ export class TimelineComponent {
 
         const playPauseButton = this.createRunPauseButton();
 
-        this.createRangeSlider(); 
+        this.createRangeSlider();
 
         this.createExpandButton();
-        
+
         this.createSlider(playPauseButton);
 
         this.createChart();
-    
-        this.createAxis(); 
+
+        this.createAxis();
     }
 
 
@@ -128,18 +134,18 @@ export class TimelineComponent {
             expandButton.className = 'fa fa-chevron-up';
             expandButton.id = "expand-button";
             expandButton.addEventListener('click', () => {
-               if (!this._isExpanded) {                
-                expandButton.className = 'fa fa-chevron-down';
-                this.isExpanded = true;
-                this.expandContent();          
-               } else {
-                expandButton.className = 'fa fa-chevron-up';
-                this.isExpanded = false;
-                this.hideContent();     
-               }
-            } );
+                if (!this._isExpanded) {
+                    expandButton.className = 'fa fa-chevron-down';
+                    this.isExpanded = true;
+                    this.expandContent();
+                } else {
+                    expandButton.className = 'fa fa-chevron-up';
+                    this.isExpanded = false;
+                    this.hideContent();
+                }
+            });
             this.container.appendChild(expandButton);
-        }     
+        }
     }
 
     private createChart = () => {
@@ -168,32 +174,32 @@ export class TimelineComponent {
             onChange: handleOnSliderChange,
             min: `${this._timeState.start}`,
             max: `${this._timeState.end}`,
-            value: `${this._timeState.current}`          
-        };        
+            value: `${this._timeState.current}`
+        };
 
-        if (!this.slider) {           
+        if (!this.slider) {
             this.slider = new Slider(sliderProps);
-        } else if (parseFloat(this.slider.getMin()) !== this._timeState.start || 
-                   parseFloat(this.slider.getMax()) !== this._timeState.end) {
+        } else if (parseFloat(this.slider.getMin()) !== this._timeState.start ||
+            parseFloat(this.slider.getMax()) !== this._timeState.end) {
             document.getElementById(Slider.ID())?.remove();
             this.slider = new Slider(sliderProps);
         }
 
         if (!document.getElementById(Slider.ID())) {
-            const sliderElement = this.slider.create();  
-            
+            const sliderElement = this.slider.create();
+
             if (playPauseButton) {
-                this.container.appendChild(playPauseButton); 
+                this.container.appendChild(playPauseButton);
             }
-     
+
             this.container.appendChild(sliderElement);
         } else {
             this.slider.setValue(`${this._timeState.current}`);
             this.slider.triggerChange();
         }
     }
-    
-    private createRangeSlider = () => {  
+
+    private createRangeSlider = () => {
         if (!this.multiSlider) {
             this.multiSlider = new MultiSlider({
                 onChange: this.handleRangeTimesIndexChange,
@@ -207,20 +213,20 @@ export class TimelineComponent {
 
         if (!rangeSlider) {
             const multiSliderElement = this.multiSlider.create();
-            this.container.appendChild(multiSliderElement);     
+            this.container.appendChild(multiSliderElement);
         } else {
-            this.multiSlider.setValues(`${this._timeState.start}`,`${this._timeState.end}`);
+            this.multiSlider.setValues(`${this._timeState.start}`, `${this._timeState.end}`);
             this.multiSlider.triggerChange();
         }
 
-       
+
     }
 
-    private expandContent = () => {  
+    private expandContent = () => {
         const rangeSlider = document.getElementById(MultiSlider.ID());
         if (!rangeSlider) {
             return;
-        }            
+        }
         rangeSlider.setAttribute('style', 'display: flex');
     }
 
@@ -228,11 +234,11 @@ export class TimelineComponent {
         const rangeSlider = document.getElementById(MultiSlider.ID());
         if (!rangeSlider) {
             return;
-        }        
+        }
 
         rangeSlider.setAttribute('style', 'display: none');
     }
- 
+
 
     private createAxis = () => {
         if (!document.getElementById('x-axis')) {
@@ -251,10 +257,10 @@ export class TimelineComponent {
         }
     }
 
-    private createRunPauseButton = () => {    
+    private createRunPauseButton = () => {
         const playPauseButton = document.createElement('i');
         playPauseButton.className = BUTTON_PLAY;
-        
+
         if (this._isPlaying) {
             playPauseButton.className = BUTTON_PAUSE;
         } else {
@@ -283,9 +289,9 @@ export class TimelineComponent {
         }
 
         const indecies = this.multiSlider.getValues();
-        const startTimeIndex = indecies ? parseFloat(indecies[0].length ? indecies[0] : '0') : 0; 
+        const startTimeIndex = indecies ? parseFloat(indecies[0].length ? indecies[0] : '0') : 0;
         const endTimeIndex = indecies ? parseFloat(indecies[1].length ? indecies[1] : '0') : 0;
-   
+
         if (
             this._timeState.start === startTimeIndex &&
             this._timeState.end === endTimeIndex

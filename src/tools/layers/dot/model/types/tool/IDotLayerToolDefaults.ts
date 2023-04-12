@@ -1,3 +1,4 @@
+// Geovisto core
 import {
     ILayerToolDefaults,
     IMap,
@@ -7,8 +8,14 @@ import {
     IMapFilterOperation,
     IMapTypeDimension,
 } from "../../../../../../index.core";
+
 import IDotLayerToolDimensions from "./IDotLayerToolDimensions";
 
+/**
+ * This interface provides functions which return the default state values.
+ * 
+ * @author Vladimir Korencik
+ */
 interface IDotLayerToolDefaults extends ILayerToolDefaults {
     getFiltersManager(): IMapFilterManager
 

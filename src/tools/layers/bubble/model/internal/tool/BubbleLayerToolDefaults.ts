@@ -1,4 +1,4 @@
-import { IBubbleLayerToolDefaults, IBubbleLayerToolDimensions } from "../../..";
+// Geovisto core
 import {
     CountAggregationFunction,
     EqFilterOperation,
@@ -22,13 +22,18 @@ import {
     StringTypeManager,
     SumAggregationFunction,
 } from "../../../../../../index.core";
-import AverageAggregationFunction from "../../../../../../model/internal/aggregation/basic/AverageAggregationFunction";
 
+import IBubbleLayerToolDefaults from "../../types/tool/IBubbleLayerToolDefaults";
+import IBubbleLayerToolDimensions from "../../types/tool/IBubbleLayerToolDimensions";
 
+/**
+ * This class provide functions which return the default state values.
+ * 
+ * @author Vladimir Korencik
+ */
 class BubbleLayerToolDefaults
     extends LayerToolDefaults
-    implements IBubbleLayerToolDefaults
-{
+    implements IBubbleLayerToolDefaults {
     public static TYPE = "geovisto-tool-layer-bubble";
 
     public getType(): string {
@@ -109,7 +114,6 @@ class BubbleLayerToolDefaults
         const domainManager = new MapDomainArrayManager([
             new CountAggregationFunction(),
             new SumAggregationFunction(),
-            new AverageAggregationFunction(),
         ]);
 
         return new MapDomainDimension(

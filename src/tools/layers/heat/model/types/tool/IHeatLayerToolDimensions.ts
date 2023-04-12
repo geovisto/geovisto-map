@@ -1,3 +1,4 @@
+// Geovisto core
 import {
     ILayerToolDimensions,
     IMapDataDomain,
@@ -5,9 +6,15 @@ import {
     IMapFilterOperation,
     IMapTypeDimension,
 } from "../../../../../../index.core";
+
 import { IGradient } from "../gradient/IGradient";
 import { IZoomLevel } from "../zoom/IZoomLevel";
 
+/**
+ * This type provides the specification of the heat layer tool dimensions model.
+ * 
+ * @author Vladimir Korencik
+ */
 type IHeatLayerToolDimensions = ILayerToolDimensions & {
     latitude: IMapDomainDimension<IMapDataDomain>;
     longitude: IMapDomainDimension<IMapDataDomain>;

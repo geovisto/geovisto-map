@@ -1,7 +1,17 @@
+// d3
 import * as d3 from "d3";
+
+// Leaflet
 import L from "leaflet";
+
 import { ISpikeIconOptions } from "../../types/icon/ISpikeIcon";
 
+/**
+ * Provides creation of spike icon 
+ * 
+ * @author Vladimir Korencik
+ * @author Petr Kaspar
+ */
 const SpikeIcon: new (options?: ISpikeIconOptions) => L.DivIcon =
     L.DivIcon.extend({
         options: {

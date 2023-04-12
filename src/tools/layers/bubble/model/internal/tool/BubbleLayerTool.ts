@@ -1,9 +1,13 @@
+// Leaflet
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
+
+// own styles
 import "../../../style/bubbleLayer.scss";
 
+// Geovisto core
 import {
     AbstractLayerTool,
     DataChangeEvent,
@@ -19,10 +23,14 @@ import {
     IMapToolInitProps,
     LayerToolRenderType,
 } from "../../../../../../index.core";
+
+// Geovisto Selection Tool API
 import {
     ISelectionToolAPI,
     ISelectionToolAPIGetter,
 } from "../../../../../selection";
+
+// Internal
 import IBubbleLayerTool from "../../types/tool/IBubbleLayerTool";
 import { IBubbleLayerToolConfig } from "../../types/tool/IBubbleLayerToolConfig";
 import IBubbleLayerToolDefaults from "../../types/tool/IBubbleLayerToolDefaults";
@@ -40,10 +48,16 @@ import {
     IBubbleIconValues,
 } from "../../types/bubble/IBubbleIcon";
 
+/**
+* This class represents Heat layer tool. It works with d3 to create bubble icons and Leaflet MarkerCluster
+* Icons are created {@link BubbleIcon}
+*
+* @author Vladimir Korencik
+* @author Petr Kaspar
+*/
 class BubbleLayerTool
     extends AbstractLayerTool
-    implements IBubbleLayerTool, IMapFormControl
-{
+    implements IBubbleLayerTool, IMapFormControl {
     private selectionToolAPI: ISelectionToolAPI | undefined;
     private mapForm!: IMapForm;
     private max: number;
@@ -242,7 +256,7 @@ class BubbleLayerTool
                     workData.push(dataItem);
                 }
 
-                if (aggregationDimension && typeof foundValues[0] === "number" ) {
+                if (aggregationDimension && typeof foundValues[0] === "number") {
                     this.aggregateValues(dataItem, aggregationDimension, foundValues[0]);
                 }
 
@@ -309,7 +323,7 @@ class BubbleLayerTool
                     dataItem.value = Math.floor(dataItem.aggregationValue / dataItem.aggregationCount);
                     this.max += dataItem.value;
                 }
-                break;             
+                break;
             }
         }
     }

@@ -1,7 +1,12 @@
 const ID = 'geovisto-timeline-multi-slider';
 const CLASSNAME = 'multi-slider';
 
-interface IMultiSliderProps  {
+/**
+ * Provides interface for range slider
+ * 
+ * @author Vladimir Korencik
+ */
+interface IMultiSliderProps {
     onChange: (event?: Event) => void;
     min: string;
     max: string;
@@ -9,6 +14,8 @@ interface IMultiSliderProps  {
 }
 
 /**
+ * Serves as a range slider for timeline
+ * 
  * @author Vladimir Korencik
  */
 class MultiSlider {
@@ -21,12 +28,20 @@ class MultiSlider {
         this.props = props;
     }
 
+    /**
+     * @returns id of range slider
+     */
     public static ID(): string {
         return ID;
     }
 
+    /**
+     * Creates HTML layout for range slider
+     * 
+     * @returns HTML layout for range slider
+     */
     public create(): HTMLElement {
-        const {min, max, onChange, style} = this.props;
+        const { min, max, onChange, style } = this.props;
 
         if (this.container === undefined) {
             this.container = document.createElement('div');
@@ -35,7 +50,7 @@ class MultiSlider {
 
             this.lowerSlider = document.createElement('input');
             this.lowerSlider.type = 'range';
-            this.lowerSlider.onchange = () => {onChange(); this.fillLowerUpper();};
+            this.lowerSlider.onchange = () => { onChange(); this.fillLowerUpper(); };
             this.lowerSlider.max = max;
             this.lowerSlider.min = min;
             this.lowerSlider.value = min;
@@ -43,7 +58,7 @@ class MultiSlider {
 
             this.upperSlider = document.createElement('input');
             this.upperSlider.type = 'range';
-            this.upperSlider.onchange = () => {onChange(); this.fillLowerUpper();};
+            this.upperSlider.onchange = () => { onChange(); this.fillLowerUpper(); };
             this.upperSlider.max = max;
             this.upperSlider.min = min;
             this.upperSlider.value = max;
@@ -65,27 +80,33 @@ class MultiSlider {
 
         if (this.upperSlider) {
             this.upperSlider.value = upperVal;
-        }       
+        }
     }
 
     public getValues(): [string, string] {
         return [this.lowerSlider ? this.lowerSlider.value : "", this.upperSlider ? this.upperSlider.value : "",];
     }
 
+    /**
+     * Handles onchange event
+     */
     public triggerChange(): void {
         const changeEvent = new Event("change");
         if (this.lowerSlider) {
-            this.lowerSlider.dispatchEvent(changeEvent);      
+            this.lowerSlider.dispatchEvent(changeEvent);
         }
 
         if (this.upperSlider) {
-            this.upperSlider.dispatchEvent(changeEvent);      
-        }        
+            this.upperSlider.dispatchEvent(changeEvent);
+        }
     }
 
-    public fillLowerUpper(): void {
+    /**
+     * Transforms colors based on value of the slider
+     */
+    private fillLowerUpper(): void {
         const [lowerVal, upperVal] = this.getValues();
-  
+
         const lowerPercentage = 100 * (parseFloat(lowerVal) - parseFloat(this.props.min)) / (parseFloat(this.props.max) - parseFloat(this.props.min));
         const lowerBg = `linear-gradient(90deg, #d7dcdf ${lowerPercentage}%, #cde5f6 ${lowerPercentage + 0.1}%)`;
 

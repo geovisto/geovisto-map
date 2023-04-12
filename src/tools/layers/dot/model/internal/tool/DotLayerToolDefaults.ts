@@ -1,3 +1,4 @@
+// Geovisto core
 import {
     EqFilterOperation,
     IMap,
@@ -16,13 +17,19 @@ import {
     RegFilterOperation,
     StringTypeManager,
 } from "../../../../../../index.core";
+
+// Internal
 import IDotLayerToolDefaults from "../../types/tool/IDotLayerToolDefaults";
 import IDotLayerToolDimensions from "../../types/tool/IDotLayerToolDimensions";
 
+/**
+ * This class provide functions which return the default state values.
+ * 
+ * @author Vladimir Korencik
+ */
 class DotLayerToolDefaults
     extends LayerToolDefaults
-    implements IDotLayerToolDefaults
-{
+    implements IDotLayerToolDefaults {
     public static TYPE = "geovisto-tool-layer-dot";
 
     public getType(): string {
@@ -47,7 +54,7 @@ class DotLayerToolDefaults
             new EqFilterOperation(),
             new NeqFilterOperation(),
         ]);
-      }
+    }
 
 
     public getDimensions(map?: IMap): IDotLayerToolDimensions {

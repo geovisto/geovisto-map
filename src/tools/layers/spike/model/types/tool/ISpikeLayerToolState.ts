@@ -1,5 +1,9 @@
+// Leaflet
 import { LatLngLiteral } from "leaflet";
+
+// Geovisto core
 import { ILayerToolState, IMapFilterManager } from "../../../../../../index.core";
+
 import { ICategoryColorRules } from "../categoryColor/ICategoryColor";
 import { ISpikeIconOptions } from "../icon/ISpikeIcon";
 import {
@@ -10,8 +14,18 @@ import ISpikeLayerToolDefaults from "./ISpikeLayerToolDefaults";
 import ISpikeLayerToolDimensions from "./ISpikeLayerToolDimensions";
 import ISpikeLayerToolProps from "./ISpikeLayerToolProps";
 
-export type IWorkData = Partial<LatLngLiteral> & ISpikeIconOptions & {aggregationCount?: number, aggregationValue?: number};
+/**
+ * This type provides types for work data
+ * 
+ * @author Vladimir Korencik
+ */
+export type IWorkData = Partial<LatLngLiteral> & ISpikeIconOptions
 
+/**
+ * This interface declares functions for using the state of the layer tool.
+ * 
+ * @author Vladimir Korencik
+ */
 interface ISpikeLayerToolState<
     TProps extends ISpikeLayerToolProps = ISpikeLayerToolProps,
     TDefaults extends ISpikeLayerToolDefaults = ISpikeLayerToolDefaults,
@@ -19,15 +33,15 @@ interface ISpikeLayerToolState<
     TDimensionsConfig extends ISpikeLayerToolDimensionsConfig = ISpikeLayerToolDimensionsConfig,
     TDimensions extends ISpikeLayerToolDimensions = ISpikeLayerToolDimensions
 > extends ILayerToolState<
-        TProps,
-        TDefaults,
-        TConfig,
-        TDimensionsConfig,
-        TDimensions
-    > {
+    TProps,
+    TDefaults,
+    TConfig,
+    TDimensionsConfig,
+    TDimensions
+> {
     getFiltersManager(): IMapFilterManager
 
-    setFiltersManager(manager: IMapFilterManager): void 
+    setFiltersManager(manager: IMapFilterManager): void
 
     setLayer(layer: L.LayerGroup): void;
 

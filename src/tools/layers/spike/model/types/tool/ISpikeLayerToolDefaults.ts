@@ -1,3 +1,4 @@
+// Geovisto core
 import {
     ILayerToolDefaults,
     IMap,
@@ -8,8 +9,14 @@ import {
     IMapFilterOperation,
     IMapTypeDimension,
 } from "../../../../../../index.core";
+
 import ISpikeLayerToolDimensions from "./ISpikeLayerToolDimensions";
 
+/**
+ * This interface provides functions which return the default state values.
+ * 
+ * @author Vladimir Korencik
+ */
 interface ISpikeLayerToolDefaults extends ILayerToolDefaults {
     getFiltersManager(): IMapFilterManager
 

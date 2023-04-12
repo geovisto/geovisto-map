@@ -11,6 +11,7 @@ export type { default as ISpikeLayerToolDimensions } from "./model/types/tool/IS
 export type { default as ISpikeLayerToolProps } from "./model/types/tool/ISpikeLayerToolProps";
 export type { default as ISpikeLayerToolState } from "./model/types/tool/ISpikeLayerToolState";
 
+// Internal
 export { default as SpikeLayerToolMapForm } from "./model/internal/form/SpikeLayerToolMapForm";
 export { default as SpikeLayerTool } from "./model/internal/tool/SpikeLayerTool";
 export { default as SpikeLayerToolDefaults } from "./model/internal/tool/SpikeLayerToolDefaults";

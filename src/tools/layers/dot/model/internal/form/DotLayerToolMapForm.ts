@@ -1,3 +1,4 @@
+// Geovisto core
 import {
     IMapDataDomain,
     IMapDomainDimension,
@@ -9,6 +10,7 @@ import {
     MapLayerToolForm,
     TabDOMUtil,
 } from "../../../../../../index.core";
+
 import {
     ICategoryColorForm,
     ICategoryColorInputs,
@@ -17,10 +19,14 @@ import {
 import IDotLayerTool from "../../types/tool/IDotLayerTool";
 import IDotLayerToolDimensions from "../../types/tool/IDotLayerToolDimensions";
 
+/**
+ * This class provides controls for management of the layer sidebar tab.
+ * 
+ * @author Vladimir Korencik
+ */
 class DotLayerToolMapForm
     extends MapLayerToolForm<IDotLayerTool>
-    implements IMapForm
-{
+    implements IMapForm {
     private htmlContent!: HTMLDivElement;
     private categoryColor!: HTMLDivElement;
     private tool: IDotLayerTool;
@@ -99,7 +105,7 @@ class DotLayerToolMapForm
         return this.htmlContent;
     }
 
-    protected addSelectItem(): void {
+    private addSelectItem(): void {
         if (this.htmlContent) {
             const elem: HTMLDivElement = this.htmlContent.insertBefore(
                 document.createElement("div"),
@@ -140,7 +146,7 @@ class DotLayerToolMapForm
         }
     }
 
-    protected removeSelectItem(e: MouseEvent): void {
+    private removeSelectItem(e: MouseEvent): void {
         if (e.target) {
             const form = (<HTMLInputElement>e.target).closest(
                 ".categoryClassesGroup"
@@ -154,7 +160,7 @@ class DotLayerToolMapForm
         }
     }
 
-    protected applyFilters(): void {
+    private applyFilters(): void {
         const rules: ICategoryColorRules[] = [];
         if (this.categoryColorForm) {
             this.categoryColorForm.forEach((form) => {

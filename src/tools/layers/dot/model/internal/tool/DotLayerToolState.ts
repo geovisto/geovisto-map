@@ -1,9 +1,14 @@
+// Leaflet
 import { CircleMarker } from "leaflet";
+
+// Geovisto core
 import {
     IMapFilterManager,
     IMapToolInitProps,
     LayerToolState,
 } from "../../../../../../index.core";
+
+// Internal
 import { ICategoryColorRules } from "../../types/categoryColor.ts/ICategoryColor";
 import IDotLayerTool from "../../types/tool/IDotLayerTool";
 import {
@@ -17,6 +22,11 @@ import IDotLayerToolState, {
     IWorkData,
 } from "../../types/tool/IDotLayerToolState";
 
+/**
+ * This class provide functions for using the state of the layer tool.
+ * 
+ * @author Vladimir Korencik
+ */
 class DotLayerToolState extends LayerToolState implements IDotLayerToolState {
     private layer?: L.LayerGroup;
     private markers: CircleMarker[];

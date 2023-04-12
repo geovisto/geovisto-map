@@ -1,3 +1,4 @@
+// Geovisto core
 import {
     IIntegerRangeManager,
     ILayerToolDimensions,
@@ -8,7 +9,11 @@ import {
     IMapTypeDimension,
 } from "../../../../../../index.core";
 
-
+/**
+ * This type provides the specification of the bubble layer tool dimensions model.
+ * 
+ * @author Vladimir Korencik
+ */
 type IBubbleLayerToolDimensions = ILayerToolDimensions & {
     latitude: IMapDomainDimension<IMapDataDomain>;
     longitude: IMapDomainDimension<IMapDataDomain>;

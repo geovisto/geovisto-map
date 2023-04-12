@@ -1,8 +1,10 @@
+// Leaflet
 import L, { CircleMarker } from "leaflet";
 
 // onw styles
 import "../../../style/dotLayer.scss";
 
+// Geovisto core
 import {
     AbstractLayerTool,
     DataChangeEvent,
@@ -17,10 +19,14 @@ import {
     IMapToolInitProps,
     LayerToolRenderType,
 } from "../../../../../../index.core";
+
+// Geovisto Selection Tool API
 import {
     ISelectionToolAPI,
     ISelectionToolAPIGetter,
 } from "../../../../../selection";
+
+// Internal
 import IDotLayerTool from "../../types/tool/IDotLayerTool";
 import { IDotLayerToolConfig } from "../../types/tool/IDotLayerToolConfig";
 import IDotLayerToolDefaults from "../../types/tool/IDotLayerToolDefaults";
@@ -33,10 +39,16 @@ import DotLayerToolMapForm from "../form/DotLayerToolMapForm";
 import DotLayerToolDefaults from "./DotLayerToolDefaults";
 import DotLayerToolState from "./DotLayerToolState";
 
+/**
+* This class represents Heat layer tool. It works with leaflet CircleMarker
+to create dots
+* 
+* @author Vladimir Korencik
+* @author Petr Kaspar
+*/
 class DotLayerTool
     extends AbstractLayerTool
-    implements IDotLayerTool, IMapFormControl
-{
+    implements IDotLayerTool, IMapFormControl {
     private selectionToolAPI: ISelectionToolAPI | undefined;
     private mapForm!: IMapForm;
 

@@ -1,3 +1,4 @@
+// Geovisto core
 import {
     IMapAggregationFunction,
     IMapDataDomain,
@@ -10,6 +11,8 @@ import {
     MapLayerToolForm,
     TabDOMUtil,
 } from "../../../../../../index.core";
+
+// Internal
 import {
     ICategoryColorForm,
     ICategoryColorInputs,
@@ -18,10 +21,14 @@ import {
 import ISpikeLayerTool from "../../types/tool/ISpikeLayerTool";
 import ISpikeLayerToolDimensions from "../../types/tool/ISpikeLayerToolDimensions";
 
+/**
+ * This class provides controls for management of the layer sidebar tab.
+ * 
+ * @author Vladimir Korencik
+ */
 class SpikeLayerToolMapForm
     extends MapLayerToolForm<ISpikeLayerTool>
-    implements IMapForm
-{
+    implements IMapForm {
     private htmlContent!: HTMLDivElement;
     private tool: ISpikeLayerTool;
     private btnGroup: HTMLDivElement | null;
@@ -110,7 +117,7 @@ class SpikeLayerToolMapForm
         return this.htmlContent;
     }
 
-    protected addSelectItem(): void {
+    private addSelectItem(): void {
         if (this.htmlContent) {
             const elem: HTMLDivElement = this.htmlContent.insertBefore(
                 document.createElement("div"),
@@ -151,7 +158,7 @@ class SpikeLayerToolMapForm
         }
     }
 
-    protected removeSelectItem(e: MouseEvent): void {
+    private removeSelectItem(e: MouseEvent): void {
         if (e.target) {
             const form = (<HTMLInputElement>e.target).closest(
                 ".categoryClassesGroup"
@@ -165,7 +172,7 @@ class SpikeLayerToolMapForm
         }
     }
 
-    protected applyFilters(): void {
+    private applyFilters(): void {
         const rules: ICategoryColorRules[] = [];
         if (this.categoryColorForm) {
             this.categoryColorForm.forEach((form) => {

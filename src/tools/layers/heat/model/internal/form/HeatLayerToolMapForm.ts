@@ -10,7 +10,6 @@ import {
     IMapTypeDimension,
     MapLayerToolForm,
     TabDOMUtil,
-    FilterAutocompleteFormInput,
     LayerToolRenderType,
     IMapFilterOperation,
 } from "../../../../../../index.core";
@@ -26,15 +25,14 @@ import IHeatLayerTool from "../../types/tool/IHeatLayerTool";
 import IHeatLayerToolDimensions from "../../types/tool/IHeatLayerToolDimensions";
 import { IZoomLevel } from "../../types/zoom/IZoomLevel";
 
-interface InputItem {
-    container: HTMLDivElement;
-    input: FilterAutocompleteFormInput;
-}
-
+/**
+ * This class provides controls for management of the layer sidebar tab.
+ * 
+ * @author Vladimir Korencik
+ */
 class HeatLayerToolMapForm
     extends MapLayerToolForm<IHeatLayerTool>
-    implements IMapForm
-{
+    implements IMapForm {
     private htmlContent!: HTMLDivElement;
     private reactiveRadius!: HTMLDivElement;
     private tool: IHeatLayerTool;
@@ -84,7 +82,7 @@ class HeatLayerToolMapForm
         this.inputs?.zoom.setValue(dimensions.zoom.getValue() ?? "");
         this.inputs?.currentZoom.setValue(
             dimensions.currentZoom.getValue() ??
-                this.getTool().getMap()?.getState().getLeafletMap()?.getZoom()
+            this.getTool().getMap()?.getState().getLeafletMap()?.getZoom()
         );
         this.inputs?.currentZoom.setDisabled(true);
         this.reactiveRadiusInputs?.operation.setValue(
@@ -164,7 +162,7 @@ class HeatLayerToolMapForm
         return this.htmlContent;
     }
 
-    protected addSelectItem(): InputItem | null {
+    private addSelectItem(): void {
         if (this.htmlContent) {
             const elem: HTMLDivElement = this.htmlContent.insertBefore(
                 document.createElement("div"),
@@ -204,11 +202,9 @@ class HeatLayerToolMapForm
                 container: elem,
             });
         }
-
-        return null;
     }
 
-    protected removeSelectItem(e: MouseEvent): void {
+    private removeSelectItem(e: MouseEvent): void {
         if (e.target) {
             const form = (<HTMLInputElement>e.target).closest(
                 ".radiusSelectorGroup"
@@ -222,7 +218,7 @@ class HeatLayerToolMapForm
         }
     }
 
-    protected applyFilters(): void {
+    private applyFilters(): void {
         const rules: IReactiveRadiusRules[] = [];
         if (this.reactiveRadiusForm) {
             this.reactiveRadiusForm.forEach((form) => {
@@ -273,7 +269,7 @@ class HeatLayerToolMapForm
         return this.reactiveRadius;
     }
 
-    protected setCurrentZoom(e?: LeafletEvent): void {
+    private setCurrentZoom(e?: LeafletEvent): void {
         this.inputs?.currentZoom.setValue(e?.target._zoom);
     }
 

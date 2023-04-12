@@ -20,6 +20,11 @@ import IHeatLayerToolDimensions from "../../types/tool/IHeatLayerToolDimensions"
 import IHeatLayerToolProps from "../../types/tool/IHeatLayerToolProps";
 import IHeatLayerToolState from "../../types/tool/IHeatLayerToolState";
 
+/**
+ * This class provide functions for using the state of the layer tool.
+ * 
+ * @author Vladimir Korencik
+ */
 class HeatLayerToolState extends LayerToolState implements IHeatLayerToolState {
     private layer?: L.LayerGroup;
     private layers: HeatLayer[];

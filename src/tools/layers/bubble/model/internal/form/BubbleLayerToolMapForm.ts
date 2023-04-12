@@ -1,3 +1,4 @@
+// Geovisto core
 import {
     IIntegerRangeManager,
     IMapAggregationFunction,
@@ -12,6 +13,7 @@ import {
     TabDOMUtil,
 } from "../../../../../../index.core";
 
+// Internal
 import {
     ICategoryColorForm,
     ICategoryColorInputs,
@@ -20,10 +22,14 @@ import {
 import IBubbleLayerTool from "../../types/tool/IBubbleLayerTool";
 import IBubbleLayerToolDimensions from "../../types/tool/IBubbleLayerToolDimensions";
 
+/**
+ * This class provides controls for management of the layer sidebar tab.
+ * 
+ * @author Vladimir Korencik
+ */
 class BubbleLayerToolMapForm
     extends MapLayerToolForm<IBubbleLayerTool>
-    implements IMapForm
-{
+    implements IMapForm {
     private htmlContent!: HTMLDivElement;
     private tool: IBubbleLayerTool;
     private btnGroup: HTMLDivElement | null;
@@ -116,7 +122,7 @@ class BubbleLayerToolMapForm
         return this.htmlContent;
     }
 
-    protected addSelectItem(): void {
+    private addSelectItem(): void {
         if (this.htmlContent) {
             const elem: HTMLDivElement = this.htmlContent.insertBefore(
                 document.createElement("div"),
@@ -157,7 +163,7 @@ class BubbleLayerToolMapForm
         }
     }
 
-    protected removeSelectItem(e: MouseEvent): void {
+    private removeSelectItem(e: MouseEvent): void {
         if (e.target) {
             const form = (<HTMLInputElement>e.target).closest(
                 ".categoryClassesGroup"
@@ -171,7 +177,7 @@ class BubbleLayerToolMapForm
         }
     }
 
-    protected applyFilters(): void {
+    private applyFilters(): void {
         const rules: ICategoryColorRules[] = [];
         if (this.categoryColorForm) {
             this.categoryColorForm.forEach((form) => {

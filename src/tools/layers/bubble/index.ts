@@ -11,6 +11,7 @@ export type { default as IBubbleLayerToolDimensions } from "./model/types/tool/I
 export type { default as IBubbleLayerToolProps } from "./model/types/tool/IBubbleLayerToolProps";
 export type { default as IBubbleLayerToolState } from "./model/types/tool/IBubbleLayerToolState";
 
+// Internal
 export { default as BubbleLayerToolMapForm } from "./model/internal/form/BubbleLayerToolMapForm";
 export { default as BubbleLayerTool } from "./model/internal/tool/BubbleLayerTool";
 export { default as BubbleLayerToolDefaults } from "./model/internal/tool/BubbleLayerToolDefaults";

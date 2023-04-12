@@ -1,8 +1,11 @@
+// Geovisto core
 import {
     IMapFilterManager,
     IMapToolInitProps,
     LayerToolState,
 } from "../../../../../../index.core";
+
+// Internal
 import { ICategoryColorRules } from "../../types/categoryColor/ICategoryColor";
 import IBubbleLayerTool from "../../types/tool/IBubbleLayerTool";
 import {
@@ -16,10 +19,14 @@ import IBubbleLayerToolState, {
     IWorkData,
 } from "../../types/tool/IBubbleLayerToolState";
 
+/**
+ * This class provide functions for using the state of the layer tool.
+ * 
+ * @author Vladimir Korencik
+ */
 class BubbleLayerToolState
     extends LayerToolState
-    implements IBubbleLayerToolState
-{
+    implements IBubbleLayerToolState {
     private layer?: L.LayerGroup;
     private markers: L.Marker[];
     private workData: IWorkData[];

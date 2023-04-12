@@ -1,5 +1,9 @@
+// Leaflet
 import { LatLngLiteral } from "leaflet";
+
+// Geovisto core
 import { ILayerToolState, IMapFilterManager } from "../../../../../../index.core";
+
 import { IBubbleIconValues } from "../bubble/IBubbleIcon";
 import { ICategoryColorRules } from "../categoryColor/ICategoryColor";
 import {
@@ -10,8 +14,18 @@ import IBubbleLayerToolDefaults from "./IBubbleLayerToolDefaults";
 import IBubbleLayerToolDimensions from "./IBubbleLayerToolDimensions";
 import IBubbleLayerToolProps from "./IBubbleLayerToolProps";
 
-export type IWorkData = Partial<LatLngLiteral> & IBubbleIconValues & {aggregationCount?: number, aggregationValue?: number}
+/**
+ * This type provides types for work data
+ * 
+ * @author Vladimir Korencik
+ */
+export type IWorkData = Partial<LatLngLiteral> & IBubbleIconValues;
 
+/**
+ * This interface declares functions for using the state of the layer tool.
+ * 
+ * @author Vladimir Korencik
+ */
 interface IBubbleLayerToolState<
     TProps extends IBubbleLayerToolProps = IBubbleLayerToolProps,
     TDefaults extends IBubbleLayerToolDefaults = IBubbleLayerToolDefaults,
@@ -19,16 +33,16 @@ interface IBubbleLayerToolState<
     TDimensionsConfig extends IBubbleLayerToolDimensionsConfig = IBubbleLayerToolDimensionsConfig,
     TDimensions extends IBubbleLayerToolDimensions = IBubbleLayerToolDimensions
 > extends ILayerToolState<
-        TProps,
-        TDefaults,
-        TConfig,
-        TDimensionsConfig,
-        TDimensions
-    > {
+    TProps,
+    TDefaults,
+    TConfig,
+    TDimensionsConfig,
+    TDimensions
+> {
     getFiltersManager(): IMapFilterManager;
 
     setFiltersManager(manager: IMapFilterManager): void;
-    
+
     setLayer(layer: L.LayerGroup): void;
 
     getLayer(): L.LayerGroup | undefined;

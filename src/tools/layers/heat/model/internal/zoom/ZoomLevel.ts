@@ -16,6 +16,8 @@ const ZOOM_LEVELS: IZoomLevelType[] = [
 
 /**
  *  This class provides functions for using different zoom levels in the heatmap form input.
+ * 
+ * @author Vladimir Korencik
  */
 class ZoomLevel extends MapDomain implements IZoomLevel {
     private zoomLevel: ZoomLevels;

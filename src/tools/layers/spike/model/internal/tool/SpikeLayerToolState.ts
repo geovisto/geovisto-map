@@ -1,8 +1,10 @@
+// Geovisto core
 import {
     IMapFilterManager,
     IMapToolInitProps,
     LayerToolState,
 } from "../../../../../../index.core";
+
 import { ICategoryColorRules } from "../../types/categoryColor/ICategoryColor";
 import ISpikeLayerTool from "../../types/tool/ISpikeLayerTool";
 import {
@@ -16,10 +18,14 @@ import ISpikeLayerToolState, {
     IWorkData,
 } from "../../types/tool/ISpikeLayerToolState";
 
+/**
+ * This class provide functions for using the state of the layer tool.
+ * 
+ * @author Vladimir Korencik
+ */
 class SpikeLayerToolState
     extends LayerToolState
-    implements ISpikeLayerToolState
-{
+    implements ISpikeLayerToolState {
     private layer?: L.LayerGroup;
     private markers: L.Marker[];
     private workData: IWorkData[];
