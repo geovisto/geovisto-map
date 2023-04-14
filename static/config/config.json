@@ -83,7 +83,7 @@
 					"checkButton": true
 				},
 				{
-					"tool": "geovisto-tool-timeline",
+					"tool": "geovisto-tool-layer-timeline",
 					"enabled": true,
 					"name": "Timeline",
 					"icon": "<i class=\"fa fa-clock-o\" />",
@@ -217,13 +217,13 @@
 			}
 		},
 		{
-			"type": "geovisto-tool-timeline",
-			"id": "geovisto-tool-timeline",
+			"type": "geovisto-tool-layer-timeline",
+			"id": "geovisto-tool-layer-timeline",
 			"enabled": true,
 			"layerName": "Timeline",
 			"data": {
-				"timePath": "",
-				"stepTimeLength": 3000,
+				"timePath": "date",
+				"stepTimeLength": 30,
 				"transitionDuration": 2500,
 				"story": "",
 				"granularity": "",

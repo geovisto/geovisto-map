@@ -379,7 +379,7 @@ class Demo extends Component<
                             GeovistoDotLayerTool.createTool({
                                 id: "geovisto-tool-layer-dot",
                             }),
-                           	GeovistoHeatLayerTool.createTool({
+                            GeovistoHeatLayerTool.createTool({
                                 id: "geovisto-tool-layer-heat"
                             }),
                             GeovistoSpikeLayerTool.createTool({
@@ -388,7 +388,9 @@ class Demo extends Component<
                             GeovistoBubbleLayerTool.createTool({
                                 id: "geovisto-tool-layer-bubble",
                             }),
-                            GeovistoTimelineTool.createTool({ id: "geovisto-tool-timeline" }),
+                            GeovistoTimelineTool.createTool({ 
+                                id: "geovisto-tool-layer-timeline"
+                            }),
                         ])}
                     />
                 </div>

@@ -1,6 +1,6 @@
 import { IMapToolInitProps, LayerToolState } from "../../../../../index.core";
 import ITimelineTool from "../../types/tool/ITimelineTool";
-import { ITimelineToolConfig } from "../../types/tool/ITimelineToolConfig";
+import { ITimelineToolConfig, ITimelineToolDimensionsConfig } from "../../types/tool/ITimelineToolConfig";
 import ITimelineToolDefaults from "../../types/tool/ITimelineToolDefaults";
 import ITimelineToolProps from "../../types/tool/ITimelineToolProps";
 import ITimelineToolState from "../../types/tool/ITimelineToolState";
@@ -56,6 +56,47 @@ class TimelineToolState extends LayerToolState implements ITimelineToolState {
         // set super props
         super.initialize(defaults, props, initProps);
     }
+
+    public deserializeDimensions(dimensionsConfig: ITimelineToolDimensionsConfig): void {
+        const dimensions = this.getDimensions();
+
+        if (dimensionsConfig.timePath) {
+            dimensions.timePath.setValue(
+                dimensions.timePath.getDomainManager().getDomain(dimensionsConfig.timePath)
+            );
+        }
+        if (dimensionsConfig.stepTimeLength) {
+            dimensions.stepTimeLength.setValue(dimensionsConfig.stepTimeLength);
+        }
+        if (dimensionsConfig.transitionDuration) {
+            dimensions.transitionDuration.setValue(dimensionsConfig.transitionDuration);
+        }
+        if (dimensionsConfig.realTimeEnabled) {
+            dimensions.realTimeEnabled.setValue(dimensionsConfig.realTimeEnabled);
+        }
+        if (dimensionsConfig.granularity) {
+            dimensions.granularity.setValue(
+                dimensions.granularity.getDomainManager().getDomain(dimensionsConfig.granularity)
+            );
+        }
+        if (dimensionsConfig.chartEnabled) {
+            dimensions.chartEnabled.setValue(dimensionsConfig.chartEnabled);
+        }
+        if (dimensionsConfig.chartValuePath) {
+            dimensions.chartValuePath.setValue(
+                dimensions.chartValuePath.getDomainManager().getDomain(dimensionsConfig.chartValuePath)
+            );
+        }
+        if (dimensionsConfig.chartAggregationFn) {
+            dimensions.chartAggregationFn.setValue(
+                dimensions.chartAggregationFn.getDomainManager().getDomain(dimensionsConfig.chartAggregationFn)
+            );
+        }
+
+
+
+    }
+
 
     /**
      * The method takes config and deserializes the values.

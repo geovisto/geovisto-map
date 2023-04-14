@@ -81,7 +81,7 @@ class TimelineToolDefaults extends LayerToolDefaults implements ITimelineToolDef
 
     public getTimePathDimension(map?: IMap): IMapDomainDimension<IMapDataDomain> {
         return new MapDynamicDomainDimension(
-            "timePath",
+            "Time dimension",
             () => map?.getState().getMapData() ?? this.getDataManager(),
             ""
         );
@@ -89,7 +89,7 @@ class TimelineToolDefaults extends LayerToolDefaults implements ITimelineToolDef
 
     public getStepTimeLength(): IMapTypeDimension<number> {
         return new MapTypeDimension<number>(
-            "stepTimeLength",
+            "Step length(ms)",
             new IntegerTypeManager(),
             3000,
         );
@@ -97,7 +97,7 @@ class TimelineToolDefaults extends LayerToolDefaults implements ITimelineToolDef
 
     public getTransitionDuration(): IMapTypeDimension<number> {
         return new MapTypeDimension<number>(
-            "transitionDuration",
+            "Transition(ms)",
             new IntegerTypeManager(),
             2500,
         );
@@ -105,7 +105,7 @@ class TimelineToolDefaults extends LayerToolDefaults implements ITimelineToolDef
 
     public getStoryEnabled(): IMapTypeDimension<boolean> {
         return new MapTypeDimension<boolean>(
-            "storyEnabled",
+            "Story enabled",
             new BooleanTypeManager(),
             false,
         );
@@ -113,7 +113,7 @@ class TimelineToolDefaults extends LayerToolDefaults implements ITimelineToolDef
 
     public getStory(): IMapTypeDimension<string> {
         return new MapTypeDimension<string>(
-            "story",
+            "Story",
             new StringTypeManager(),
             "",
         );
@@ -121,7 +121,7 @@ class TimelineToolDefaults extends LayerToolDefaults implements ITimelineToolDef
 
     public getRealTimeEnabled(): IMapTypeDimension<boolean> {
         return new MapTypeDimension<boolean>(
-            "realTimeEnabled",
+            "Real time",
             new BooleanTypeManager(),
             false,
         );
@@ -139,14 +139,14 @@ class TimelineToolDefaults extends LayerToolDefaults implements ITimelineToolDef
         );
 
         return new MapDomainDimension(
-            "granularity",
+            "Granularity",
             domainManager,
         );
     }
 
     public getChartEnabled(): IMapTypeDimension<boolean> {
         return new MapTypeDimension<boolean>(
-            "chartEnabled",
+            "Chart",
             new BooleanTypeManager(),
             false
         );
@@ -154,7 +154,7 @@ class TimelineToolDefaults extends LayerToolDefaults implements ITimelineToolDef
 
     public getChartValuePath(map?: IMap): IMapDomainDimension<IMapDataDomain> {
         return new MapDynamicDomainDimension(
-            "chartValuePath",
+            "Chart value",
             () => map?.getState().getMapData() ?? this.getDataManager(),
             "",
         );
@@ -169,7 +169,7 @@ class TimelineToolDefaults extends LayerToolDefaults implements ITimelineToolDef
         );
 
         return new MapDomainDimension(
-            "aggregation",
+            "Aggregation",
             domainManager,
         );
     }
