@@ -5,8 +5,7 @@ import { TMarkerControl } from "./../../../sidebar/components/MarkerControl/type
 import { TDataControl } from "./../../../sidebar/components/DataControl/types";
 // Geovisto core
 import { DrawnObject, LayerType, LooseObject } from "..";
-import { ILayerTool, IMapToolInitProps } from "../../../../../../index.core";
-import IMapForm from "../../../../../../model/types/form/IMapForm";
+import { ILayerTool, IMapForm, IMapToolInitProps } from "../../../../../../index.core";
 
 import { IDrawingLayerToolConfig } from "./IDrawingLayerToolConfig";
 import IDrawingLayerToolDefaults from "./IDrawingLayerToolDefaults";

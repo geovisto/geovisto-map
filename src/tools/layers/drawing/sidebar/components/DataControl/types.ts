@@ -3,8 +3,7 @@ import {
   TAbstractControl,
   TAbstractControlState,
 } from "../AbstractControl/types";
-import IMapData from "../../../../../../model/types/data/IMapData";
-import { MappingModel } from "../../../model/types/tool/IDrawingLayerToolDefaults";
+import { IMapData } from "../../../../../../index.core";
 
 export type TData = LooseObject;
 export type TFilterValue = string;

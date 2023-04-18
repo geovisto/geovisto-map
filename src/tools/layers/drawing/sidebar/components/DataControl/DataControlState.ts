@@ -1,4 +1,4 @@
-import IMapData from "../../../../../../model/types/data/IMapData";
+import { IMapData } from "../../../../../../index.core";
 import AbstractControlState from "../AbstractControl/AbstractControlState";
 import { ControlStateProps } from "../AbstractControl/types";
 import DataControlUtils from "./DataControlUtils";

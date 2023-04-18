@@ -4,7 +4,7 @@ import { MarkerTool, PaintTool, PolygonTool, SearchTool } from "../tools";
 
 import "../style/drawingLayerTabControl.scss";
 import { isEmpty } from "../util/baseHelpers";
-import MapLayerToolForm from "../../../../model/internal/form/MapLayerToolForm";
+import { MapLayerToolForm } from "../../../../index.core";
 import IDrawingLayerTool, {
   DrawingForm,
   TabState,

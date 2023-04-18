@@ -42,11 +42,9 @@ import IDrawingLayerToolProps from "./model/types/tool/IDrawingLayerToolProps";
 import IDrawingLayerTool, {
   DrawingForm,
 } from "./model/types/tool/IDrawingLayerTool";
-import AbstractLayerTool from "../../../model/internal/layer/AbstractLayerTool";
+import { AbstractLayerTool, IMapFormControl, IMapToolInitProps } from "../../../index.core";
 import IDrawingLayerToolDefaults from "./model/types/tool/IDrawingLayerToolDefaults";
 import IDrawingLayerToolState from "./model/types/tool/IDrawingLayerToolState";
-import IMapFormControl from "../../../model/types/form/IMapFormControl";
-import { IMapToolInitProps } from "../../../model/types/tool/IMapToolProps";
 import { IDrawingLayerToolConfig } from "./model/types/tool/IDrawingLayerToolConfig";
 import { GeoJSONTool } from "./tools/GeoJSONTool";
 

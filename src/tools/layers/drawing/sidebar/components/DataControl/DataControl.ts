@@ -1,4 +1,4 @@
-import IMapFormInput from "../../../../../../model/types/inputs/IMapFormInput";
+import { IMapFormInput } from "../../../../../../index.core";
 import { createButton, MAPPING_MODEL } from "../../../util/inputs";
 import AbstractControl from "../AbstractControl/AbstractControl";
 import { ControlProps } from "../AbstractControl/types";

@@ -4,7 +4,7 @@ import { MAPPING_MODEL } from "../../../util/inputs";
 import { ADMIN_LEVELS } from "../../../util/constants";
 import AbstractControl from "../AbstractControl/AbstractControl";
 import SearchControlState from "./SearchControlState";
-import IMapFormInput from "../../../../../../model/types/inputs/IMapFormInput";
+import { IMapFormInput } from "../../../../../../index.core";
 
 class SearchControl extends AbstractControl implements TSearchControl {
   public state;

@@ -1,7 +1,6 @@
 import { TAbstractControl } from "./../AbstractControl/types";
 import { LooseObject } from "./../../../model/types/index";
 import { TAbstractControlState } from "../AbstractControl/types";
-import { MappingModel } from "../../../model/types/tool/IDrawingLayerToolDefaults";
 
 export interface TSearchControlState extends TAbstractControlState {
   countries: Array<{ name: string; "alpha-2": string; "country-code": string }>;

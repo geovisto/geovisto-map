@@ -1,6 +1,5 @@
 // Geovisto core
-import { ILayerToolDefaults } from "../../../../../../index.core";
-import IMapFormInput from "../../../../../../model/types/inputs/IMapFormInput";
+import { ILayerToolDefaults, IMapFormInput } from "../../../../../../index.core";
 
 type InputName =
   | "idKey"

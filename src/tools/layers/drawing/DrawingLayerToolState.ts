@@ -18,7 +18,7 @@ import { NOT_FOUND, iconStarter, normalStyles } from "./util/constants";
 import { EditTool, TransformTool } from "./tools";
 import { DrawnObject } from "./model/types";
 import IDrawingLayerTool from "./model/types/tool/IDrawingLayerTool";
-import LayerToolState from "../../../model/internal/layer/LayerToolState";
+import { LayerToolState } from "../../../index.core";
 import IDrawingLayerToolState, {
   DrawnGroup,
   ExportGeoJSON,

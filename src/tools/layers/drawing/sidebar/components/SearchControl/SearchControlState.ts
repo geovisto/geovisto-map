@@ -1,15 +1,12 @@
 import { TSearchControlState } from "./types";
-import { AllGeoJSON, Feature, Geometry } from "@turf/turf";
 import { LooseObject, DrawnObject } from "./../../../model/types/index";
 import { ControlStateProps } from "./../AbstractControl/types";
 import L from "leaflet";
 import "leaflet-path-drag";
 import "leaflet-path-transform";
 import "leaflet-draw";
-import osmtogeojson from "osmtogeojson";
 import { SearchTool, TopologyTool } from "../../../tools";
-import { ADMIN_LEVELS, ICON_SRCS, normalStyles } from "../../../util/constants";
-import { simplifyFeature } from "../../../util/polyHelpers";
+import { ADMIN_LEVELS, ICON_SRCS } from "../../../util/constants";
 import AbstractControlState from "../AbstractControl/AbstractControlState";
 
 class SearchControlState

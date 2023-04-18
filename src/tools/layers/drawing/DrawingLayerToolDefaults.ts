@@ -1,4 +1,4 @@
-import LayerToolDefaults from "../../../model/internal/layer/LayerToolDefaults";
+import { LayerToolDefaults } from "../../../index.core";
 import IDrawingLayerToolDefaults from "./model/types/tool/IDrawingLayerToolDefaults";
 
 /**
